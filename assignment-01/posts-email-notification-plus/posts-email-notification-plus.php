@@ -76,12 +76,7 @@ final class Email_Notification_Plus {
      * @return void
      */
     public function init_plugin() {
-        if ( is_admin() ) {
-            new EmailNotificationPlus\Admin();
-        } else {
-            new EmailNotificationPlus\Frontend();
-        }
-
+        new EmailNotificationPlus\Admin();
     }
 
     /**

@@ -77,7 +77,6 @@ final class Posts_Title_Capitalize {
      */
     public function init_plugin() {
         new PostTitleCapitalize\Admin();
-        new PostTitleCapitalize\Frontend();
     }
 
     /**

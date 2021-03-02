@@ -29,6 +29,6 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        echo 'Hello World from plugin admin page!';
+        echo 'Hello World from plugin 3: admin page!';
     }
 }
