@@ -1,0 +1,14 @@
+{
+    "name": "asad/posts-view-plus",
+    "description": "Assignment plugin 2",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "PostsViewPlus\\": "includes/"
+        },
+        "files": []
+    }
+}

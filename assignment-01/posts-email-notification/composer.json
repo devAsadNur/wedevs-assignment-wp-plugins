@@ -1,0 +1,14 @@
+{
+    "name": "asad/posts-email-notification",
+    "description": "Assignment plugin 3",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "EmailNotification\\": "includes/"
+        },
+        "files": []
+    }
+}

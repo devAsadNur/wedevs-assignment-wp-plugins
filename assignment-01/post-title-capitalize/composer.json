@@ -1,0 +1,14 @@
+{
+    "name": "asad/post-title-capitalize",
+    "description": "Assignment plugin 5",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "PostTitleCapitalize\\": "includes/"
+        },
+        "files": []
+    }
+}
