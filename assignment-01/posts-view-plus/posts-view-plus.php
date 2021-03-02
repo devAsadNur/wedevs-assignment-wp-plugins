@@ -76,11 +76,8 @@ final class Posts_View_Plus {
      * @return void
      */
     public function init_plugin() {
-        if ( is_admin() ) {
-            new PostsViewPlus\Admin();
-        } else {
-            new PostsViewPlus\Frontend();
-        }
+        new PostsViewPlus\Admin();
+        new PostsViewPlus\Frontend();
     }
 
     /**

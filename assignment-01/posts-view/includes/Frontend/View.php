@@ -11,14 +11,18 @@ class View {
      * Initializes the class
      */
     function __construct() {
-        add_filter( 'the_content', [ $this, 'pvc_get_post_view' ] );
         add_filter( 'the_content', [ $this, 'pvc_set_post_view' ] );
+        add_filter( 'the_content', [ $this, 'pvc_get_post_view' ] );
     }
 
     public function pvc_get_post_view($content) {
 
-        if( is_singular( 'post' ) && is_single() ) {
+        global $post;
+
+        if( $post->post_type === 'post' && is_single() ) {
+            
             $post_id = get_the_ID();
+            $post_id = $post->ID;
             $key = 'post_views_count';
             $count = get_post_meta( $post_id, $key, true );
     
@@ -42,18 +46,22 @@ class View {
     }
 
     public function pvc_set_post_view($content) {
+        global $post;
+
+        if( $post->post_type === 'post' && is_single() ) {
         $post_id = get_the_ID();
         $key = 'post_views_count';
 
         $count = (int) get_post_meta( $post_id, $key, true );
-        error_log($count);
         $count++;
-        error_log($count);
 
 
         update_post_meta( $post_id, $key, $count );
 
+        }
+
         return $content;
+
     }
 
 }

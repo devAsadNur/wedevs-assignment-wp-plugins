@@ -15,7 +15,7 @@ class Mechanism {
     }
 
     public function post_title_handler($content) {
-
+        
         $content['post_title'] = ucwords($content['post_title']);
         
         return $content;

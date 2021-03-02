@@ -76,11 +76,8 @@ final class Posts_Title_Capitalize {
      * @return void
      */
     public function init_plugin() {
-        if ( is_admin() ) {
-            new PostTitleCapitalize\Admin();
-        } else {
-            new PostTitleCapitalize\Frontend();
-        }
+        new PostTitleCapitalize\Admin();
+        new PostTitleCapitalize\Frontend();
     }
 
     /**
