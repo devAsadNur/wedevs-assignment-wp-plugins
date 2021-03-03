@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Posts Email Notification
- * Description: Assignment Plugin 3 
+ * Description: Assignment 01, Plugin 03 
  * Plugin URI: https://cyberasad.com
  * Author: Asad
  * Author URI: https://cyberasad.com
