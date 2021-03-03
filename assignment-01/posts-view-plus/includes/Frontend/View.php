@@ -10,11 +10,26 @@ class View {
     /**
      * Initializes the class
      */
-    function __construct() {
-        add_filter( 'custom_html_tag', [ $this, 'tag_modifier' ] );
+    public function __construct() {
+        $this-> pvcp_counter_mechanism();
     }
 
-    function tag_modifier($content) {
+    /**
+     * Mechanism filter applying function
+     *
+     * @return void
+     */
+    public function pvcp_counter_mechanism() {
+        add_filter( 'custom_html_tag', [ $this, 'pvcp_tag_modifier' ] );
+    }
+
+    /**
+     * HTML Tag modifier
+     *
+     * @param [string] $content
+     * @return void
+     */
+    public function pvcp_tag_modifier($content) {
         $content = 'em';
         return $content;
     }

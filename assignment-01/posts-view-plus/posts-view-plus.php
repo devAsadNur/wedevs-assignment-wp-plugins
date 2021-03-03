@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Posts View Plus
- * Description: Assignment Plugin 2
+ * Description: Assignment 01, Plugin 02
  * Plugin URI: https://cyberasad.com
  * Author: Asad
  * Author URI: https://cyberasad.com
