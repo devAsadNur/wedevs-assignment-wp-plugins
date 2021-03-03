@@ -1,0 +1,14 @@
+{
+    "name": "asad/vertical-button",
+    "description": "Assignment 02 - Plugin 1",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "VerticalButton\\": "includes/"
+        },
+        "files": []
+    }
+}

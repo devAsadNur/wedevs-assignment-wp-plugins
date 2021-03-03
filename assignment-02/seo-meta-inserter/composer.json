@@ -1,0 +1,20 @@
+{
+    "name": "asad/seo-meta-inserter",
+    "description": "Assignment 02 - Plugin 02",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SeoMetaInserter\\": "includes/"
+        },
+        "files": []
+    }
+}
