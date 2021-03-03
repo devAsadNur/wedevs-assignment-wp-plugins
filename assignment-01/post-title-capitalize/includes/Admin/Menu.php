@@ -31,4 +31,5 @@ class Menu {
     public function plugin_page() {
         echo 'Hello World from plugin 5: admin page!';
     }
+    
 }

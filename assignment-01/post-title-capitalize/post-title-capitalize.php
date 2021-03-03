@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Post Title Capitalize
- * Description: Assignment Plugin 5
+ * Description: Assignment 01, Plugin 05
  * Plugin URI: https://cyberasad.com
  * Author: Asad
  * Author URI: https://cyberasad.com
