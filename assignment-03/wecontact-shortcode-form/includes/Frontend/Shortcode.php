@@ -35,7 +35,7 @@ class Shortcode {
             <h2><?php echo $atts['title']; ?></h2>
             <h4><?php echo $atts['description']; ?></h4>
             <form><?php echo do_shortcode( $content ) ?></form>
-        </div>
+        </div>  
 
         <?php
     }
@@ -53,8 +53,9 @@ class Shortcode {
             'name'        => 'input-' . time(),
             'type'        => '',
             'placeholder' => 'Write here',
-            'value'       => '',
+            'value'       => null,
             'label'       => 'Field Name',
+            'options'     => null,
         ), $atts );
 
         /**
@@ -67,6 +68,7 @@ class Shortcode {
         $input_value       = $atts['value'];
         $input_label       = $atts['label'];
         $input_id          = $input_name;
+        $input_options     = explode(',', $atts['options']);
 
         /**
          * Common inputs types
@@ -86,6 +88,7 @@ class Shortcode {
          * If the input type 
          * is common
          */
+        $is_common_type = false;
         if( in_array( $input_type, $common_input_types ) ) {
             $is_common_type = true;
         }
@@ -95,8 +98,7 @@ class Shortcode {
          * Else: not common
          */
         if( $is_common_type ) {
-            
-            printf( '<label for="%s">%s</label><input type="%s" name="%s" id="%s" placeholder="%s" value="%s"><br>' , $input_id, $input_label, $input_type, $input_name, $input_id, $input_placeholder, $input_value );
+            printf( '<label for="%s">%s </label><input type="%s" name="%s" id="%s" placeholder="%s" value="%s"><br>' , $input_id, $input_label, $input_type, $input_name, $input_id, $input_placeholder, $input_value );
 
         } else {
 
@@ -104,7 +106,17 @@ class Shortcode {
 
                 case 'radio':
                 case 'checkbox':
-                    printf( '<input type="%s" id="%s" name="%s" value="%s"><label for="%s">%s</label><br>', $input_type, $input_id, $input_name, $input_value, $input_id, $input_label );
+                    printf( '<input type="%s" id="%s" name="%s" value="%s"><label for="%s">%s </label><br>', $input_type, $input_id, $input_name, $input_value, $input_id, $input_label );
+                    break;
+
+                case 'select':
+                    printf('<label for="%s">%s</label> <select name="%s" id="%s">', $input_id, $input_label, $input_name, $input_id);
+                    
+                    foreach($input_options as $option) {
+                        printf( '<option value="%s">%s</option>', $option, ucwords($option) );
+                    }
+
+                    echo '</select><br>';
                     break;
 
                 case 'submit':
