@@ -9,6 +9,7 @@
   <li>Posts Email Notification Plus</li>
   <li>Post Title Capitalize on Publish</li>
 </ol>
+<br>
 
 <h2>Assignment : 02</h2>
 <h4>02 March, 2021</h4>
@@ -16,3 +17,11 @@
   <li>Vertical Button</li>
   <li>SEO Meta Inserter</li>
 </ol>
+<br>
+
+<h2>Assignment : 03</h2>
+<h4>04 March, 2021</h4>
+<ol>
+  <li>WeContact Shortcode Form</li>
+</ol>
+<br>
