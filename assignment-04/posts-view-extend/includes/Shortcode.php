@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * Frontend view handler class
+ */
+class Shortcode {
+
+    /**
+     * Initialize the class
+     */
+    public function __construct() {
+		add_shortcode( 'post-count-view-list', [ $this, 'render_post_view_list' ] );
+	}
+
+	/**
+	 * Post list renderer function
+     *
+	 * @since  1.0.0
+	 *
+	 * @param array $atts
+	 * @param string $content
+	 *
+	 * @return void
+	 */
+	public function render_post_view_list( $atts, $content = '' ) {
+		$atts = shortcode_atts( array(
+			'id'       => '',
+			'category' => '',
+			'total'    => '10',
+			'order'    => 'DESC',
+		), $atts );
+
+		$args = array(
+			'post_type'      => 'post',
+			'meta_key'       => 'post_views_count',
+			'posts_per_page' => $atts['total'],
+			'order'          => $atts['order'],
+			'orderby'        => 'meta_value_num'
+		);
+
+		if ( $atts['id'] ) {
+			$ids = explode( ',', $atts['id'] );
+			$args['post__in'] = $ids;
+		}
+		elseif ( $atts['category'] ) {
+			$args['category_name'] = $atts['category'];
+		}
+
+		$the_query = new \WP_Query( $args );
+
+		if ( $the_query->have_posts() ) {
+			$posts = $the_query->posts;
+
+			esc_html( '<ol>' );
+
+			foreach( $posts as $post) {
+				$post_view_counter_meta = get_post_meta( $post->ID, 'post_views_count' );
+				esc_html( '<li>' . $post->post_title . ' : ' . $post_view_counter_meta[0] . ' Views' . '</li>' );
+			}
+
+			esc_html( '</ol>' );
+		}
+
+	}
+
+}
