@@ -25,3 +25,11 @@
   <li>WeContact Shortcode Form</li>
 </ol>
 <br>
+
+<h2>Assignment : 04</h2>
+<h4>09 March, 2021</h4>
+<ol>
+  <li>Post Excerpt</li>
+  <li>Posts View Extend</li>
+</ol>
+<br>
