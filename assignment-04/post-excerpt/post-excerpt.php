@@ -144,7 +144,7 @@ final class Asd_Post_Excerpt {
 }
 
 /**
- * Initialize the main plugin
+ * Initialize the main plugin.
  *
  * @return \Asd_Post_Excerpt
  */
