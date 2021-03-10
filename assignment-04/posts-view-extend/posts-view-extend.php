@@ -70,7 +70,7 @@ final class Asd_Posts_View_Extend {
     /**
      * Initialize a singleton instance
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return \Asd_Posts_View_Extend
      */
@@ -87,7 +87,7 @@ final class Asd_Posts_View_Extend {
     /**
      * Define the plugin constants
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return void
      */
@@ -102,39 +102,38 @@ final class Asd_Posts_View_Extend {
     /**
      * Initialize the plugin
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return void
      */
     public function init_plugin() {
-		if ( is_admin() ) {
-			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Menu.php' );
-			new PostsVeiwExtend\Menu();
-		} else {
-			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/View.php' );
-			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Shortcode.php' );
-			new PostsVeiwExtend\View();
-			new PostsVeiwExtend\Shortcode();
-		}
+        if ( is_admin() ) {
+            require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Menu.php' );
+            new PostsVeiwExtend\Menu();
+        } else {
+            require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/View.php' );
+            require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Shortcode.php' );
+            new PostsVeiwExtend\View();
+            new PostsVeiwExtend\Shortcode();
+        }
     }
-
+    
     /**
      * Do staff upon plugin activation
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return void
      */
     public function activate() {
         $installed = get_option( 'asd_posts_view_ext_installed' );
-
+        
         if( ! $installed ) {
             update_option( 'asd_posts_view_ext_installed', time() );
         }
-
+        
         update_option( 'asd_posts_view_ext_version', ASD_POSTS_VIEW_EXT_VERSION );
     }
-
 }
 
 /**

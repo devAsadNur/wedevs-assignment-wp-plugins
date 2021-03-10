@@ -17,7 +17,7 @@ class Menu {
     /**
      * Register admin menu
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return void
      */
@@ -28,11 +28,11 @@ class Menu {
     /**
      * Render the plugin page
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @return void
      */
     public function plugin_page() {
-		// Code goes here...
+        // Code goes here...
     }
 }

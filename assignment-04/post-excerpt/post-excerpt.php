@@ -75,7 +75,7 @@ final class Asd_Post_Excerpt {
     /**
      * Initialize a singleton instance
      *
-	 * @since  1.0.0
+     * @since  1.0.0
 	 *
      * @return \Asd_Post_Excerpt
      */
@@ -92,7 +92,7 @@ final class Asd_Post_Excerpt {
     /**
      * Define the plugin constants
      *
-	 * @since  1.0.0
+     * @since  1.0.0
 	 *
      * @return void
      */
@@ -107,27 +107,27 @@ final class Asd_Post_Excerpt {
     /**
      * Initialize the plugin
      *
-	 * @since  1.0.0
+     * @since  1.0.0
 	 *
      * @return void
      */
     public function init_plugin() {
-		require_once( ASD_POST_EXCERPT_PATH . '/includes/Metabox.php' );
-		new Metabox();
-
-		if ( is_admin() ) {
-			require_once( ASD_POST_EXCERPT_PATH . '/includes/Menu.php' );
-			new Menu();
-		} else {
-			require_once( ASD_POST_EXCERPT_PATH . '/includes/Shortcode.php' );
-			new Shortcode();
-		}
+        require_once( ASD_POST_EXCERPT_PATH . '/includes/Metabox.php' );
+        new Metabox();
+        
+        if ( is_admin() ) {
+            require_once( ASD_POST_EXCERPT_PATH . '/includes/Menu.php' );
+            new Menu();
+        } else {
+            require_once( ASD_POST_EXCERPT_PATH . '/includes/Shortcode.php' );
+            new Shortcode();
+        }
     }
 
     /**
      * Do staff upon plugin activation
      *
-	 * @since  1.0.0
+     * @since  1.0.0
 	 *
      * @return void
      */

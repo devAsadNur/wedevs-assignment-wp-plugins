@@ -16,15 +16,14 @@ class View {
     public function __construct() {
         add_filter( 'the_content', [ $this, 'pvc_set_post_view' ] );
         add_filter( 'the_content', [ $this, 'pvc_get_post_view' ] );
-	}
-
+    }
     /**
      * Setting post view counter
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @param string $content
-	 *
+     *
      * @return $content
      */
     public function pvc_set_post_view($content) {
@@ -48,10 +47,10 @@ class View {
     /**
      * Getting post view counter
      *
-	 * @since  1.0.0
+     * @since  1.0.0
      *
      * @param string $content
-	 *
+     *
      * @return $content
      */
     public function pvc_get_post_view($content) {
@@ -80,5 +79,4 @@ class View {
 
         return $content;
     }
-
 }
