@@ -16,7 +16,7 @@ class Shortcode {
     }
     
     /**
-	 * Post list renderer function
+     * Post list renderer function
      *
      * @since  1.0.0
      *

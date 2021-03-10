@@ -14,15 +14,15 @@ class Shortcode {
     }
     
     /**
-	 * Post excerpt renderer function
-	 *
+     * Post excerpt renderer function
+     *
      * @since  1.0.0
-	 *
-	 * @param array $atts
-	 * @param string $content
-	 *
-	 * @return void
-	 */
+     *
+     * @param array $atts
+     * @param string $content
+     *
+     * @return void
+     */
     public function render_custom_excerpt( $atts, $content = '' ) {
         $atts = shortcode_atts( array(
             'id'       => '',

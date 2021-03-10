@@ -76,7 +76,7 @@ final class Asd_Post_Excerpt {
      * Initialize a singleton instance
      *
      * @since  1.0.0
-	 *
+     *
      * @return \Asd_Post_Excerpt
      */
     public static function init() {
@@ -93,7 +93,7 @@ final class Asd_Post_Excerpt {
      * Define the plugin constants
      *
      * @since  1.0.0
-	 *
+     *
      * @return void
      */
     public function define_constants() {
@@ -108,7 +108,7 @@ final class Asd_Post_Excerpt {
      * Initialize the plugin
      *
      * @since  1.0.0
-	 *
+     *
      * @return void
      */
     public function init_plugin() {
@@ -128,7 +128,7 @@ final class Asd_Post_Excerpt {
      * Do staff upon plugin activation
      *
      * @since  1.0.0
-	 *
+     *
      * @return void
      */
     public function activate() {

@@ -13,12 +13,12 @@ class Menu {
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu_handler' ] );
     }
-
+    
     /**
      * Register admin menu
      *
      * @since  1.0.0
-	 *
+     *
      * @return void
      */
     public function admin_menu_handler() {
@@ -29,10 +29,10 @@ class Menu {
      * Render the plugin page
      *
      * @since  1.0.0
-	 *
+     *
      * @return void
      */
     public function plugin_page() {
-		// Code goes here
-	}
+        // Code goes here
+    }
 }
