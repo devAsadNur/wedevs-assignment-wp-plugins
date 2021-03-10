@@ -3,7 +3,10 @@
 namespace PostsVeiwExtend;
 
 /**
- * Frontend view handler class
+ * Frontend
+ * view
+ * handler
+ * class
  */
 class View {
 
