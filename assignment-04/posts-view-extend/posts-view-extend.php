@@ -6,7 +6,7 @@
  * Author URI: https://wedevs.com/
  * Author: Asad
  * Author URI: https://wedevs.com/
- * Text Domain: post-view-extend
+ * Text Domain: posts-view-extend
  * WP requires at least: 4.0
  * WP tested up to: 5.0.0
  * Domain Path: /languages/
@@ -109,12 +109,12 @@ final class Asd_Posts_View_Extend {
     public function init_plugin() {
 		if ( is_admin() ) {
 			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Menu.php' );
-			new Menu();
+			new PostsVeiwExtend\Menu();
 		} else {
 			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/View.php' );
 			require_once( ASD_POSTS_VIEW_EXT_PATH . '/includes/Shortcode.php' );
-			new View();
-			new Shortcode();
+			new PostsVeiwExtend\View();
+			new PostsVeiwExtend\Shortcode();
 		}
     }
 

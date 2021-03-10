@@ -1,5 +1,7 @@
 <?php
 
+namespace PostsVeiwExtend;
+
 /**
  * The menu handler class
  */
@@ -20,7 +22,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'Posts View Extend', 'post-view-extend' ), __( 'Posts View Extend', 'post-view-extend' ), 'manage_options', 'post-view-extend', [ $this, 'plugin_page' ], 'dashicons-media-text' );
+        add_menu_page( __( 'Posts View Extend', 'posts-view-extend' ), __( 'Posts View Extend', 'posts-view-extend' ), 'manage_options', 'posts-view-extend', [ $this, 'plugin_page' ], 'dashicons-media-text' );
     }
 
     /**
@@ -31,6 +33,6 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        // Code goes here...
+		// Code goes here...
     }
 }

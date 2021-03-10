@@ -1,7 +1,10 @@
 <?php
 
+namespace PostsVeiwExtend;
+
 /**
- * Frontend view handler class
+ * Shortcome
+ * handler class
  */
 class Shortcode {
 
@@ -9,7 +12,7 @@ class Shortcode {
      * Initialize the class
      */
     public function __construct() {
-		add_shortcode( 'post-count-view-list', [ $this, 'render_post_view_list' ] );
+		add_shortcode( 'asd-post-view-count-list', [ $this, 'render_post_view_list' ] );
 	}
 
 	/**
@@ -51,16 +54,24 @@ class Shortcode {
 		if ( $the_query->have_posts() ) {
 			$posts = $the_query->posts;
 
-			esc_html( '<ol>' );
+
+			ob_start();
+			?>
+			<ol>
+			<?php
 
 			foreach( $posts as $post) {
 				$post_view_counter_meta = get_post_meta( $post->ID, 'post_views_count' );
-				esc_html( '<li>' . $post->post_title . ' : ' . $post_view_counter_meta[0] . ' Views' . '</li>' );
+
+				?>
+				<li><?php esc_html_e( $post->post_title . ' : ' . $post_view_counter_meta[0] . ' Views' , 'post-excerpt' ); ?></li>
+				<?php
 			}
 
-			esc_html( '</ol>' );
+			?>
+			</ol>
+			<?php
+			echo ob_get_clean();
 		}
-
 	}
-
 }
