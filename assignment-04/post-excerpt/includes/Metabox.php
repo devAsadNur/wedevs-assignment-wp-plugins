@@ -42,9 +42,14 @@ class Metabox {
 	 */
 	public function post_excerpt_metabox_html_handler( $post ) {
 		$value = get_post_meta( $post->ID, '_custom_exerpt_meta_key', true );
+
+		wp_nonce_field( 'add_post_excerpt_metabox', 'post_excerpt_metabox_field' );
+
+		ob_start();
 		?>
-		<textarea name="custom_exerpt_field" class="widefat"><?php esc_html_e( $value ); ?></textarea>
+		<textarea name="<?php echo esc_attr( 'custom_exerpt_field' ); ?>" class="<?php echo esc_attr( 'widefat' ); ?>"><?php esc_html_e( $value ); ?></textarea>
 		<?php
+		echo ob_get_clean();
 	}
 
 	/**
@@ -57,13 +62,23 @@ class Metabox {
 	 * @return void
 	 */
 	public function post_excerpt_metabox_save_postdata( $post_id ) {
+		$nonce        = '';
+
+        // Validating nonce.
+        if ( isset( $_POST['post_excerpt_metabox_field'] ) ) {
+            $nonce = $_POST['post_excerpt_metabox_field'];
+        }
+        if ( ! wp_verify_nonce( $nonce, 'add_post_excerpt_metabox' ) ) {
+            return;
+		}
+
+		// Save meta data
 		if ( array_key_exists( 'custom_exerpt_field', $_POST ) ) {
 			update_post_meta(
 				$post_id,
 				'_custom_exerpt_meta_key',
-				$_POST['custom_exerpt_field']
+				sanitize_text_field( $_POST['custom_exerpt_field'] )
 			);
 		}
 	}
-
 }

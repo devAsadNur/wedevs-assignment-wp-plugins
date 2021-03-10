@@ -35,5 +35,4 @@ class Menu {
     public function plugin_page() {
 		// Code goes here
 	}
-
 }
