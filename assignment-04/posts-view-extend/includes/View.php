@@ -16,7 +16,8 @@ class View {
     public function __construct() {
         add_filter( 'the_content', [ $this, 'pvc_set_post_view' ] );
         add_filter( 'the_content', [ $this, 'pvc_get_post_view' ] );
-    }
+	}
+
     /**
      * Setting post view counter
      *
