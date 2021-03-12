@@ -34,7 +34,7 @@ class Posttype {
             'not_found'          => __( 'No books found', 'asd-book-review' ),
             'not_found_in_trash' => __( 'No books found in the Trash', 'asd-book-review' ),
             'parent_item_colon'  => '’',
-			'menu_name'          => 'Books',
+            'menu_name'          => 'Books',
         );
 
         $args = array(
@@ -49,14 +49,12 @@ class Posttype {
             'has_archive'        => true,
             'hierarchical'       => false,
             'menu_position'      => null,
-			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
-			'taxonomies'         => array( 'category' ),
+            'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+            'taxonomies'         => array( 'category' ),
             'show_in_rest'       => true,
-			'menu_icon'          => 'dashicons-book',
-		);
-
+            'menu_icon'          => 'dashicons-book',
+        );
+        
         register_post_type( 'book', $args );
-	}
-
-
+    }
 }
