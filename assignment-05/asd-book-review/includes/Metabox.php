@@ -70,7 +70,7 @@ class Metabox {
     
     /**
      * Custom post metadata setter function
-	 *
+     *
      * @param int $post_id
      *
      * @return void
