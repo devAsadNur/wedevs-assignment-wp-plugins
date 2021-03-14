@@ -1,27 +1,34 @@
 <?php
 
-namespace AsdBookReview;
+namespace Asd\BookReview;
 
 /**
- * Post Type
+ * Post Type: Book,
  * handler class
  */
-class Posttype {
+class Custom_Post_Book {
 
     /**
      * Initialize the class
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         add_action( 'init', [ $this, 'custom_post_type_book' ] );
 	}
 
 	/**
-	 * Custom post type creator function
+	 * Custom post type: Book, creator function
+     *
+     * @since  1.0.0
 	 *
 	 * @return void
 	 */
 	public function custom_post_type_book() {
-        $labels = array(
+		/**
+		 * Labels array for custom post type: Book
+		 */
+        $labels = apply_filters( 'post_type_book_labels', array(
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review' ),
             'singular_name'      => _x( 'Book', 'post type singular name' ),
             'add_new'            => _x( 'Add New', 'book', 'asd-book-review' ),
@@ -35,9 +42,12 @@ class Posttype {
             'not_found_in_trash' => __( 'No books found in the Trash', 'asd-book-review' ),
             'parent_item_colon'  => '’',
             'menu_name'          => 'Books',
-        );
+        ) );
 
-        $args = array(
+		/**
+		 * Arguments array for custom post type: Book
+		 */
+        $args = apply_filters( 'post_type_book_args', array(
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
@@ -53,8 +63,11 @@ class Posttype {
             'taxonomies'         => array( 'category' ),
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-book',
-        );
-        
+        ) );
+
+		/**
+		 * Register custom post type: Book
+		 */
         register_post_type( 'book', $args );
     }
 }

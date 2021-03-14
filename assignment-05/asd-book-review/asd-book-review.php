@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: Book Review
- * Plugin URI: https://wedevs.com/
- * Description: Assignment 5, plugin 1
- * Version: 1.0.0
- * Author: Asad
- * Author URI: https://wedevs.com/
- * Text Domain: asd-book-review
- * WP requires at least: 4.0
+ * Plugin Name: 	Book Review
+ * Plugin URI: 		https://wedevs.com/
+ * Description: 	Assignment 5, plugin 1
+ * Version: 		1.0.0
+ * Author: 			Asad
+ * Author URI: 		https://wedevs.com/
+ * Text Domain: 	asd-book-review
+ * WP requires 		at least: 4.0
  * WP tested up to: 5.0.0
- * Domain Path: /languages/
- * License: GPL2
+ * Domain Path: 	/languages/
+ * License: 		GPL2
  */
 
 /*
@@ -39,13 +39,23 @@
  * **********************************************************************
  */
 
-// don't call the file directly
+/**
+ * Don't call the file directly
+ */
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 /**
- * Asd_Book_Review class
+ * Include the autoloader
+ */
+if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
+    return;
+}
+require_once __DIR__ . "/vendor/autoload.php";
+
+/**
+ * Main plugin class
  *
  * @class Asd_Book_Review
  *
@@ -63,6 +73,8 @@ final class Asd_Book_Review {
 
     /**
      * Class constructor
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         $this->define_constants();
@@ -112,12 +124,9 @@ final class Asd_Book_Review {
      * @return void
      */
     public function init_plugin() {
-        require_once( ASD_BOOK_REVIEW_PATH . '/includes/Menu.php' );
-        require_once( ASD_BOOK_REVIEW_PATH . '/includes/Posttype.php' );
-        require_once( ASD_BOOK_REVIEW_PATH . '/includes/Metabox.php' );
-        new AsdBookReview\Menu();
-        new AsdBookReview\Posttype();
-        new AsdBookReview\Metabox();
+        new Asd\BookReview\Menu();
+        new Asd\BookReview\Custom_Post_Book();
+        new Asd\BookReview\Metabox();
     }
 
     /**
@@ -134,7 +143,7 @@ final class Asd_Book_Review {
             update_option( 'asd_book_review_installed', time() );
         }
 
-        update_option( 'asd_book_review_installed', ASD_BOOK_REVIEW_VERSION );
+        update_option( 'asd_book_review_version', ASD_BOOK_REVIEW_VERSION );
     }
 
 }

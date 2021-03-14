@@ -1,6 +1,6 @@
 <?php
 
-namespace AsdBookReview;
+namespace Asd\BookReview;
 
 /**
  * The menu
@@ -11,6 +11,8 @@ class Menu {
 
     /**
      * Initialize the class
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu_handler' ] );
@@ -35,6 +37,8 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-        // Code goes here
+        ob_start();
+		require_once ASD_BOOK_REVIEW_PATH . "/templates/admin_menu_page.php";
+        echo ob_get_clean();
     }
 }
