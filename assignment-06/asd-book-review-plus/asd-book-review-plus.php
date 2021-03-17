@@ -127,8 +127,8 @@ final class AsdBookReviewPlus {
         new Asd\BookReviewPlus\Menu();
         new Asd\BookReviewPlus\CustomPostBook();
         new Asd\BookReviewPlus\CustomTexonomyGenre();
-		new Asd\BookReviewPlus\Metabox();
-		new Asd\BookReviewPlus\Shortcode();
+        new Asd\BookReviewPlus\Metabox();
+        new Asd\BookReviewPlus\Shortcode();
     }
 
     /**
