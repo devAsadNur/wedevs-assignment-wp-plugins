@@ -37,11 +37,11 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
-		/**
-		 * Include menu page template
-		 */
+        /**
+         * Include menu page template
+         */
         ob_start();
-		require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/admin_menu_page.php";
+        require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/admin_menu_page.php";
         echo ob_get_clean();
     }
 }

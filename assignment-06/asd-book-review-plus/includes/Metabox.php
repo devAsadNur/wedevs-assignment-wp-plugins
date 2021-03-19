@@ -44,16 +44,16 @@ class Metabox {
      * @return void
      */
     public function books_metabox_content_handler( $post ) {
-		/**
-		 * Fetched post meta
-		 */
+        /**
+         * Fetched post meta
+         */
         $book_values = get_post_meta( $post->ID, '_custom_book_meta_key', true );
 
-		/**
-		 * Include book metabox form template
-		 */
+        /**
+         * Include book metabox form template
+         */
         ob_start();
-		require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/metabox_book_form.php";
+        require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/metabox_book_form.php";
         echo ob_get_clean();
     }
 
@@ -67,20 +67,20 @@ class Metabox {
      * @return void
      */
     public function books_metabox_update_metadata( $post_id ) {
-		/**
-		 * Assign empty value to the input array keys
-		 */
+        /**
+         * Assign empty value to the input array keys
+         */
         $meta_inputs = apply_filters( 'metabox_book_input_data', array(
             'writter'        => '',
             'isbn'           => '',
             'year'           => '',
             'price'          => '',
             'description'    => '',
-		) );
+        ) );
 
-		/**
-		 * Assign input values to the meta input array
-		 */
+        /**
+         * Assign input values to the meta input array
+         */
         if( isset( $_POST['writter'] ) ) {
             $meta_inputs['writter'] = sanitize_text_field($_POST['writter']);
         }
@@ -97,9 +97,9 @@ class Metabox {
             $meta_inputs['description'] = sanitize_textarea_field($_POST['description']);
         }
 
-		/**
-		 * Update post meta
-		 */
+        /**
+         * Update post meta
+         */
         if ( ! empty($meta_inputs) ) {
             update_post_meta(
                 $post_id,

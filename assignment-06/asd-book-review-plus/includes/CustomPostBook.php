@@ -15,19 +15,19 @@ class CustomPostBook {
      */
     public function __construct() {
         add_action( 'init', [ $this, 'custom_post_type_book' ] );
-	}
+    }
 
-	/**
-	 * Custom post type: Book, creator function
+    /**
+     * Custom post type: Book, creator function
      *
      * @since  1.0.0
-	 *
-	 * @return void
-	 */
-	public function custom_post_type_book() {
-		/**
-		 * Labels array for custom post type: Book
-		 */
+     *
+     * @return void
+     */
+    public function custom_post_type_book() {
+        /**
+         * Labels array for custom post type: Book
+         */
         $labels = apply_filters( 'post_type_book_labels', array(
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-plus' ),
             'singular_name'      => _x( 'Book', 'post type singular name' ),
@@ -44,9 +44,9 @@ class CustomPostBook {
             'menu_name'          => 'Books',
         ) );
 
-		/**
-		 * Arguments array for custom post type: Book
-		 */
+        /**
+         * Arguments array for custom post type: Book
+         */
         $args = apply_filters( 'post_type_book_args', array(
             'labels'             => $labels,
             'public'             => true,
@@ -65,9 +65,9 @@ class CustomPostBook {
             'menu_icon'          => 'dashicons-book',
         ) );
 
-		/**
-		 * Register custom post type: Book
-		 */
+        /**
+         * Register custom post type: Book
+         */
         register_post_type( 'book', $args );
     }
 }
