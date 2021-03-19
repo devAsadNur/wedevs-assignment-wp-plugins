@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: 	Book Review Plus
- * Plugin URI: 		https://wedevs.com/
- * Description: 	Assignment 6, plugin 1
- * Version: 		1.0.0
- * Author: 			Asad
- * Author URI: 		https://wedevs.com/
- * Text Domain: 	asd-book-review-plus
- * WP requires 		at least: 4.0
- * WP tested up to: 5.0.0
- * Domain Path: 	/languages/
- * License: 		GPL2
+ * Plugin Name:           Book Review Plus
+ * Plugin URI:            https://wedevs.com/
+ * Description:           Assignment 6, plugin 1
+ * Version:               1.0.0
+ * Author:                Asad
+ * Author URI:            https://wedevs.com/
+ * Text Domain:           asd-book-review-plus
+ * Requires WP at least:  4.0
+ * Requires PHP at least: 5.4
+ * Domain Path:           /languages/
+ * License:               GPL2
  */
 
 /*
