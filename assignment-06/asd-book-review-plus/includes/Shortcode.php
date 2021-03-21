@@ -48,7 +48,6 @@ class Shortcode {
      */
     public function post_meta_search_handler() {
         if ( isset( $_GET['book-post-meta-search'] ) && ! empty( $_GET['writter'] ) ) {
-
             /**
              * Search input from user
              */
