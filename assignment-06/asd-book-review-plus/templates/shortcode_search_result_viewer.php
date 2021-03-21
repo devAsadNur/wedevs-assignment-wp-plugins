@@ -27,7 +27,7 @@
         </a>
     </h2>
 
-    <a href="<?php echo esc_url( $post->guid ) ?>">
+    <a href="<?php echo esc_url( $post->guid ); ?>">
         <img src="<?php the_post_thumbnail(); ?>" alt="<?php esc_attr_e( $post->post_title, 'asd-book-review-plus' ); ?>" />
     </a>
 

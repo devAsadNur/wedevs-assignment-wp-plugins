@@ -92,7 +92,7 @@ class Shortcode {
                     echo ob_get_clean();
                 }
             } else {
-                echo 'No post matched with your query!';
+                echo __( 'No post matched with your query!', 'asd-book-review-plus' );
             }
         }
     }

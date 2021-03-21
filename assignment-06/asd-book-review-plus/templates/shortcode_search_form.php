@@ -24,7 +24,7 @@
     ?>
     <div>
         <input name="writter" type="text" id="writter" required>
-        <input name="book-post-meta-search" type="submit" value="Search Book Review">
+        <input name="book-post-meta-search" type="submit" value="<?php esc_html_e( 'Search Book Review', 'asd-book-review-plus' ); ?>">
     </div>
     <?php
 

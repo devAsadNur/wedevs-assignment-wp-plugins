@@ -28,9 +28,9 @@ class CustomPostBook {
         /**
          * Labels array for custom post type: Book
          */
-        $labels = apply_filters( 'post_type_book_labels', array(
+        $labels = apply_filters( 'abrp_post_type_book_labels', array(
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-plus' ),
-            'singular_name'      => _x( 'Book', 'post type singular name' ),
+            'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review-plus' ),
             'add_new'            => _x( 'Add New', 'book', 'asd-book-review-plus' ),
             'add_new_item'       => __( 'Add New Book', 'asd-book-review-plus' ),
             'edit_item'          => __( 'Edit Book', 'asd-book-review-plus' ),
@@ -47,7 +47,7 @@ class CustomPostBook {
         /**
          * Arguments array for custom post type: Book
          */
-        $args = apply_filters( 'post_type_book_args', array(
+        $args = apply_filters( 'abrp_post_type_book_args', array(
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,

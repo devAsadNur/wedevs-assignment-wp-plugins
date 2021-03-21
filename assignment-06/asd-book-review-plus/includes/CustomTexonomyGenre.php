@@ -3,7 +3,7 @@
 namespace Asd\BookReviewPlus;
 
 /**
- * Post Type: Book,
+ * Post Type: Book
  * handler class
  */
 class CustomTexonomyGenre {
@@ -28,7 +28,7 @@ class CustomTexonomyGenre {
         /**
          * Labels array for custom taxonomy: Genre
          */
-        $labels = apply_filters( 'taxonomy_genre_labels', array(
+        $labels = apply_filters( 'abrp_taxonomy_genre_labels', array(
             'name'              => _x( 'Genres', 'taxonomy general name', 'asd-book-review-plus' ),
             'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'asd-book-review-plus' ),
             'search_items'      => __( 'Search Genres', 'asd-book-review-plus' ),
@@ -45,7 +45,7 @@ class CustomTexonomyGenre {
         /**
          * Arguments array for custom taxonomy: Genre
          */
-        $args = apply_filters( 'taxonomy_genre_args', array(
+        $args = apply_filters( 'abrp_taxonomy_genre_args', array(
             'labels'            => $labels,
             'hierarchical'      => true,
             'show_ui'           => true,
