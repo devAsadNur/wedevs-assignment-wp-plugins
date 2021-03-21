@@ -26,7 +26,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'Book Review', 'asd-book-review' ), __( 'Book Review', 'asd-book-review' ), 'manage_options', 'asd-book-review', [ $this, 'plugin_page' ], 'dashicons-book' );
+        add_menu_page( __( 'Book Review', 'asd-book-review' ), __( 'Book Review', 'asd-book-review' ), 'manage_options', 'asd-book-review', [ $this, 'plugin_page' ], 'dashicons-book-alt' );
     }
 
     /**
@@ -37,8 +37,11 @@ class Menu {
      * @return void
      */
     public function plugin_page() {
+        /**
+         * Include menu page template
+         */
         ob_start();
-		require_once ASD_BOOK_REVIEW_PATH . "/templates/admin_menu_page.php";
+        require_once ASD_BOOK_REVIEW_PATH . "/templates/admin_menu_page.php";
         echo ob_get_clean();
     }
 }

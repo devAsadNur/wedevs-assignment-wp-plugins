@@ -3,7 +3,7 @@
 namespace Asd\BookReviewPlus;
 
 /**
- * Post Type: Book,
+ * Post Type: Book
  * handler class
  */
 class CustomPostBook {

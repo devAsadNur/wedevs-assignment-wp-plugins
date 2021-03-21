@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name: 	Book Review
- * Plugin URI: 		https://wedevs.com/
- * Description: 	Assignment 5, plugin 1
- * Version: 		1.0.0
- * Author: 			Asad
- * Author URI: 		https://wedevs.com/
- * Text Domain: 	asd-book-review
- * WP requires 		at least: 4.0
- * WP tested up to: 5.0.0
- * Domain Path: 	/languages/
- * License: 		GPL2
+ * Plugin Name:           Book Review
+ * Plugin URI:            https://wedevs.com/
+ * Description:           Assignment 6, plugin 1
+ * Version:               1.0.0
+ * Author:                Asad
+ * Author URI:            https://wedevs.com/
+ * Text Domain:           asd-book-review
+ * Requires WP at least:  4.0
+ * Requires PHP at least: 5.4
+ * Domain Path:           /languages/
+ * License:               GPL2
  */
 
 /*
@@ -62,7 +62,7 @@ require_once __DIR__ . "/vendor/autoload.php";
  * The class that holds
  * the entire plugin
  */
-final class Asd_Book_Review {
+final class AsdBookReview {
 
     /**
      * Plugin version
@@ -89,7 +89,7 @@ final class Asd_Book_Review {
      *
      * @since  1.0.0
      *
-     * @return \Asd_Book_Review
+     * @return \AsdBookReview
      */
     public static function init() {
         static $instance = false;
@@ -125,7 +125,7 @@ final class Asd_Book_Review {
      */
     public function init_plugin() {
         new Asd\BookReview\Menu();
-        new Asd\BookReview\Custom_Post_Book();
+        new Asd\BookReview\CustomPostBook();
         new Asd\BookReview\Metabox();
     }
 
@@ -151,10 +151,10 @@ final class Asd_Book_Review {
 /**
  * Initialize the main plugin.
  *
- * @return \Asd_Book_Review
+ * @return \AsdBookReview
  */
 function asd_book_review() {
-    return Asd_Book_Review::init();
+    return AsdBookReview::init();
 }
 
 /**

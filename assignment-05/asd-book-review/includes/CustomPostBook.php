@@ -3,10 +3,10 @@
 namespace Asd\BookReview;
 
 /**
- * Post Type: Book,
+ * Post Type: Book
  * handler class
  */
-class Custom_Post_Book {
+class CustomPostBook {
 
     /**
      * Initialize the class
@@ -15,22 +15,22 @@ class Custom_Post_Book {
      */
     public function __construct() {
         add_action( 'init', [ $this, 'custom_post_type_book' ] );
-	}
+    }
 
-	/**
-	 * Custom post type: Book, creator function
+    /**
+     * Custom post type: Book, creator function
      *
      * @since  1.0.0
-	 *
-	 * @return void
-	 */
-	public function custom_post_type_book() {
-		/**
-		 * Labels array for custom post type: Book
-		 */
-        $labels = apply_filters( 'post_type_book_labels', array(
+     *
+     * @return void
+     */
+    public function custom_post_type_book() {
+        /**
+         * Labels array for custom post type: Book
+         */
+        $labels = apply_filters( 'abr_post_type_book_labels', array(
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review' ),
-            'singular_name'      => _x( 'Book', 'post type singular name' ),
+            'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review' ),
             'add_new'            => _x( 'Add New', 'book', 'asd-book-review' ),
             'add_new_item'       => __( 'Add New Book', 'asd-book-review' ),
             'edit_item'          => __( 'Edit Book', 'asd-book-review' ),
@@ -44,10 +44,10 @@ class Custom_Post_Book {
             'menu_name'          => 'Books',
         ) );
 
-		/**
-		 * Arguments array for custom post type: Book
-		 */
-        $args = apply_filters( 'post_type_book_args', array(
+        /**
+         * Arguments array for custom post type: Book
+         */
+        $args = apply_filters( 'abr_post_type_book_args', array(
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
@@ -65,9 +65,9 @@ class Custom_Post_Book {
             'menu_icon'          => 'dashicons-book',
         ) );
 
-		/**
-		 * Register custom post type: Book
-		 */
+        /**
+         * Register custom post type: Book
+         */
         register_post_type( 'book', $args );
     }
 }
