@@ -1,0 +1,20 @@
+{
+    "name": "asad/asd-crud",
+    "description": "Assignment plugin - CRUD Operations",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Asd\\CRUD\\": "includes/"
+        },
+        "files": [ "includes/functions.php" ]
+    }
+}
