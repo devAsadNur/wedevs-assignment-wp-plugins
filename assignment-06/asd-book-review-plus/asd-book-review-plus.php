@@ -126,7 +126,7 @@ final class AsdBookReviewPlus {
     public function init_plugin() {
         new Asd\BookReviewPlus\Menu();
         new Asd\BookReviewPlus\CustomPostBook();
-        new Asd\BookReviewPlus\CustomTexonomyGenre();
+        new Asd\BookReviewPlus\CustomTaxonomyGenre();
         new Asd\BookReviewPlus\Metabox();
         new Asd\BookReviewPlus\Shortcode();
     }

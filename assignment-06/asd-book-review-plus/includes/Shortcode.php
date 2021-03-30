@@ -9,6 +9,33 @@ namespace Asd\BookReviewPlus;
 class Shortcode {
 
     /**
+     * Book post meta search keyword
+     *
+     * @since 1.0.0
+     *
+     * @var string
+     */
+    public $search_keyword;
+
+    /**
+     * Book post meta query arguments
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    public $book_meta_query_args;
+
+    /**
+     * Book post meta query result
+     *
+     * @since 1.0.0
+     *
+     * @var object
+     */
+    public $book_meta_query;
+
+    /**
      * Initialize the class
      *
      * @since  1.0.0
@@ -47,52 +74,65 @@ class Shortcode {
      * @return void
      */
     public function post_meta_search_handler() {
-        if ( isset( $_GET['book-post-meta-search'] ) && ! empty( $_GET['writter'] ) ) {
-            /**
-             * Search input from user
-             */
-            $book_writter = $_GET['writter'];
+        if ( ! isset( $_REQUEST['book-post-meta-search'] ) ) {
+            return;
+        }
 
-            /**
-             * Book meta query arguments
-             */
-            $book_meta_query_args = array(
-                'post_type'   => 'book',
-                'post_status' => 'publish',
-                'meta_query'  => array(
-                    array(
-                        'key'     => '_custom_book_meta_key',
-                        'value'   => $book_writter,
-                        'compare' => 'LIKE',
-                    ),
+        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'book-post-meta-search' ) ) {
+            wp_die( 'Are you cheating?' );
+        }
+
+        if ( ! isset( $_REQUEST['keyword'] ) ) {
+            return;
+        }
+
+        /**
+         * Search input from user
+         */
+        $this->search_keyword = $_GET['keyword'];
+
+        /**
+         * Book meta query arguments
+         */
+        $this->book_meta_query_args = apply_filters( 'abrp_book_meta_query_args', array(
+            'post_type'   => 'book',
+            'post_status' => 'publish',
+            'meta_query'  => array(
+                array(
+                    'key'     => '_custom_book_meta_key',
+                    'value'   => $this->search_keyword,
+                    'compare' => 'LIKE',
                 ),
-            );
+            ),
+        ) );
+
+        /**
+         * The book meta query
+         */
+        $this->book_meta_query = new \WP_Query( $this->book_meta_query_args );
+
+        /**
+         * Show output if found
+         */
+        if ( $this->book_meta_query->have_posts() ) {
+            /**
+             * Fetched all posts
+             */
+            $posts = $this->book_meta_query->posts;
 
             /**
-             * The book meta query
+             * Single post
              */
-            $book_meta_query = new \WP_Query( $book_meta_query_args );
-
-            /**
-             * Show output if found
-             */
-            if ( $book_meta_query->have_posts() ) {
-                $posts = $book_meta_query->posts;
-
+            foreach( $posts as $post ) {
                 /**
-                 * Single post
+                 * Include search result viewer
                  */
-                foreach( $posts as $post ) {
-                    /**
-                     * Include search result viewer
-                     */
-                    ob_start();
-                    include ASD_BOOK_REVIEW_PLUS_PATH . "/templates/shortcode_search_result_viewer.php";
-                    echo ob_get_clean();
-                }
-            } else {
-                echo __( 'No post matched with your query!', 'asd-book-review-plus' );
+                ob_start();
+                include ASD_BOOK_REVIEW_PLUS_PATH . "/templates/shortcode_search_result_viewer.php";
+                echo ob_get_clean();
             }
+        } else {
+            echo __( 'No post matched with your query!', 'asd-book-review-plus' );
         }
     }
 }

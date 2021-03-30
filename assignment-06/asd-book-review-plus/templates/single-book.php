@@ -16,13 +16,13 @@ global $post;
 $single_post = get_post_meta( $post->ID, '_custom_book_meta_key', true );
 
 ?>
-<h2><?php echo $post->post_title; ?></h2>
+<h2><?php esc_html_e( $post->post_title ); ?></h2>
 <ul>
-    <li><?php echo 'Writter: ' . $single_post['writter']; ?></li>
-    <li><?php echo 'ISBN: ' . $single_post['isbn']; ?></li>
-    <li><?php echo 'Year: ' . $single_post['year']; ?></li>
-    <li><?php echo 'Price: $' . $single_post['price']; ?></li>
-    <li><?php echo 'Description: ' . $single_post['description']; ?></li>
+    <li>Writter: <?php esc_html_e( $single_post['writter'], 'asd-book-review-plus' ); ?></li>
+    <li>ISBN: <?php esc_html_e( $single_post['isbn'], 'asd-book-review-plus' ); ?></li>
+    <li>Year: <?php esc_html_e( $single_post['year'], 'asd-book-review-plus' ); ?></li>
+    <li>Price: $<?php esc_html_e( $single_post['price'], 'asd-book-review-plus' ); ?></li>
+    <li>Description: <?php echo esc_textarea( $single_post['description'], 'asd-book-review-plus' ); ?></li>
 </ul>
 <?php
 
