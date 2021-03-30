@@ -57,7 +57,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 /**
  * Main plugin class
  *
- * @class Asd_Book_Review_Plus
+ * @class AsdBookReviewPlus
  *
  * The class that holds
  * the entire plugin
