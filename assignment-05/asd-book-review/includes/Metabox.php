@@ -9,6 +9,24 @@ namespace Asd\BookReview;
 class Metabox {
 
     /**
+     * Book meta input fields
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    public $book_meta_fields;
+
+    /**
+     * Book meta input values
+     *
+     * @since 1.0.0
+     *
+     * @var array
+     */
+    public $book_meta_values;
+
+    /**
      * Initialize the class
      *
      * @since  1.0.0
@@ -47,7 +65,7 @@ class Metabox {
         /**
          * Fetched post meta
          */
-        $book_values = get_post_meta( $post->ID, '_custom_book_meta_key', true );
+        $this->book_meta_values = get_post_meta( $post->ID, '_custom_book_meta_key', true );
 
         /**
          * Include book metabox form template
@@ -70,7 +88,7 @@ class Metabox {
         /**
          * Assign empty value to the input array keys
          */
-        $meta_inputs = apply_filters( 'abr_metabox_book_input_data', array(
+        $this->book_meta_fields = apply_filters( 'metabox_book_input_data', array(
             'writter'        => '',
             'isbn'           => '',
             'year'           => '',
@@ -82,29 +100,29 @@ class Metabox {
          * Assign input values to the meta input array
          */
         if( isset( $_POST['writter'] ) ) {
-            $meta_inputs['writter'] = sanitize_text_field($_POST['writter']);
+            $this->book_meta_fields['writter'] = sanitize_text_field($_POST['writter']);
         }
         if( isset( $_POST['isbn'] ) ) {
-            $meta_inputs['isbn'] = sanitize_text_field($_POST['isbn']);
+            $this->book_meta_fields['isbn'] = sanitize_text_field($_POST['isbn']);
         }
         if( isset( $_POST['year'] ) ) {
-            $meta_inputs['year'] = sanitize_text_field($_POST['year']);
+            $this->book_meta_fields['year'] = sanitize_text_field($_POST['year']);
         }
         if( isset( $_POST['price'] ) ) {
-            $meta_inputs['price'] = sanitize_text_field($_POST['price']);
+            $this->book_meta_fields['price'] = sanitize_text_field($_POST['price']);
         }
         if( isset( $_POST['description'] ) ) {
-            $meta_inputs['description'] = sanitize_textarea_field($_POST['description']);
+            $this->book_meta_fields['description'] = sanitize_textarea_field($_POST['description']);
         }
 
         /**
          * Update post meta
          */
-        if ( ! empty($meta_inputs) ) {
+        if ( ! empty( $this->book_meta_fields ) ) {
             update_post_meta(
                 $post_id,
                 '_custom_book_meta_key',
-                $meta_inputs
+                $this->book_meta_fields
             );
         }
     }

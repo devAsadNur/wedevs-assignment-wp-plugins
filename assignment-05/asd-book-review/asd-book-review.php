@@ -2,7 +2,7 @@
 /**
  * Plugin Name:           Book Review
  * Plugin URI:            https://wedevs.com/
- * Description:           Assignment 6, plugin 1
+ * Description:           Assignment 5, plugin 1
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
@@ -57,7 +57,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 /**
  * Main plugin class
  *
- * @class Asd_Book_Review
+ * @class AsdBookReview
  *
  * The class that holds
  * the entire plugin
