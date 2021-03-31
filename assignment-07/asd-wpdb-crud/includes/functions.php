@@ -26,7 +26,6 @@ function asd_ac_insert_address( $args = [] ) {
     $data = wp_parse_args( $args, $defaults );
 
     if ( isset( $data['id'] ) ) {
-
         $id = $data['id'];
         unset( $data['id'] );
 
@@ -47,7 +46,6 @@ function asd_ac_insert_address( $args = [] ) {
         return $updated;
 
     } else {
-
         $inserted = $wpdb->insert(
             $table_ac,
             $data,

@@ -81,7 +81,6 @@ class AddressList extends \WP_List_Table {
      * @return void
      */
     protected function column_default( $item, $column_name ) {
-
         switch ( $column_name ) {
 
             case 'created_at':
