@@ -22,7 +22,7 @@
 <h2>Assignment : 03</h2>
 <h4>04 March, 2021</h4>
 <ol>
-  <li>WeContact Shortcode Form</li>
+  <li>weContact Shortcode Form</li>
 </ol>
 <br>
 
