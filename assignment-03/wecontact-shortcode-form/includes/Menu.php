@@ -26,7 +26,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'weContact Form', 'wecontact-shortcode-form' ), __( 'weContact Form', 'wecontact-shortcode-form' ), 'manage_options', 'wecontact-shortcode-form', [ $this, 'plugin_page' ], 'dashicons-shortcode' );
+        add_menu_page( __( 'weContact Form', 'asd-contact-shortcode' ), __( 'weContact Form', 'asd-contact-shortcode' ), 'manage_options', 'asd-contact-shortcode', [ $this, 'plugin_page' ], 'dashicons-shortcode' );
     }
 
     /**
@@ -41,7 +41,7 @@ class Menu {
          * Include menu page template
          */
         ob_start();
-        require_once WC_SC_FORM_PATH . "/templates/admin_menu_page.php";
+        require_once ASD_SC_CONTACT_FORM_PATH . "/templates/admin_menu_page.php";
         echo ob_get_clean();
     }
 }

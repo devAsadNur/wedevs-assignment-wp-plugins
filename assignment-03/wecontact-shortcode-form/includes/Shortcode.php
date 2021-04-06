@@ -14,8 +14,8 @@ class Shortcode {
      * @since  1.0.0
      */
     public function __construct() {
-        add_shortcode( 'wp-sc-contact-form', [ $this, 'render_shortcode_form' ] );
-        add_shortcode( 'wp-sc-contact-input', [ $this, 'render_shortcode_input' ] );
+        add_shortcode( 'asd-sc-contact-form', [ $this, 'render_shortcode_form' ] );
+        add_shortcode( 'asd-sc-contact-field', [ $this, 'render_shortcode_field' ] );
     }
 
     /**
@@ -30,19 +30,22 @@ class Shortcode {
      * @return void
      */
     public function render_shortcode_form( $atts, $content = '' ) {
-        $atts = shortcode_atts( array(
+        $atts = shortcode_atts( apply_filters( 'asd_sc_cf_contents', array(
             'title'       => 'Contact Us',
             'description' => 'Feel free to contact us.',
-        ), $atts );
-        ?>
+        ) ), $atts );
 
-        <div>
-            <h2><?php echo $atts['title']; ?></h2>
-            <h4><?php echo $atts['description']; ?></h4>
-            <form><?php echo do_shortcode( $content ); ?></form>
-        </div>
+        /**
+         * Turn array keys into variables
+         */
+        extract( $atts );
 
-        <?php
+        /**
+         * Include contact form template
+         */
+        ob_start();
+        include_once ASD_SC_CONTACT_FORM_PATH . '/templates/shortcode_contact_form.php';
+        return ob_get_clean();
     }
 
     /**
@@ -52,36 +55,34 @@ class Shortcode {
      * @since  1.0.0
      *
      * @param array $atts
-     * @param string $content
      *
      * @return void
      */
-    public function render_shortcode_input( $atts, $content = '' ) {
-        $atts = shortcode_atts( array(
+    public function render_shortcode_field( $atts ) {
+        $atts = shortcode_atts( apply_filters( 'asd_sc_cf_field_attributes', array(
             'name'        => 'input-' . time(),
-            'type'        => '',
+            'type'        => 'hidden',
+            'id'        => '',
             'placeholder' => 'Write here',
-            'value'       => null,
+            'value'       => '',
             'label'       => 'Field Name',
-            'options'     => null,
-        ), $atts );
+            'options'     => '',
+        ) ), $atts );
 
         /**
-         * Variables for
-         * shortcode attributes
+         * Turn array keys into variables
          */
-        $input_name        = $atts['name'];
-        $input_type        = $atts['type'];
-        $input_placeholder = $atts['placeholder'];
-        $input_value       = $atts['value'];
-        $input_label       = $atts['label'];
-        $input_id          = $input_name;
-        $input_options     = explode(',', $atts['options']);
+        extract( $atts );
+
+        /**
+         * Turn options from string to array
+         */
+        $options = explode(',', $options);
 
         /**
          * Common inputs types
          */
-        $common_input_types = array(
+        $common_types = array(
             'text',
             'email',
             'password',
@@ -93,11 +94,10 @@ class Shortcode {
         );
 
         /**
-         * If the input type
-         * is common
+         * If the input type is common
          */
         $is_common_type = false;
-        if( in_array( $input_type, $common_input_types ) ) {
+        if( in_array( $type, $common_types ) ) {
             $is_common_type = true;
         }
 
@@ -106,20 +106,20 @@ class Shortcode {
          * Else: not common
          */
         if( $is_common_type ) {
-            printf( '<label for="%s">%s </label><input type="%s" name="%s" id="%s" placeholder="%s" value="%s"><br>' , $input_id, $input_label, $input_type, $input_name, $input_id, $input_placeholder, $input_value );
+            printf( '<label for="%s">%s </label><input type="%s" name="%s" id="%s" placeholder="%s" value="%s"><br>' , $id, $label, $type, $name, $id, $placeholder, $value );
 
         } else {
-            switch ( $input_type ) {
+            switch ( $type ) {
 
                 case 'radio':
                 case 'checkbox':
-                    printf( '<input type="%s" id="%s" name="%s" value="%s"><label for="%s">%s </label><br>', $input_type, $input_id, $input_name, $input_value, $input_id, $input_label );
+                    printf( '<input type="%s" id="%s" name="%s" value="%s"><label for="%s">%s </label><br>', $type, $id, $name, $value, $id, $label );
                     break;
 
                 case 'select':
-                    printf('<label for="%s">%s</label> <select name="%s" id="%s">', $input_id, $input_label, $input_name, $input_id);
+                    printf('<label for="%s">%s</label> <select name="%s" id="%s">', $id, $label, $name, $id);
 
-                    foreach($input_options as $option) {
+                    foreach($options as $option) {
                         printf( '<option value="%s">%s</option>', $option, ucwords($option) );
                     }
 
@@ -127,11 +127,11 @@ class Shortcode {
                     break;
 
                 case 'submit':
-                    printf( '<input type="%s" name="%s" id="%s" value="%s"><br>' , $input_type, $input_name, $input_id, $input_value );
+                    printf( '<input type="%s" name="%s" id="%s" value="%s"><br>' , $type, $name, $id, $value );
                     break;
 
                 default:
-                    printf( '<input type="hidden", id="%s", name ="%s" value="%s">', $input_name, $input_id, $input_value );
+                    printf( '<input type="hidden", id="%s", name ="%s" value="%s">', $name, $id, $value );
             }
         }
     }

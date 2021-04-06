@@ -1,6 +1,6 @@
 {
-    "name": "asad/wecontact-shortcode-form",
-    "description": "Assignment plugin - Contact form shortcode",
+    "name": "asad/asd-contact-shortcode",
+    "description": "Assignment plugin - weContact shortcode Form",
     "type": "wordpress-plugin",
     "license": "GPLv2",
     "authors": [

@@ -7,13 +7,14 @@
  * @since 1.0.0
  */
 ?>
-    <h1>WeContact Form: Shortcode Documentation</h1><br>
-    <h2>Form with title use guide:</h2>
-    <h4>Shortcode format:</h4>
-    <p>[wp-sc-contact-form title="Title text" description="Description text"] [/wp-sc-contact-form]</p>
+<div class="menu-page-content">
+    <h1><?php esc_html_e( 'WeContact Form: Shortcode Documentation', 'asd-contact-shortcode' ); ?></h1><br>
+    <h2><?php esc_html_e( 'Form with title use guide', 'asd-contact-shortcode' ); ?>:</h2>
+    <h4><?php esc_html_e( 'Shortcode format', 'asd-contact-shortcode' ); ?>:</h4>
+    <p><?php echo esc_html('[asd-sc-contact-form title="Title text" description="Description text"] [/asd-sc-contact-form]' ); ?></p>
     <br>
-    <h2>Individual input use guide:</h2>
-    <h4>Shortcode format:</h4>
-    <p>[wp-sc-contact-input type="field type" name="field name" label="Field label text" placehoder="Placeholder Text" value="Default value"]</p>
-    <br>
+    <h2><?php esc_html_e( 'Individual input field use guide', 'asd-contact-shortcode' ); ?>:</h2>
+    <h4><?php esc_html_e( 'Shortcode format', 'asd-contact-shortcode' ); ?>:</h4>
+    <p><?php echo esc_html('[asd-sc-contact-field type="field type" name="field name" label="Field label text" placehoder="Placeholder Text" value="Default value"]' ); ?></p>
+</div>
 <?php

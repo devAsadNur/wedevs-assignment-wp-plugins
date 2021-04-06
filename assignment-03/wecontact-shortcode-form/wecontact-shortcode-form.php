@@ -6,7 +6,7 @@
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
- * Text Domain:           wecontact-shortcode-form
+ * Text Domain:           asd-contact-shortcode
  * Requires WP at least:  4.0
  * Requires PHP at least: 5.4
  * Domain Path:           /languages/
@@ -57,13 +57,12 @@ require_once __DIR__ . "/vendor/autoload.php";
 /**
  * Main plugin class
  *
- * @class WeContactShortcodeForm
+ * @class AsdContactShortcode
  *
  * The class that holds
  * the entire plugin
  */
-final class WeContactShortcodeForm {
-
+final class AsdContactShortcode {
 
     /**
      * Plugin version
@@ -90,7 +89,7 @@ final class WeContactShortcodeForm {
      *
      * @since  1.0.0
      *
-     * @return \WeContactShortcodeForm
+     * @return \AsdContactShortcode
      */
     public static function init() {
         static $instance = false;
@@ -110,11 +109,11 @@ final class WeContactShortcodeForm {
      * @return void
      */
     public function define_constants() {
-        define( 'WC_SC_FORM_VERSION', self::VERSION );
-        define( 'WC_SC_FORM_FILE', __FILE__ );
-        define( 'WC_SC_FORM_PATH', __DIR__ );
-        define( 'WC_SC_FORM_URL', plugins_url( '', WC_SC_FORM_FILE ) );
-        define( 'WC_SC_FORM_ASSETS', WC_SC_FORM_URL . '/assets' );
+        define( 'ASD_SC_CONTACT_FORM_VERSION', self::VERSION );
+        define( 'ASD_SC_CONTACT_FORM_FILE', __FILE__ );
+        define( 'ASD_SC_CONTACT_FORM_PATH', __DIR__ );
+        define( 'ASD_SC_CONTACT_FORM_URL', plugins_url( '', ASD_SC_CONTACT_FORM_FILE ) );
+        define( 'ASD_SC_CONTACT_FORM_ASSETS', ASD_SC_CONTACT_FORM_URL . '/assets' );
     }
 
     /**
@@ -137,13 +136,13 @@ final class WeContactShortcodeForm {
      * @return void
      */
     public function activate() {
-        $installed = get_option( 'wc_sc_form_installed' );
+        $installed = get_option( 'asd_sc_contact_form_installed' );
 
         if( ! $installed ) {
-            update_option( 'wc_sc_form_installed', time() );
+            update_option( 'asd_sc_contact_form_installed', time() );
         }
 
-        update_option( 'wc_sc_form_version', WC_SC_FORM_VERSION );
+        update_option( 'asd_sc_contact_form_version', ASD_SC_CONTACT_FORM_VERSION );
     }
 
 }
@@ -151,13 +150,13 @@ final class WeContactShortcodeForm {
 /**
  * Initialize the main plugin
  *
- * @return \WeContactShortcodeForm
+ * @return \AsdContactShortcode
  */
-function wecontact_shortcode_form() {
-    return WeContactShortcodeForm::init();
+function asd_contact_shortcode_form() {
+    return AsdContactShortcode::init();
 }
 
 /**
  * Kick-off the plugin
  */
-wecontact_shortcode_form();
+asd_contact_shortcode_form();
