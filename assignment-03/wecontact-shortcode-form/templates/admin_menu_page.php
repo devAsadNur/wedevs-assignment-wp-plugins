@@ -7,7 +7,7 @@
  * @since 1.0.0
  */
 ?>
-    <h1>WeContact Form : Shortcode Documentation</h1><br>
+    <h1>WeContact Form: Shortcode Documentation</h1><br>
     <h2>Form with title use guide:</h2>
     <h4>Shortcode format:</h4>
     <p>[wp-sc-contact-form title="Title text" description="Description text"] [/wp-sc-contact-form]</p>
