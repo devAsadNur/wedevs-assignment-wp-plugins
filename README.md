@@ -54,3 +54,10 @@
   <li>CRUD Operations</li>
 </ol>
 <br>
+
+<h2>Assignment : 08</h2>
+<h4>31 March, 2021</h4>
+<ol>
+  <li>weContact AJAX Form</li>
+</ol>
+<br>
