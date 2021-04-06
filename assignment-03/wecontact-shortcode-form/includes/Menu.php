@@ -1,14 +1,18 @@
 <?php
 
-namespace WeContactForm\Admin;
+namespace Asd\WeContact\Shortcode;
 
 /**
- * The menu handler class
+ * The menu
+ * handler
+ * class
  */
 class Menu {
 
     /**
      * Initialize the class
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu_handler' ] );
@@ -16,7 +20,9 @@ class Menu {
 
     /**
      * Register admin menu
-     * 
+     *
+     * @since  1.0.0
+     *
      * @return void
      */
     public function admin_menu_handler() {
@@ -25,22 +31,17 @@ class Menu {
 
     /**
      * Render the plugin page
-     * 
+     *
+     * @since  1.0.0
+     *
      * @return void
      */
     public function plugin_page() {
-        ?>
-
-        <h1>WeContact Form : Shortcode Documentation</h1><br>
-        <h2>Form with title use guide:</h2>
-        <h4>Shortcode format:</h4>
-        <p>[wp-sc-contact-form title="Title text" description="Description text"] [/wp-sc-contact-form]</p>
-        <br>
-        <h2>Individual input use guide:</h2>
-        <h4>Shortcode format:</h4>
-        <p>[wp-sc-contact-input type="field type" name="field name" label="Field label text" placehoder="Placeholder Text" value="Default value"]</p>
-        <br>
-
-        <?php
+        /**
+         * Include menu page template
+         */
+        ob_start();
+        require_once WC_SC_FORM_PATH . "/templates/admin_menu_page.php";
+        echo ob_get_clean();
     }
 }

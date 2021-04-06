@@ -1,15 +1,17 @@
 <?php
 
-namespace WeContactForm\Frontend;
+namespace Asd\WeContact\Shortcode;
 
 /**
- * Frontend view 
+ * Shortcode
  * handler class
  */
 class Shortcode {
 
     /**
-     * Initializes the class
+     * Initialize the class
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         add_shortcode( 'wp-sc-contact-form', [ $this, 'render_shortcode_form' ] );
@@ -17,11 +19,14 @@ class Shortcode {
     }
 
     /**
-     * Form shortcode 
+     * Form shortcode
      * renderer function
      *
-     * @param [array] $atts
+     * @since  1.0.0
+     *
+     * @param array $atts
      * @param string $content
+     *
      * @return void
      */
     public function render_shortcode_form( $atts, $content = '' ) {
@@ -34,18 +39,21 @@ class Shortcode {
         <div>
             <h2><?php echo $atts['title']; ?></h2>
             <h4><?php echo $atts['description']; ?></h4>
-            <form><?php echo do_shortcode( $content ) ?></form>
-        </div>  
+            <form><?php echo do_shortcode( $content ); ?></form>
+        </div>
 
         <?php
     }
 
     /**
-     * Input field shortcode 
+     * Input field shortcode
      * renderer function
      *
-     * @param [array] $atts
+     * @since  1.0.0
+     *
+     * @param array $atts
      * @param string $content
+     *
      * @return void
      */
     public function render_shortcode_input( $atts, $content = '' ) {
@@ -59,7 +67,7 @@ class Shortcode {
         ), $atts );
 
         /**
-         * Variables for 
+         * Variables for
          * shortcode attributes
          */
         $input_name        = $atts['name'];
@@ -85,7 +93,7 @@ class Shortcode {
         );
 
         /**
-         * If the input type 
+         * If the input type
          * is common
          */
         $is_common_type = false;
@@ -101,7 +109,6 @@ class Shortcode {
             printf( '<label for="%s">%s </label><input type="%s" name="%s" id="%s" placeholder="%s" value="%s"><br>' , $input_id, $input_label, $input_type, $input_name, $input_id, $input_placeholder, $input_value );
 
         } else {
-
             switch ( $input_type ) {
 
                 case 'radio':
@@ -111,7 +118,7 @@ class Shortcode {
 
                 case 'select':
                     printf('<label for="%s">%s</label> <select name="%s" id="%s">', $input_id, $input_label, $input_name, $input_id);
-                    
+
                     foreach($input_options as $option) {
                         printf( '<option value="%s">%s</option>', $option, ucwords($option) );
                     }
@@ -125,9 +132,7 @@ class Shortcode {
 
                 default:
                     printf( '<input type="hidden", id="%s", name ="%s" value="%s">', $input_name, $input_id, $input_value );
-
             }
         }
     }
-
 }

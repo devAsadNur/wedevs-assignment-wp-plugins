@@ -1,15 +1,47 @@
 <?php
 /**
- * Plugin Name: weContact Shortcode Form
- * Description: A shortcode form plugin. Assignment 03, Plugin 01.
- * Plugin URI: https://cyberasad.com
- * Author: Asad
- * Author URI: https://cyberasad.com
- * Version: 1.0.0
- * License: GPL2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Plugin Name:           weContact Shortcode Form
+ * Plugin URI:            https://wedevs.com/
+ * Description:           Assignment 03, plugin 01
+ * Version:               1.0.0
+ * Author:                Asad
+ * Author URI:            https://wedevs.com/
+ * Text Domain:           wecontact-shortcode-form
+ * Requires WP at least:  4.0
+ * Requires PHP at least: 5.4
+ * Domain Path:           /languages/
+ * License:               GPL2
  */
 
+/*
+ * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
+ *
+ * Released under the GPL license
+ * http://www.opensource.org/licenses/gpl-license.php
+ *
+ * This is an add-on for WordPress
+ * http://wordpress.org/
+ *
+ * **********************************************************************
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * **********************************************************************
+ */
+
+/**
+ * Don't call the file directly
+ */
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
@@ -17,22 +49,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Include the autoloader
  */
-require_once __DIR__ . '/vendor/autoload.php';
+if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
+    return;
+}
+require_once __DIR__ . "/vendor/autoload.php";
 
 /**
- * The main plugin class
+ * Main plugin class
+ *
+ * @class WeContactShortcodeForm
+ *
+ * The class that holds
+ * the entire plugin
  */
-final class WeContact_Shortcode_Form {
+final class WeContactShortcodeForm {
+
 
     /**
      * Plugin version
-     * 
+     *
      * @var string
      */
     const VERSION = '1.0.0';
 
     /**
      * Class constructor
+     *
+     * @since  1.0.0
      */
     public function __construct() {
         $this->define_constants();
@@ -44,8 +87,10 @@ final class WeContact_Shortcode_Form {
 
     /**
      * Initialize a singleton instance
-     * 
-     * @return \WeContact_Shortcode_Form
+     *
+     * @since  1.0.0
+     *
+     * @return \WeContactShortcodeForm
      */
     public static function init() {
         static $instance = false;
@@ -59,7 +104,9 @@ final class WeContact_Shortcode_Form {
 
     /**
      * Define the plugin constants
-     * 
+     *
+     * @since  1.0.0
+     *
      * @return void
      */
     public function define_constants() {
@@ -72,20 +119,21 @@ final class WeContact_Shortcode_Form {
 
     /**
      * Initialize the plugin
-     * 
+     *
+     * @since  1.0.0
+     *
      * @return void
      */
     public function init_plugin() {
-        if ( is_admin() ) {
-            new WeContactForm\Admin();
-        } else {
-            new WeContactForm\Frontend();
-        }
+        new Asd\WeContact\Shortcode\Menu();
+        new Asd\WeContact\Shortcode\Shortcode();
     }
 
     /**
      * Do staff upon plugin activation
-     * 
+     *
+     * @since  1.0.0
+     *
      * @return void
      */
     public function activate() {
@@ -95,18 +143,18 @@ final class WeContact_Shortcode_Form {
             update_option( 'wc_sc_form_installed', time() );
         }
 
-        update_option( 'wc_sc_form_installed', WC_SC_FORM_VERSION );
+        update_option( 'wc_sc_form_version', WC_SC_FORM_VERSION );
     }
 
 }
 
 /**
  * Initialize the main plugin
- * 
- * @return \WeContact_Shortcode_Form
+ *
+ * @return \WeContactShortcodeForm
  */
 function wecontact_shortcode_form() {
-    return WeContact_Shortcode_Form::init();
+    return WeContactShortcodeForm::init();
 }
 
 /**

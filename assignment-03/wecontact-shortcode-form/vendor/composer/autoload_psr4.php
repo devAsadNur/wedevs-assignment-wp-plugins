@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'WeContactForm\\' => array($baseDir . '/includes'),
+    'Asd\\WeContact\\Shortcode\\' => array($baseDir . '/includes'),
 );
