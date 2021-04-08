@@ -3,8 +3,9 @@
 namespace Asd\WeContact\Ajax;
 
 /**
- * Assets
- * handler class
+ * The assets
+ * handler
+ * class
  */
 class Assets {
 
@@ -62,13 +63,13 @@ class Assets {
         $scripts = $this->get_scripts();
         $styles  = $this->get_styles();
 
-        foreach( $scripts as $handle => $script ) {
+        foreach ( $scripts as $handle => $script ) {
             $deps = isset( $script['deps'] ) ? $script['deps'] : false;
 
             wp_register_script( $handle, $script['src'], $deps, $script['version'] );
         }
 
-        foreach( $styles as $handle => $style ) {
+        foreach ( $styles as $handle => $style ) {
             $deps = isset( $style['deps'] ) ? $style['deps'] : false;
 
             wp_register_style( $handle, $style['src'], $deps, true );
