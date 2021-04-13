@@ -23,14 +23,4 @@ class Query {
 
         return $featured_posts_query->posts;
     }
-
-    // public function get_posts( $args ) {
-    //     $featured_posts_query = new \WP_Query( $args );
-
-    //     if ( ! $featured_posts_query->have_posts() ) {
-    //         return __( 'No post found!', 'asd-featured-posts' );
-    //     }
-
-    //     return $featured_posts_query->posts;
-    // }
 }
