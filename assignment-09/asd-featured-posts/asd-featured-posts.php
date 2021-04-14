@@ -145,7 +145,6 @@ final class AsdFeaturedPosts {
 
         update_option( 'asd_featured_posts_version', ASD_FEATURED_POSTS_VERSION );
     }
-
 }
 
 /**

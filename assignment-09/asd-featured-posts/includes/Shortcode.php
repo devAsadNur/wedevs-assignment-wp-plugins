@@ -28,7 +28,6 @@ class Shortcode {
      * @return void
      */
     public function render_featured_posts( $atts ) {
-
         /**
          * Get featured posts settings from database
          */
@@ -70,10 +69,9 @@ class Shortcode {
         }
 
         /**
-         * Posts query object
+         * Get posts from the query
          */
-        $objQuery = new Query();
-        $posts = $objQuery->get_posts( $args );
+        $posts = asd_fp_get_posts( $args );
 
         if ( ! is_array( $posts) ) {
             echo $posts;

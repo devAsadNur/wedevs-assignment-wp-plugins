@@ -15,6 +15,6 @@
         "psr-4": {
             "Asd\\Featured\\Posts\\": "includes/"
         },
-        "files": []
+        "files": [ "includes/functions.php" ]
     }
 }

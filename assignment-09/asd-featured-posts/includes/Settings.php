@@ -80,7 +80,7 @@ class Settings {
             [
                 'id'       => 'featured_posts_section',
                 'title'    => 'Featured Posts Selector',
-                'callback' => [ $this, 'fearured_posts_section_cb' ],
+                'callback' => 'asd_fp_section_cb',
                 'page'     => 'featured-posts',
             ],
         ];
@@ -98,21 +98,21 @@ class Settings {
             [
                 'id'       => 'featured_posts_field_limit',
                 'title'    => 'Number of Posts',
-                'callback' => [ $this, 'limit_field_cb' ],
+                'callback' => 'asd_fp_limit_field_cb',
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
             [
                 'id'       => 'featured_posts_field_order',
                 'title'    => 'Post Order',
-                'callback' => [ $this, 'order_field_cb' ],
+                'callback' => 'asd_fp_order_field_cb',
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
             [
                 'id'       => 'featured_posts_field_categories',
                 'title'    => 'Post Categories',
-                'callback' => [ $this, 'categoires_field_cb' ],
+                'callback' => 'asd_fp_categoires_field_cb',
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
@@ -156,73 +156,6 @@ class Settings {
              * Adds each settings field
              */
             add_settings_field($field['id'], $field['title'], $field['callback'], $field['page'], $section, $args);
-        }
-    }
-
-    /**
-     * Featured posts section callback function
-     *
-     * @return void
-     */
-    public function fearured_posts_section_cb() {
-        ?>
-        <p><?php esc_html_e('Choose featured posts to show'); ?></p>
-        <?php
-    }
-
-    /**
-     * Featured posts limit callback function
-     *
-     * @return void
-     */
-    public function limit_field_cb() {
-        $current_limit = get_option( 'featured_posts_limit' );
-        ?>
-        <input id="featured_posts_limit" type="text" name="featured_posts_limit" class="regular-text" placeholder="Number of Posts" value="<?php echo $current_limit; ?>">
-        <?php
-    }
-
-    /**
-      * Featured posts order callback function
-     *
-     * @return void
-     */
-    public function order_field_cb() {
-        $current_order = get_option( 'featured_posts_order' );
-        ?>
-        <select id="featured_posts_order" name="featured_posts_order">
-            <option value="rand" <?php selected( $current_order, 'rand' ); ?>>Random</option>
-            <option value="ASC" <?php selected( $current_order, 'ASC' ); ?>>ASC</option>
-            <option value="DESC" <?php selected( $current_order, 'DESC' ); ?>>DESC</option>
-        </select>
-        <?php
-    }
-
-   /**
-      * Featured posts categories callback function
-    *
-    * @return void
-    */
-    public function categoires_field_cb() {
-        $current_cats = get_option( 'featured_posts_categories' );
-
-        $args = [
-          'orderby' => 'name',
-          'order'   => 'ASC',
-        ];
-
-        $categories = get_categories( $args );
-
-        foreach ($categories as $category) {
-            $cat_name = $category->name;
-            $cat_slug = $category->slug;
-
-            $current_checked = in_array( $cat_slug, $current_cats ) ? 'checked' : '';
-
-            ?>
-            <input type="checkbox" id="post_cat_<?php echo $cat_slug; ?>" name="featured_posts_categories[<?php echo $cat_slug; ?>]" value="<?php echo $cat_slug; ?>" <?php echo $current_checked; ?>>
-            <label for="post_cat_<?php echo $cat_slug; ?>"> <?php echo $cat_name; ?></label><br>
-            <?php
         }
     }
 }

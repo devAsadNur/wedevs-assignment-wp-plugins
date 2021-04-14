@@ -16,18 +16,6 @@ class Menu {
      */
     public function __construct() {
         add_action( 'admin_menu', [ $this, 'admin_menu_handler' ] );
-
-        /**
-         * Removes transient in case of form update
-         */
-        if ( isset( $_POST['featured-posts-setting'] ) ) {
-            delete_transient( 'featured_posts_query' );
-        }
-
-        /**
-         * Removes transient in case of post update
-         */
-        add_action( 'publish_post', [ $this, 'featured_posts_remove_transient' ] );
     }
 
     /**
@@ -50,21 +38,22 @@ class Menu {
      */
     public function featured_posts_admin_page_handler() {
         /**
+         * Removes transient in case of form update
+         */
+        if ( isset( $_POST['featured-posts-setting'] ) ) {
+            delete_transient( 'featured_posts_query' );
+        }
+
+        /**
+         * Removes transient in case of post update
+         */
+        add_action( 'publish_post', delete_transient( 'featured_posts_query' ) );
+
+        /**
          * Includes admin page template
          */
         ob_start();
         require_once ASD_FEATURED_POSTS_PATH . "/templates/featured_posts_admin_page.php";
         echo ob_get_clean();
-    }
-
-    /**
-     * Featured post transient remover function
-     *
-     * @since  1.0.0
-     *
-     * @return boolean
-     */
-    public function featured_posts_remove_transient() {
-        delete_transient( 'featured_posts_query' );
     }
 }
