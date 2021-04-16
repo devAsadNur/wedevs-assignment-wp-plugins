@@ -1,0 +1,20 @@
+{
+    "name": "asad/asd-jobs-search",
+    "description": "Assignment plugin - Github Jobs Search",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Asd\\Jobs\\Search\\": "includes/"
+        },
+        "files": []
+    }
+}
