@@ -66,8 +66,8 @@ class Shortcode {
         /**
          * Setting URL and arguments for fething data
          */
-        $search_url      = 'https://jobs.github.com/positions.json?';
-        $search_args     = [
+        $search_url  = 'https://jobs.github.com/positions.json?';
+        $search_args = [
             'timeout' => 20,
         ];
 
