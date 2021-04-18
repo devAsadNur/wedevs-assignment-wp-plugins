@@ -80,6 +80,6 @@
 <h4>15 April, 2021</h4>
 <ol>
   <li>Recent Posts Dashboard Widget</li>
-  <li>Cat Facts</li>
+  <li>Cat Facts Dashboard Widget</li>
 </ol>
 <br>
