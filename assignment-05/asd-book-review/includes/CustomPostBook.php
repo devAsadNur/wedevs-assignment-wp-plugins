@@ -9,24 +9,6 @@ namespace Asd\BookReview;
 class CustomPostBook {
 
     /**
-     * Custom post types args
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    public $args;
-
-    /**
-    * Custom post types labels
-    *
-    * @since 1.0.0
-    *
-    * @var array
-    */
-    public $labels;
-
-    /**
      * Initialize the class
      *
      * @since  1.0.0
@@ -46,7 +28,7 @@ class CustomPostBook {
         /**
          * Labels array for custom post type: Book
          */
-        $this->labels = apply_filters( 'abr_post_type_book_labels', array(
+        $labels = apply_filters( 'abrp_post_type_book_labels', array(
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review' ),
             'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review' ),
             'add_new'            => _x( 'Add New', 'book', 'asd-book-review' ),
@@ -65,8 +47,8 @@ class CustomPostBook {
         /**
          * Arguments array for custom post type: Book
          */
-        $this->args = apply_filters( 'abr_post_type_book_args', array(
-            'labels'             => $this->labels,
+        $args = apply_filters( 'abrp_post_type_book_args', array(
+            'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
             'show_ui'            => true,
@@ -86,6 +68,6 @@ class CustomPostBook {
         /**
          * Register custom post type: Book
          */
-        register_post_type( 'book', $this->args );
+        register_post_type( 'book', $args );
     }
 }
