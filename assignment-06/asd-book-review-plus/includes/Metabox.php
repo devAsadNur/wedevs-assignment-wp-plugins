@@ -9,27 +9,9 @@ namespace Asd\BookReviewPlus;
 class Metabox {
 
     /**
-     * Book meta input fields
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    public $book_meta_fields;
-
-    /**
-     * Book meta input values
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    public $book_meta_values;
-
-    /**
      * Initialize the class
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct() {
         add_action( 'add_meta_boxes', [ $this, 'books_custom_metabox_handler' ] );
@@ -39,7 +21,7 @@ class Metabox {
     /**
      * Metabox handler function
      *
-     * @since  1.0.0
+     * @since 1.0.0
      *
      * @return void
      */
@@ -55,9 +37,9 @@ class Metabox {
     /**
      * Custom post metadata getter function
      *
-     * @since  1.0.0
+     * @since 1.0.0
      *
-     * @param  object $post
+     * @param object $post
      *
      * @return void
      */
@@ -65,7 +47,11 @@ class Metabox {
         /**
          * Fetched post meta
          */
-        $this->book_meta_values = get_post_meta( $post->ID, '_custom_book_meta_key', true );
+        $book_meta_value_writter = get_post_meta( $post->ID, 'book_meta_key_writter', true );
+        $book_meta_value_isbn    = get_post_meta( $post->ID, 'book_meta_key_isbn', true );
+        $book_meta_value_year    = get_post_meta( $post->ID, 'book_meta_key_year', true );
+        $book_meta_value_price   = get_post_meta( $post->ID, 'book_meta_key_price', true );
+        $book_meta_value_desc    = get_post_meta( $post->ID, 'book_meta_key_description', true );
 
         /**
          * Include book metabox form template
@@ -88,7 +74,7 @@ class Metabox {
         /**
          * Assign empty value to the input array keys
          */
-        $this->book_meta_fields = apply_filters( 'metabox_book_input_data', array(
+        $book_meta_fields = apply_filters( 'metabox_book_input_fields', array(
             'writter'        => '',
             'isbn'           => '',
             'year'           => '',
@@ -100,29 +86,29 @@ class Metabox {
          * Assign input values to the meta input array
          */
         if( isset( $_POST['writter'] ) ) {
-            $this->book_meta_fields['writter'] = sanitize_text_field($_POST['writter']);
+            $book_meta_fields['writter'] = sanitize_text_field($_POST['writter']);
         }
         if( isset( $_POST['isbn'] ) ) {
-            $this->book_meta_fields['isbn'] = sanitize_text_field($_POST['isbn']);
+            $book_meta_fields['isbn'] = sanitize_text_field($_POST['isbn']);
         }
         if( isset( $_POST['year'] ) ) {
-            $this->book_meta_fields['year'] = sanitize_text_field($_POST['year']);
+            $book_meta_fields['year'] = sanitize_text_field($_POST['year']);
         }
         if( isset( $_POST['price'] ) ) {
-            $this->book_meta_fields['price'] = sanitize_text_field($_POST['price']);
+            $book_meta_fields['price'] = sanitize_text_field($_POST['price']);
         }
         if( isset( $_POST['description'] ) ) {
-            $this->book_meta_fields['description'] = sanitize_textarea_field($_POST['description']);
+            $book_meta_fields['description'] = sanitize_textarea_field($_POST['description']);
         }
 
         /**
          * Update post meta
          */
-        if ( ! empty( $this->book_meta_fields ) ) {
+        foreach ( $book_meta_fields as $field_key => $field_value ) {
             update_post_meta(
                 $post_id,
-                '_custom_book_meta_key',
-                $this->book_meta_fields
+                'book_meta_key_' . $field_key,
+                $field_value,
             );
         }
     }

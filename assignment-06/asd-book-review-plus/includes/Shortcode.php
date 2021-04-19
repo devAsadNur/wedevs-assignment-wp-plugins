@@ -9,36 +9,9 @@ namespace Asd\BookReviewPlus;
 class Shortcode {
 
     /**
-     * Book post meta search keyword
-     *
-     * @since 1.0.0
-     *
-     * @var string
-     */
-    public $search_keyword;
-
-    /**
-     * Book post meta query arguments
-     *
-     * @since 1.0.0
-     *
-     * @var array
-     */
-    public $book_meta_query_args;
-
-    /**
-     * Book post meta query result
-     *
-     * @since 1.0.0
-     *
-     * @var object
-     */
-    public $book_meta_query;
-
-    /**
      * Initialize the class
      *
-     * @since  1.0.0
+     * @since 1.0.0
      */
     public function __construct() {
         add_shortcode( 'asd-book-post-meta-search', [ $this, 'render_shortcode_form' ] );
@@ -69,63 +42,104 @@ class Shortcode {
     /**
      * Post meta search handler function
      *
-     * @since  1.0.0
+     * @since 1.0.0
      *
      * @return void
      */
     public function post_meta_search_handler() {
+        /**
+         * Search input from user
+         */
+        $search_keyword = $_REQUEST['keyword'];
+
+        /**
+         * Conditional checkings
+         */
         if ( ! isset( $_REQUEST['book-post-meta-search'] ) ) {
             return;
         }
 
         if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'book-post-meta-search' ) ) {
-            wp_die( 'Are you cheating?' );
+            wp_die( 'Nonce verification failed!' );
         }
 
-        if ( ! isset( $_REQUEST['keyword'] ) ) {
+        if ( ! isset( $search_keyword ) ) {
             return;
         }
 
         /**
-         * Search input from user
-         */
-        $this->search_keyword = $_GET['keyword'];
-
-        /**
          * Book meta query arguments
          */
-        $this->book_meta_query_args = apply_filters( 'abrp_book_meta_query_args', array(
+        $book_meta_query_args = apply_filters( 'abrp_book_meta_query_args', array(
             'post_type'   => 'book',
             'post_status' => 'publish',
             'meta_query'  => array(
+                'relation' => 'OR',
                 array(
-                    'key'     => '_custom_book_meta_key',
-                    'value'   => $this->search_keyword,
+                    'key'     => 'book_meta_key_writter',
+                    'value'   => $search_keyword,
+                    'compare' => 'LIKE',
+                ),
+                array(
+                    'key'     => 'book_meta_key_isbn',
+                    'value'   => $search_keyword,
+                    'compare' => 'LIKE',
+                ),
+                array(
+                    'key'     => 'book_meta_key_year',
+                    'value'   => $search_keyword,
+                    'compare' => 'LIKE',
+                ),
+                array(
+                    'key'     => 'book_meta_key_price',
+                    'value'   => $search_keyword,
+                    'compare' => 'LIKE',
+                ),
+                array(
+                    'key'     => 'book_meta_key_description',
+                    'value'   => $search_keyword,
                     'compare' => 'LIKE',
                 ),
             ),
         ) );
 
         /**
+         * Call post meta qeury
+         * handler method
+         */
+        $this->post_meta_query_handler( $book_meta_query_args );
+    }
+
+    /**
+     * Post meta query handler function
+     *
+     * @since 1.0.0
+     *
+     * @param array $query_args
+     *
+     * @return void
+     */
+    public function post_meta_query_handler( $query_args) {
+        /**
          * The book meta query
          */
-        $this->book_meta_query = new \WP_Query( $this->book_meta_query_args );
+        $book_meta_query = new \WP_Query( $query_args );
 
         /**
          * Show output if found
          */
-        if ( $this->book_meta_query->have_posts() ) {
+        if ( $book_meta_query->have_posts() ) {
             /**
              * Fetched all posts
              */
-            $posts = $this->book_meta_query->posts;
+            $posts = $book_meta_query->posts;
 
             /**
              * Single post
              */
             foreach( $posts as $post ) {
                 /**
-                 * Include search result viewer
+                 * Include search result viewer template
                  */
                 ob_start();
                 include ASD_BOOK_REVIEW_PLUS_PATH . "/templates/shortcode_search_result_viewer.php";
