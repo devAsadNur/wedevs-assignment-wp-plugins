@@ -49,11 +49,6 @@ class Shortcode {
      */
     public function post_meta_search_handler() {
         /**
-         * Search input from user
-         */
-        $search_keyword = $_REQUEST['keyword'];
-
-        /**
          * Conditional checkings
          */
         if ( ! isset( $_REQUEST['book-post-meta-search'] ) ) {
@@ -67,6 +62,11 @@ class Shortcode {
         if ( ! isset( $search_keyword ) ) {
             return;
         }
+
+        /**
+         * Search input from user
+         */
+        $search_keyword = $_REQUEST['keyword'];
 
         /**
          * Book meta query arguments
