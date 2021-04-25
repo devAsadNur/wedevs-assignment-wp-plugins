@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:           CRUD Operations
+ * Plugin Name:           Book Review Plus Plus
  * Plugin URI:            https://wedevs.com/
- * Description:           Assignment 7, plugin 1
+ * Description:           Assignment 07, plugin 01
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
- * Text Domain:           asd-crud
+ * Text Domain:           asd-book-review-pp
  * Requires WP at least:  4.0
  * Requires PHP at least: 5.4
  * Domain Path:           /languages/
@@ -50,19 +50,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
 /**
  * Main plugin class
  *
- * @class Asd_Book_Review_Plus
+ * @class AsdBookReviewPP
  *
  * The class that holds
  * the entire plugin
  */
-final class AsdCRUD {
+final class AsdBookReviewPP {
 
     /**
      * Plugin version
@@ -89,12 +89,12 @@ final class AsdCRUD {
      *
      * @since  1.0.0
      *
-     * @return \AsdCRUD
+     * @return \AsdBookReviewPP
      */
     public static function init() {
         static $instance = false;
 
-        if ( ! $instance ) {
+        if( ! $instance ) {
             $instance = new self();
         }
 
@@ -109,11 +109,11 @@ final class AsdCRUD {
      * @return void
      */
     public function define_constants() {
-        define( 'ASD_CRUD_VERSION', self::VERSION );
-        define( 'ASD_CRUD_FILE', __FILE__ );
-        define( 'ASD_CRUD_PATH', __DIR__ );
-        define( 'ASD_CRUD_URL', plugins_url( '', ASD_CRUD_FILE ) );
-        define( 'ASD_CRUD_ASSETS', ASD_CRUD_URL . '/assets' );
+        define( 'ASD_BOOK_REVIEW_PP_VERSION', self::VERSION );
+        define( 'ASD_BOOK_REVIEW_PP_FILE', __FILE__ );
+        define( 'ASD_BOOK_REVIEW_PP_PATH', __DIR__ );
+        define( 'ASD_BOOK_REVIEW_PP_URL', plugins_url( '', ASD_BOOK_REVIEW_PP_FILE ) );
+        define( 'ASD_BOOK_REVIEW_PP_ASSETS', ASD_BOOK_REVIEW_PP_URL . '/assets' );
     }
 
     /**
@@ -124,7 +124,13 @@ final class AsdCRUD {
      * @return void
      */
     public function init_plugin() {
-        new Asd\CRUD\Admin();
+        new Asd\Book\Review\PP\Menu();
+        new Asd\Book\Review\PP\CustomPost();
+        new Asd\Book\Review\PP\CustomTaxonomy();
+        new Asd\Book\Review\PP\Metabox();
+        new Asd\Book\Review\PP\Assets();
+        new Asd\Book\Review\PP\Ajax();
+        new Asd\Book\Review\PP\Shortcode();
     }
 
     /**
@@ -135,22 +141,21 @@ final class AsdCRUD {
      * @return void
      */
     public function activate() {
-        $installer = new Asd\CRUD\Admin\Installer();
+        $installer = new Asd\Book\Review\PP\Installer();
         $installer->run();
     }
-
 }
 
 /**
  * Initialize the main plugin.
  *
- * @return \AsdCRUD
+ * @return \AsdBookReviewPP
  */
-function asd_crud() {
-    return AsdCRUD::init();
+function asd_book_review_pp() {
+    return AsdBookReviewPP::init();
 }
 
 /**
  * Kick-off the plugin
  */
-asd_crud();
+asd_book_review_pp();

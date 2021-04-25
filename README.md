@@ -51,7 +51,7 @@
 <h2>Assignment : 07</h2>
 <h4>22 March, 2021</h4>
 <ol>
-  <li>CRUD Operations</li>
+  <li>Book Review Plus Plus</li>
 </ol>
 <br>
 

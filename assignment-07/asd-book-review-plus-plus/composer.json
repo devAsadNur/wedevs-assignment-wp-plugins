@@ -1,6 +1,6 @@
 {
-    "name": "asad/asd-crud",
-    "description": "Assignment plugin - CRUD Operations",
+    "name": "asad/asd-book-review-pp",
+    "description": "Assignment plugin - Book Review Plus Plus",
     "type": "wordpress-plugin",
     "license": "GPLv2",
     "authors": [
@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Asd\\CRUD\\": "includes/"
+            "Asd\\Book\\Review\\PP\\": "includes/"
         },
         "files": [ "includes/functions.php" ]
     }
