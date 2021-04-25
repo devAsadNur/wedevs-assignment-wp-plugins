@@ -59,7 +59,7 @@ class Shortcode {
             wp_die( 'Nonce verification failed!' );
         }
 
-        if ( ! isset( $search_keyword ) ) {
+        if ( ! isset( $_REQUEST['keyword'] ) ) {
             return;
         }
 
