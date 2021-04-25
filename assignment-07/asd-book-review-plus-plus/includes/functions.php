@@ -7,19 +7,19 @@
  * @return string
  */
 function asd_br_get_the_user_ip() {
-	if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
-		//check ip from share internet
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-		//to check ip is pass from proxy
-		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-		$ip = $_SERVER['REMOTE_ADDR'];
+    if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+        //check ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+        //to check ip is pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
+        $ip = $_SERVER['REMOTE_ADDR'];
     } else {
-		$ip = 'UNKNOWN';
+        $ip = 'UNKNOWN';
     }
 
-	return $ip;
+    return $ip;
 }
 
 /**
@@ -124,7 +124,7 @@ function asd_br_update_rating( $args = [] ) {
  * @since 1.0.0
  *
  * @param array $args
- * 
+ *
  * @return object
  */
 function asd_br_get_rating( $args = [] ) {
