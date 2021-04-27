@@ -159,7 +159,7 @@ class Widgets extends \WP_Widget {
 
         if ( $the_query->have_posts() ) {
             return $the_query;
-        }  else {
+        } else {
             echo 'No related posts found!';
         }
     }
