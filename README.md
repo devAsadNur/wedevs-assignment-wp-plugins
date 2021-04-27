@@ -83,3 +83,11 @@
   <li>Cat Facts Dashboard Widget</li>
 </ol>
 <br>
+
+<h2>Assignment : 12</h2>
+<h4>23 April, 2021</h4>
+<ol>
+  <li>Related Posts Widget</li>
+  <li>Subscription Form Widget</li>
+</ol>
+<br>
