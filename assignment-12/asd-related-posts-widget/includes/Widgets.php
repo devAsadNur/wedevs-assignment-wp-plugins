@@ -116,12 +116,12 @@ class Widgets extends \WP_Widget {
     }
 
     /**
-	 * Widget options data save handler function
-	 *
+     * Widget options data save handler function
+     *
      * @since 1.0.0
      *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
+     * @param array $new_instance The new options
+     * @param array $old_instance The previous options
      *
      * @return array
      */
@@ -137,12 +137,12 @@ class Widgets extends \WP_Widget {
     }
 
     /**
-	 * Related posts fetcher function
-	 *
+     * Related posts fetcher function
+     *
      * @since 1.0.0
      *
-	 * @param int   $limit The number of posts
-	 * @param array $args  The post query arguments
+     * @param int   $limit The number of posts
+     * @param array $args  The post query arguments
      *
      * @return object|void
      */
