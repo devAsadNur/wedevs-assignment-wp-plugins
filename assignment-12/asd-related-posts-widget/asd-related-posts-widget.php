@@ -135,13 +135,13 @@ final class AsdRelatedPostsWidget {
      * @return void
      */
     public function activate() {
-        $installed = get_option( 'asd_book_review_pp_installed' );
+        $installed = get_option( 'asd_related_posts_widget_installed' );
 
         if( ! $installed ) {
-            update_option( 'asd_book_review_pp_installed', time() );
+            update_option( 'asd_related_posts_widget_installed', time() );
         }
 
-        update_option( 'asd_book_review_pp_version', ASD_RELATED_POSTS_WIDGET_VERSION );
+        update_option( 'asd_related_posts_widget_version', ASD_RELATED_POSTS_WIDGET_VERSION );
     }
 }
 
