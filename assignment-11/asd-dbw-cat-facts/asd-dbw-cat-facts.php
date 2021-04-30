@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
