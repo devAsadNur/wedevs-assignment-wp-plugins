@@ -71,15 +71,15 @@ class Shortcode {
             'timeout' => 20,
         ];
 
-        if ( ! empty( $search_keyword ) ) {
+        if ( '' !== $search_keyword ) {
             $search_url .= '&description=' . $search_keyword;
         }
 
-        if ( ! empty( $search_location ) ) {
+        if ( '' !== $search_location ) {
             $search_url .= '&location=' . $search_location;
         }
 
-        if ( ! empty( $search_fulltime ) ) {
+        if ( '' !== $search_fulltime ) {
             $search_url .= '&full_time=' . $search_fulltime;
         }
 
@@ -93,9 +93,7 @@ class Shortcode {
         /**
          * Getting API response data
          */
-        $search_response = wp_remote_get( $search_url , $search_args );
-        $search_body     = wp_remote_retrieve_body( $search_response );
-        $search_result   = json_decode( $search_body );
+        $search_result = $this->fetch_api_data( $search_url, $search_args );
 
         /**
          * Output message if no data found
@@ -119,5 +117,20 @@ class Shortcode {
         if ( is_object( $search_result ) ) {
             include_once ASD_JOBS_SEARCH_PATH . '/templates/single_job_viewer.php';
         }
+    }
+
+    /**
+     * API data fetcher function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function fetch_api_data( $url, $args = [] ) {
+        $response = wp_remote_get( $url , $args );
+        $body     = wp_remote_retrieve_body( $response );
+        $result   = json_decode( $body );
+
+        return $result;
     }
 }
