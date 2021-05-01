@@ -1,0 +1,20 @@
+{
+    "name": "asad/asd-subs-form-widget",
+    "description": "Assignment plugin - Subscription Form Widget",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Asd\\Subscription\\Form\\Widget\\": "includes/"
+        },
+        "files": [ "includes/functions.php" ]
+    }
+}

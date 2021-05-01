@@ -1,0 +1,20 @@
+.mc-form-wrapper {
+    display: block;
+    width: 100%;
+}
+#mc-subscription-form {
+    display: block;
+    margin: 0 auto 10px;
+}
+.subscription-message {
+    margin: 0 auto 20px;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: bold;
+}
+.subscription-message.message-success{
+    color: #008000;
+}
+.subscription-message.message-error{
+    color: #FF0000;
+}
