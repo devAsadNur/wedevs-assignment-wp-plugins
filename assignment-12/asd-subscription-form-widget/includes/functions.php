@@ -1,7 +1,7 @@
 <?php
 
 /**
- * MailChimp lists fetcher function from
+ * MailChimp lists fetcher function
  *
  * @since 1.0.0
  *
@@ -10,8 +10,8 @@
  * @return void
  */
 function asd_mc_api_fetch_lists( $api_key ) {
-    $dc = substr( $api_key, strpos( $api_key, '-' ) +1 );
-    $url = 'https://' . $dc . '.api.mailchimp.com/3.0/lists';
+    $dc   = substr( $api_key, strpos( $api_key, '-' ) +1 );
+    $url  = 'https://' . $dc . '.api.mailchimp.com/3.0/lists';
     $args = [
         'headers' => [
             'Authorization' => 'Basic ' . base64_encode( 'user:'. $api_key )
@@ -20,8 +20,8 @@ function asd_mc_api_fetch_lists( $api_key ) {
     ];
 
     $response = wp_remote_get( $url, $args );
-    $body = wp_remote_retrieve_body( $response );
-    $data = json_decode( $body );
+    $body     = wp_remote_retrieve_body( $response );
+    $data     = json_decode( $body );
 
     $lists = [];
 
@@ -47,9 +47,8 @@ function asd_mc_api_fetch_lists( $api_key ) {
  * @return void
  */
 function asd_mc_api_post_email_subs( $api_key, $list_id, $email, $status = 'subscribed' ) {
-    $dc = substr( $api_key, strpos( $api_key, '-' ) +1 );
-    $url = 'https://' . $dc . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members';
-
+    $dc   = substr( $api_key, strpos( $api_key, '-' ) +1 );
+    $url  = 'https://' . $dc . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members';
     $args = [
         'method'  => 'POST',
         'timeout' => 30,
@@ -62,10 +61,10 @@ function asd_mc_api_post_email_subs( $api_key, $list_id, $email, $status = 'subs
         ] ),
     ];
 
-    $response = wp_remote_post( $url, $args );
-    $body = wp_remote_retrieve_body( $response );
-    $data = json_decode( $body );
-    $data_status = $data->status;
+    $response  = wp_remote_post( $url, $args );
+    $body      = wp_remote_retrieve_body( $response );
+    $data      = json_decode( $body );
+    $data_stat = $data->status;
 
-    return $data_status;
+    return $data_stat;
 }
