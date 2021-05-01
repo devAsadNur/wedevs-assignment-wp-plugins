@@ -1,5 +1,13 @@
 <?php
 /**
+ * Action hook for adding contents
+ * before backend input fields
+ *
+ * @since 1.0.0
+ */
+do_action( 'asd_mc_subs_backend_form_fields_before' );
+
+/**
  * Template: Email subscription widget backend form
  *
  * HMTL form template for widget dashboard input
@@ -9,8 +17,10 @@
 ?>
 <p>
     <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ) ?>"><?php esc_html_e( 'Widget Title:', 'asd-subs-form-widget' ) ?></label>
+
     <input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ) ?>" class="widefat" value="<?php esc_html_e( $title, 'asd-subs-form-widget' ); ?>">
 </p>
+
 <p>
     <label for="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>"><?php esc_html_e( 'Select a MailChimp List:', 'asd-subs-form-widget' ); ?></label>
 
@@ -25,3 +35,11 @@
     </select>
 </p>
 <?php
+
+/**
+ * Action hook for adding contents
+ * after backend input fields
+ *
+ * @since 1.0.0
+ */
+do_action( 'asd_mc_subs_backend_form_fields_after' );
