@@ -91,3 +91,11 @@
   <li>Subscription Form Widget</li>
 </ol>
 <br>
+
+<h2>Assignment : 13</h2>
+<h4>27 April, 2021</h4>
+<ol>
+  <li>Author Box</li>
+  <li>Customer Registration</li>
+</ol>
+<br>
