@@ -1,6 +1,6 @@
 {
-    "name": "asad/asd-contact-ajax",
-    "description": "Assignment plugin - weContact AJAX Form",
+    "name": "asad/asd-contact-plus",
+    "description": "Assignment plugin - Contact Form Plus ",
     "type": "wordpress-plugin",
     "license": "GPLv2",
     "authors": [
@@ -13,8 +13,8 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Asd\\WeContact\\Ajax\\": "includes/"
+            "Asd\\Contact\\Form\\Plus\\": "includes/"
         },
-        "files": []
+        "files": [ "includes/functions.php" ]
     }
 }

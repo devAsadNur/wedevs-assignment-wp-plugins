@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name:           weContact AJAX Form
+ * Plugin Name:           Contact Form Plus
  * Plugin URI:            https://wedevs.com/
  * Description:           Assignment 08, plugin 01
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
- * Text Domain:           asd-contact-ajax
+ * Text Domain:           asd-contact-plus
  * Requires WP at least:  4.0
  * Requires PHP at least: 5.4
  * Domain Path:           /languages/
@@ -47,22 +47,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Include the autoloader
+ * Include the composer autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
 /**
  * Main plugin class
  *
- * @class AsdContactAJAX
+ * @class AsdContactFormPlus
  *
  * The class that holds
  * the entire plugin
  */
-final class AsdContactAJAX {
+final class AsdContactFormPlus {
 
     /**
      * Plugin version
@@ -89,7 +89,7 @@ final class AsdContactAJAX {
      *
      * @since  1.0.0
      *
-     * @return \AsdContactAJAX
+     * @return \AsdContactFormPlus
      */
     public static function init() {
         static $instance = false;
@@ -109,11 +109,11 @@ final class AsdContactAJAX {
      * @return void
      */
     public function define_constants() {
-        define( 'ASD_AJAX_CONTACT_FORM_VERSION', self::VERSION );
-        define( 'ASD_AJAX_CONTACT_FORM_FILE', __FILE__ );
-        define( 'ASD_AJAX_CONTACT_FORM_PATH', __DIR__ );
-        define( 'ASD_AJAX_CONTACT_FORM_URL', plugins_url( '', ASD_AJAX_CONTACT_FORM_FILE ) );
-        define( 'ASD_AJAX_CONTACT_FORM_ASSETS', ASD_AJAX_CONTACT_FORM_URL . '/assets' );
+        define( 'ASD_CONTACT_FORM_PLUS_VERSION', self::VERSION );
+        define( 'ASD_CONTACT_FORM_PLUS_FILE', __FILE__ );
+        define( 'ASD_CONTACT_FORM_PLUS_PATH', __DIR__ );
+        define( 'ASD_CONTACT_FORM_PLUS_URL', plugins_url( '', ASD_CONTACT_FORM_PLUS_FILE ) );
+        define( 'ASD_CONTACT_FORM_PLUS_ASSETS', ASD_CONTACT_FORM_PLUS_URL . '/assets' );
     }
 
     /**
@@ -124,13 +124,16 @@ final class AsdContactAJAX {
      * @return void
      */
     public function init_plugin() {
-        new Asd\WeContact\Ajax\Menu();
-        new Asd\WeContact\Ajax\Assets();
-        new Asd\WeContact\Ajax\Shortcode();
+        if ( is_admin() ) {
+            new Asd\Contact\Form\Plus\Menu();
+        }
 
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            new Asd\WeContact\Ajax\Ajax();
+            new Asd\Contact\Form\Plus\Ajax();
         }
+
+        new Asd\Contact\Form\Plus\Assets();
+        new Asd\Contact\Form\Plus\Shortcode();
     }
 
     /**
@@ -141,27 +144,21 @@ final class AsdContactAJAX {
      * @return void
      */
     public function activate() {
-        $installed = get_option( 'asd_ajax_contact_form_installed' );
-
-        if( ! $installed ) {
-            update_option( 'asd_ajax_contact_form_installed', time() );
-        }
-
-        update_option( 'asd_ajax_contact_form_version', ASD_AJAX_CONTACT_FORM_VERSION );
+        $installer = new Asd\Contact\Form\Plus\Installer();
+        $installer->run();
     }
-
 }
 
 /**
  * Initialize the main plugin
  *
- * @return \AsdContactAJAX
+ * @return \AsdContactFormPlus
  */
-function asd_contact_ajax_form() {
-    return AsdContactAJAX::init();
+function asd_contact_form_plus() {
+    return AsdContactFormPlus::init();
 }
 
 /**
  * Kick-off the plugin
  */
-asd_contact_ajax_form();
+asd_contact_form_plus();

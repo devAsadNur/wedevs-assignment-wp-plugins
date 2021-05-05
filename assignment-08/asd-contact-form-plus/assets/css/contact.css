@@ -1,0 +1,58 @@
+.contact-form-wrapper {
+    display: block;
+    width: 100%;
+    margin: 0 auto 30px;
+}
+
+.contact-form-wrapper .cf-title {
+    margin: 0 auto 20px;
+}
+
+.contact-form-wrapper .cf-desc {
+    margin: 0 auto 20px;
+}
+
+#asd-contact-form {
+    width: 100%;
+}
+
+#asd-contact-form input {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#asd-contact-form .cf-title {
+    margin: 0 auto 50px;
+}
+
+#asd-contact-form .cf-desc {
+    margin: 0 auto 50px;
+}
+
+#asd-contact-form .input-field-single {
+    min-height: 120px;
+}
+
+#asd-contact-form .msg-error {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+    color: #ff0000;
+}
+
+#asd-contact-form .submision-status  {
+    display: block;
+    margin: 0 auto 5px;
+    padding: 10px 15px;
+}
+#asd-contact-form .status-success {
+    color: #0A9529;
+    background: #C4FAD0;
+    border: 1px solid #02AD28;
+}
+
+#asd-contact-form .status-error {
+    color: #ff0000;
+    background: #FDE3DD;
+    border: 1px solid #FC623F;
+}

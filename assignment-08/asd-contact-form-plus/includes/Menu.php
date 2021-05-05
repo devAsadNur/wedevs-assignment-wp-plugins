@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\WeContact\Ajax;
+namespace Asd\Contact\Form\Plus;
 
 /**
  * The menu
@@ -26,7 +26,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'weContact AJAX Form', 'asd-contact-ajax' ), __( 'weContact AJAX Form', 'asd-contact-ajax' ), 'manage_options', 'asd-contact-ajax', [ $this, 'plugin_page' ], 'dashicons-shortcode' );
+        add_menu_page( __( 'Contact Form Responses', 'asd-contact-plus' ), __( 'Contact Form Responses', 'asd-contact-plus' ), 'manage_options', 'contact-response', [ $this, 'plugin_page' ], 'dashicons-buddicons-pm' );
     }
 
     /**
@@ -38,10 +38,10 @@ class Menu {
      */
     public function plugin_page() {
         /**
-         * Include menu page template
+         * Include plugin page template
          */
         ob_start();
-        require_once ASD_AJAX_CONTACT_FORM_PATH . "/templates/admin_menu_page.php";
+        include_once ASD_CONTACT_FORM_PLUS_PATH . "/templates/plugin_page.php";
         echo ob_get_clean();
     }
 }
