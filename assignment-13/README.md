@@ -9,7 +9,7 @@ Where you'll have to add some usermeta to get users social share links (Facebook
 </ul>
 <br>
 
-## 2. Plugin Name: Customer Registration Form
+## 2. Plugin Name: Customer Registration
 #### Assignment Task:
 <ul>
 <li>Create a customer registration form. In this form, there will be a dropdown with some capabilities. After user register by this form, a new user will be created and the default role will be customer. Based on selected capabilities, some dashoboard wizard will be display to them.</li>
