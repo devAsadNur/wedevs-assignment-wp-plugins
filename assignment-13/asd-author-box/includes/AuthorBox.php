@@ -38,7 +38,7 @@ class AuthorBox {
         $author_linkedin = get_user_meta( $author_id, 'linkedin', true );
         $author_name     = $author_fname . ' ' . $author_lname;
 
-        if ( 'post' !== $post->post_type && ! is_single( ) ) {
+        if ( 'post' !== $post->post_type && ! is_single() ) {
             return $content;
         }
 
