@@ -125,11 +125,11 @@ final class AsdAuthorBox {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\Author\Box\UserProfile();
+            new Asd\AuthorBox\UserProfile();
         }
 
-        new Asd\Author\Box\Assets();
-        new Asd\Author\Box\AuthorBox();
+        new Asd\AuthorBox\Assets();
+        new Asd\AuthorBox\AuthorBox();
     }
 
     /**

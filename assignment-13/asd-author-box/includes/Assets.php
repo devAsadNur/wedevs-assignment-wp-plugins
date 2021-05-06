@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Author\Box;
+namespace Asd\AuthorBox;
 
 /**
  * The assets
