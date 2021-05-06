@@ -26,13 +26,13 @@ class Assets {
      * @return void
      */
     public function register_assets() {
-        $style = [
+        $style = apply_filters( 'asd_author_box_styles', [
             'handle'  => 'asd-author-box-style',
             'src'     => ASD_AUTHOR_BOX_ASSETS . '/css/author-box.css',
             'version' => filemtime( ASD_AUTHOR_BOX_PATH . '/assets/css/author-box.css' ),
             'deps'    => []
-        ];
+        ] );
 
-        wp_register_style( $style['handle'], $style['src'], $style['version'], $style['deps'] );
+        wp_register_style( $style['handle'], $style['src'], $style['deps'], $style['version'] );
     }
 }

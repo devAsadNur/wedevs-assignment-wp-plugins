@@ -27,8 +27,8 @@ class UserProfile {
      * @return array
      */
     public function contact_methods_handler( $methods ) {
-        $methods['twitter']  = __( 'Twitter', 'asd-author-box' );
         $methods['facebook'] = __( 'Facebook', 'asd-author-box' );
+        $methods['twitter']  = __( 'Twitter', 'asd-author-box' );
         $methods['linkedin'] = __( 'LinkedIn', 'asd-author-box' );
 
         return $methods;
