@@ -19,6 +19,24 @@ class Assets {
     }
 
     /**
+     * Styles getter function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function get_styles() {
+        $styles = apply_filters( 'asd_author_box_styles', [
+            'asd-author-box-style' => [
+                'src'     => ASD_AUTHOR_BOX_ASSETS . '/css/author-box.css',
+                'version' => filemtime( ASD_AUTHOR_BOX_PATH . '/assets/css/author-box.css' ),
+            ],
+        ] );
+
+        return $styles;
+    }
+
+    /**
      * Assets register function
      *
      * @since 1.0.0
@@ -26,13 +44,15 @@ class Assets {
      * @return void
      */
     public function register_assets() {
-        $style = apply_filters( 'asd_author_box_styles', [
-            'handle'  => 'asd-author-box-style',
-            'src'     => ASD_AUTHOR_BOX_ASSETS . '/css/author-box.css',
-            'version' => filemtime( ASD_AUTHOR_BOX_PATH . '/assets/css/author-box.css' ),
-            'deps'    => []
-        ] );
+        $styles = $this->get_styles();
 
-        wp_register_style( $style['handle'], $style['src'], $style['deps'], $style['version'] );
+        foreach ( $styles as $handle => $style ) {
+            $deps    = isset( $style['deps'] ) ? $style['deps'] : [];
+            $version = isset( $style['version'] ) ? $style['version']: false;
+            $media   = isset( $style['media'] ) ? $style['media'] : 'all';
+
+            // Register each of the styles
+            wp_register_style( $handle, $style['src'], $deps, $version, $media );
+        }
     }
 }

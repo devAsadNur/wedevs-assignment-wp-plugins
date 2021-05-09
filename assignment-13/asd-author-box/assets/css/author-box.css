@@ -44,7 +44,9 @@
     border-radius: 5px;
     text-align: center;
 }
-.author-box-wrapper .social-buttons a:hover, .author-box-wrapper .social-buttons a:active, .author-box-wrapper .social-buttons a:focus {
+.author-box-wrapper .social-buttons a:hover,
+.author-box-wrapper .social-buttons a:active,
+.author-box-wrapper .social-buttons a:focus {
     color: #fff !important;
     text-decoration: none !important;
 }

@@ -42,8 +42,10 @@ class AuthorBox {
             return $content;
         }
 
+        // Enqueue author box style
         wp_enqueue_style( 'asd-author-box-style' );
 
+        // Include author box template
         ob_start();
         include_once ASD_AUTHOR_BOX_PATH . '/templates/author_box.php';
 
