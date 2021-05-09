@@ -17,7 +17,6 @@ class Customers {
         add_action( 'init', [ $this, 'add_customer_user_role' ] );
     }
 
-
     /**
      * Adds customer user role
      *
