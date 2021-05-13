@@ -1,0 +1,20 @@
+{
+    "name": "asad/asd-book-review-pro",
+    "description": "Assignment plugin - Book Review Pro",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Asd\\BookReviewPro\\": "includes/"
+        },
+        "files": [ "includes/functions.php" ]
+    }
+}
