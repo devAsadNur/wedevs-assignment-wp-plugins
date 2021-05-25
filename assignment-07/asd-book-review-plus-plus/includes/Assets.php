@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Book\Review\PP;
+namespace Asd\BookReviewPP;
 
 /**
  * Assets
@@ -25,7 +25,7 @@ class Assets {
      * @return array
      */
     public function get_scripts() {
-        return [
+        $scripts = apply_filters( 'asd_br_scripts', [
             'asd-rating-plugin-script' => [
                 'src'       => ASD_BOOK_REVIEW_PP_ASSETS . '/js/rater.min.js',
                 'version'   => filemtime( ASD_BOOK_REVIEW_PP_PATH . '/assets/js/rater.min.js' ),
@@ -38,7 +38,9 @@ class Assets {
                 'deps'      => [ 'jquery' ],
                 'in_footer' => true,
             ],
-        ];
+        ] );
+
+        return $scripts;
     }
 
     /**
@@ -49,12 +51,14 @@ class Assets {
      * @return array
      */
     public function get_styles() {
-        return [
+        $styles = apply_filters( 'asd_br_styles', [
             'asd-book-review-style' => [
-                'src'       => ASD_BOOK_REVIEW_PP_ASSETS . '/css/book-review.css',
-                'version'   => filemtime( ASD_BOOK_REVIEW_PP_PATH . '/assets/css/book-review.css' ),
+                'src'     => ASD_BOOK_REVIEW_PP_ASSETS . '/css/book-review.css',
+                'version' => filemtime( ASD_BOOK_REVIEW_PP_PATH . '/assets/css/book-review.css' ),
             ],
-        ];
+        ] );
+
+        return $styles;
     }
 
     /**
@@ -70,32 +74,33 @@ class Assets {
 
         foreach ( $scripts as $handle => $script ) {
             $deps      = isset( $script['deps'] ) ? $script['deps'] : [];
+            $version   = isset( $script['version'] ) ? $script['version'] : false;
             $in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
 
             /**
              * Register each of the scripts
              */
-            wp_register_script( $handle, $script['src'], $deps, $script['version'], $in_footer);
+            wp_register_script( $handle, $script['src'], $deps, $version, $in_footer);
         }
 
         foreach ($styles as $handle => $style) {
-            $deps  = isset( $style['deps'] ) ? $style['deps'] : [];
-            $media = isset( $style['media'] ) ? $style['media'] : 'all';
+            $deps    = isset( $style['deps'] ) ? $style['deps'] : [];
+            $version = isset( $style['version'] ) ? $style['version'] : false;
+            $media   = isset( $style['media'] ) ? $style['media'] : 'all';
 
             /**
              * Register each of the styles
              */
-            wp_register_style( $handle, $style['src'], $deps, $style['version'], $media );
+            wp_register_style( $handle, $style['src'], $deps, $version, $media );
         }
 
         /**
          * Book rating localized script
          */
         wp_localize_script( 'asd-rating-handler-script', 'objRating', [
-            'ajaxurl' => admin_url( 'admin-ajax.php' ),
-            'nonce'   => wp_create_nonce( 'book-review-nonce' ),
-            'action'  => 'asd-book-rating',
-            'error'   => __( 'Something went wrong!', 'asd-book-review-pp' ),
+            'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+            'rating_nonce' => wp_create_nonce( 'book-review-nonce' ),
+            'error'        => __( 'Something went wrong!', 'asd-book-review-pp' ),
         ] );
     }
 }

@@ -94,7 +94,7 @@ final class AsdBookReviewPP {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,13 +124,19 @@ final class AsdBookReviewPP {
      * @return void
      */
     public function init_plugin() {
-        new Asd\Book\Review\PP\Menu();
-        new Asd\Book\Review\PP\CustomPost();
-        new Asd\Book\Review\PP\CustomTaxonomy();
-        new Asd\Book\Review\PP\Metabox();
-        new Asd\Book\Review\PP\Assets();
-        new Asd\Book\Review\PP\Ajax();
-        new Asd\Book\Review\PP\Shortcode();
+        if ( is_admin() ) {
+            new Asd\BookReviewPP\Admin();
+        } else {
+            new Asd\BookReviewPP\Shortcode();
+        }
+
+        if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+            new Asd\BookReviewPP\Ajax();
+        }
+
+        new Asd\BookReviewPP\CustomPost();
+        new Asd\BookReviewPP\CustomTaxonomy();
+        new Asd\BookReviewPP\Assets();
     }
 
     /**
@@ -141,7 +147,7 @@ final class AsdBookReviewPP {
      * @return void
      */
     public function activate() {
-        $installer = new Asd\Book\Review\PP\Installer();
+        $installer = new Asd\BookReviewPP\Install\Installer();
         $installer->run();
     }
 }

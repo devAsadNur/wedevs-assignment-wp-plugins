@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Book\Review\PP;
+namespace Asd\BookReviewPP;
 
 /**
  * Shortcode
@@ -49,24 +49,24 @@ class Shortcode {
      */
     public function post_meta_search_handler() {
         /**
+         * Search input from user
+         */
+        $search_keyword = isset( $_REQUEST['keyword'] ) ? sanitize_text_field( $_REQUEST['keyword'] ) : '';
+
+        /**
          * Conditional checkings
          */
-        if ( ! isset( $_REQUEST['book-post-meta-search'] ) ) {
+        if ( ! isset( $_REQUEST['br-meta-search-submit'] ) ) {
             return;
         }
 
-        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'book-review-search' ) ) {
+        if ( ! isset( $_REQUEST['_wpnonce_br_search'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce_br_search'], 'book-review-search' ) ) {
             wp_die( 'Nonce verification failed!' );
         }
 
-        if ( ! isset( $_REQUEST['keyword'] ) ) {
+        if ( empty( $search_keyword ) ) {
             return;
         }
-
-        /**
-         * Search input from user
-         */
-        $search_keyword = $_REQUEST['keyword'];
 
         /**
          * Book meta query arguments
@@ -130,15 +130,9 @@ class Shortcode {
          * Show output if found
          */
         if ( $book_meta_query->have_posts() ) {
-            /**
-             * Fetched all posts
-             */
-            $posts = $book_meta_query->posts;
+            while ( $book_meta_query->have_posts() ) {
+                $book_meta_query->the_post();
 
-            /**
-             * Single post
-             */
-            foreach( $posts as $post ) {
                 /**
                  * Include search result viewer template
                  */
@@ -149,5 +143,10 @@ class Shortcode {
         } else {
             echo __( 'No book review matched with your query!', 'asd-book-review-pp' );
         }
+
+        /**
+         * Restore original Post Data
+         */
+        wp_reset_postdata();
     }
 }

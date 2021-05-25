@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Book\Review\PP;
+namespace Asd\BookReviewPP\Install;
 
 /**
  * Install
@@ -16,21 +16,21 @@ class Installer {
      * @return void
      */
     public function run() {
-        $this->add_version();
+        $this->add_version_info();
         $this->create_tables();
     }
 
     /**
-     * Plugin version adder function
+     * Adds plugin version
      *
      * @since 1.0.0
      *
      * @return void
      */
-    public function add_version() {
+    public function add_version_info() {
         $installed = get_option( 'asd_book_review_pp_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_book_review_pp_installed', time() );
         }
 
@@ -38,7 +38,7 @@ class Installer {
     }
 
     /**
-     * Database table creator function
+     * Creates database table
      *
      * @since 1.0.0
      *

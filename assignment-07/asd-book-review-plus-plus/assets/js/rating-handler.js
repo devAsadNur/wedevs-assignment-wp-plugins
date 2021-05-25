@@ -1,7 +1,7 @@
 ;(function($) {
 
     $(document).ready(function() {
-        // Rating Options
+        // Rating Options (Default)
         var options = {
             max_value: 5,
             step_size: 0.5,
@@ -11,18 +11,31 @@
             change_once: false, // Determines if the rating can only be set once
             additional_data: {} // Additional data to send to the server
         }
+
+        // Rating Options (Bulk)
+        var options_bulk = {
+            max_value: 5,
+            step_size: 0.5,
+            selected_symbol_type: 'utf8_star', // Must be a key from symbols
+            cursor: 'pointer',
+            readonly: true,
+            change_once: false, // Determines if the rating can only be set once
+            additional_data: {} // Additional data to send to the server
+        }
+
         // Activate rating plugin
-        $(".rating").rate(options);
+        $(".book-rating").rate(options);
+        $(".rating-bulk").rate(options_bulk);
 
         // Book rating AJAX handler
         $(".book-rating").on("click", function (e) {
             // Data objct to send PHP via AJAX request
             let userData = {
-                _ajax_nonce: objRating.nonce,
-                action:      objRating.action,
-                post_id:     $(this).attr("data-post-id"),
-                rating:      $(this).attr("data-rate-value"),
-                rating_id:   $(this).attr("data-rating-id"),
+                _ajax_nonce: objRating.rating_nonce,
+                action     : 'asd-book-rating',
+                post_id    : $(this).attr("data-post-id"),
+                rating     : $(this).attr("data-rate-value"),
+                rating_id  : $(this).attr("data-rating-id"),
             }
 
             // Ajax request handler

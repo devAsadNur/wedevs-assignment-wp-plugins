@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Book\Review\PP;
+namespace Asd\BookReviewPP;
 
 /**
  * Custom post
@@ -28,7 +28,7 @@ class CustomPost {
         /**
          * Labels array for custom post type: Book
          */
-        $labels = apply_filters( 'abr_post_type_book_labels', array(
+        $labels = apply_filters( 'br_post_type_book_labels', [
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-pp' ),
             'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review-pp' ),
             'add_new'            => __( 'Add New', 'book', 'asd-book-review-pp' ),
@@ -41,19 +41,19 @@ class CustomPost {
             'not_found'          => __( 'No books found', 'asd-book-review-pp' ),
             'not_found_in_trash' => __( 'No books found in the Trash', 'asd-book-review-pp' ),
             'menu_name'          => __( 'Books', 'asd-book-review-pp' ),
-        ) );
+        ] );
 
         /**
          * Arguments array for custom post type: Book
          */
-        $args = apply_filters( 'abr_post_type_book_args', array(
+        $args = apply_filters( 'br_post_type_book_args', [
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
             'show_ui'            => true,
             'show_in_menu'       => true,
             'query_var'          => true,
-            'rewrite'            => array( 'slug' => 'book' ),
+            'rewrite'            => array( 'slug' => 'books' ),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
@@ -62,7 +62,7 @@ class CustomPost {
             'taxonomies'         => array( 'category' ),
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-book',
-        ) );
+        ] );
 
         /**
          * Register custom post type: Book

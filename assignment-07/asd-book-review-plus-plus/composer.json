@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Asd\\Book\\Review\\PP\\": "includes/"
+            "Asd\\BookReviewPP\\": "includes/"
         },
         "files": [ "includes/functions.php" ]
     }

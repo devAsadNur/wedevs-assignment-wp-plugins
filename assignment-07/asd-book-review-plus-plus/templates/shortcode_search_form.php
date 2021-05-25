@@ -8,7 +8,6 @@
  */
 ?>
 <h3><?php esc_html_e( 'Search for Book Review', 'asd-book-review-pp' ); ?></h3>
-
 <form id="book-review-search-form" action="" method="GET">
     <?php
     /**
@@ -17,7 +16,7 @@
      *
      * @since 1.0.0
      */
-    do_action( 'abr_search_field_before' );
+    do_action( 'br_search_field_before' );
 
     /**
      * HTML form field
@@ -25,8 +24,8 @@
     ?>
     <div>
         <input name="keyword" type="text" id="keyword" <?php esc_attr_e( 'Input text here', 'asd-book-review-pp' ); ?>" required>
-        <?php wp_nonce_field( 'book-review-search' ); ?>
-        <input name="book-post-meta-search" type="submit" value="<?php esc_attr_e( 'Search Book Review', 'asd-book-review-pp' ); ?>">
+        <?php wp_nonce_field( 'book-review-search', '_wpnonce_br_search' ); ?>
+        <input name="br-meta-search-submit" type="submit" value="<?php esc_attr_e( 'Search Book Review', 'asd-book-review-pp' ); ?>">
     </div>
     <?php
 
@@ -36,7 +35,7 @@
      *
      * @since 1.0.0
      */
-    do_action( 'abr_search_field_after' );
+    do_action( 'br_search_field_after' );
     ?>
 </form>
 <?php
