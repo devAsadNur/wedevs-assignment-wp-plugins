@@ -83,6 +83,6 @@ $book_rating_id     = isset( $book_rating_result->id ) ? (int) $book_rating_resu
 <?php
 
 /**
- * Get the themme footer
+ * Get the theme footer
  */
 get_footer();

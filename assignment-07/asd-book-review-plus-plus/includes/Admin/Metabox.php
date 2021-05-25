@@ -30,7 +30,7 @@ class Metabox {
             'books_custom_meta_box',
             __( 'Book Details', 'asd-book-review-pp' ),
             [ $this, 'books_metabox_content_handler' ],
-            'book',
+            'books',
         );
     }
 

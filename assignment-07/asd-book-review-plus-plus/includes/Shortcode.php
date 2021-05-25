@@ -72,7 +72,7 @@ class Shortcode {
          * Book meta query arguments
          */
         $book_meta_query_args = apply_filters( 'abr_book_meta_query_args', array(
-            'post_type'   => 'book',
+            'post_type'   => 'books',
             'post_status' => 'publish',
             'meta_query'  => array(
                 'relation' => 'OR',

@@ -125,7 +125,8 @@ final class AsdBookReviewPP {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\BookReviewPP\Admin();
+            new Asd\BookReviewPP\Admin\Menu();
+            new Asd\BookReviewPP\Admin\Metabox();
         } else {
             new Asd\BookReviewPP\Shortcode();
         }
