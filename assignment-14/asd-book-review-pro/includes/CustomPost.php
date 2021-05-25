@@ -14,21 +14,21 @@ class CustomPost {
      * @since  1.0.0
      */
     public function __construct() {
-        add_action( 'init', [ $this, 'custom_post_book' ] );
+        add_action( 'init', [ $this, 'custom_post_books' ] );
     }
 
     /**
-     * Custom post type: Book, creator function
+     * Custom post type: Books, creator function
      *
      * @since  1.0.0
      *
      * @return void
      */
-    public function custom_post_book() {
+    public function custom_post_books() {
         /**
-         * Labels array for custom post type: Book
+         * Labels array for custom post type: Books
          */
-        $labels = apply_filters( 'br_post_type_book_labels', [
+        $labels = apply_filters( 'br_post_type_books_labels', [
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-pro' ),
             'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review-pro' ),
             'add_new'            => __( 'Add New', 'book', 'asd-book-review-pro' ),
@@ -44,9 +44,9 @@ class CustomPost {
         ] );
 
         /**
-         * Arguments array for custom post type: Book
+         * Arguments array for custom post type: Books
          */
-        $args = apply_filters( 'br_post_type_book_args', [
+        $args = apply_filters( 'br_post_type_books_args', [
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
@@ -65,7 +65,7 @@ class CustomPost {
         ] );
 
         /**
-         * Register custom post type: Book
+         * Register custom post type: Books
          */
         register_post_type( 'books', $args );
     }

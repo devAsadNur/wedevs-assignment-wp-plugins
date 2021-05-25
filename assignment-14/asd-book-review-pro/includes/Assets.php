@@ -25,7 +25,7 @@ class Assets {
      * @return array
      */
     public function get_scripts() {
-        $scripts = apply_filters( 'asd_br_scripts', [
+        $scripts = apply_filters( 'asd_brp_scripts', [
             'asd-rating-plugin-script' => [
                 'src'       => ASD_BOOK_REVIEW_PRO_ASSETS . '/js/rater.min.js',
                 'version'   => filemtime( ASD_BOOK_REVIEW_PRO_PATH . '/assets/js/rater.min.js' ),
@@ -51,7 +51,7 @@ class Assets {
      * @return array
      */
     public function get_styles() {
-        $styles = apply_filters( 'asd_br_styles', [
+        $styles = apply_filters( 'asd_brp_styles', [
             'asd-book-review-style' => [
                 'src'     => ASD_BOOK_REVIEW_PRO_ASSETS . '/css/book-review.css',
                 'version' => filemtime( ASD_BOOK_REVIEW_PRO_PATH . '/assets/css/book-review.css' ),

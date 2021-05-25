@@ -126,7 +126,8 @@ final class AsdBookReviewPro {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\BookReviewPro\Admin();
+            new Asd\BookReviewPro\Admin\Menu();
+            new Asd\BookReviewPro\Admin\Metabox();
         } else {
             new Asd\BookReviewPro\Shortcode();
         }
@@ -171,11 +172,11 @@ final class AsdBookReviewPro {
  *
  * @return \AsdBookReviewPro
  */
-function asd_book_review_pp() {
+function asd_book_review_pro() {
     return AsdBookReviewPro::init();
 }
 
 /**
  * Kick-off the plugin
  */
-asd_book_review_pp();
+asd_book_review_pro();
