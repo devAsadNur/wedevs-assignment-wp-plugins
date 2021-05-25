@@ -2,7 +2,7 @@
 /**
  * Plugin Name:           Book Review Plus
  * Plugin URI:            https://wedevs.com/
- * Description:           Assignment 6, plugin 1
+ * Description:           Assignment 06, plugin 01
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
@@ -94,7 +94,7 @@ final class AsdBookReviewPlus {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,11 +124,15 @@ final class AsdBookReviewPlus {
      * @return void
      */
     public function init_plugin() {
-        new Asd\BookReviewPlus\Menu();
-        new Asd\BookReviewPlus\CustomPostBook();
-        new Asd\BookReviewPlus\CustomTaxonomyGenre();
-        new Asd\BookReviewPlus\Metabox();
-        new Asd\BookReviewPlus\Shortcode();
+        if ( is_admin() ) {
+            new Asd\BookReviewPlus\Admin\Menu();
+            new Asd\BookReviewPlus\Admin\Metabox();
+        } else {
+            new Asd\BookReviewPlus\Shortcode();
+        }
+
+        new Asd\BookReviewPlus\CustomPost();
+        new Asd\BookReviewPlus\CustomTaxonomy();
     }
 
     /**
@@ -141,7 +145,7 @@ final class AsdBookReviewPlus {
     public function activate() {
         $installed = get_option( 'asd_book_review_plus_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_book_review_plus_installed', time() );
         }
 

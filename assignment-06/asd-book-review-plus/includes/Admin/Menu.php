@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\BookReviewPlus;
+namespace Asd\BookReviewPlus\Admin;
 
 /**
  * The menu
@@ -26,7 +26,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'Book Review Plus', 'asd-book-review-plus' ), __( 'Book Review Plus', 'asd-book-review-plus' ), 'manage_options', 'asd-book-review-plus', [ $this, 'plugin_page' ], 'dashicons-book' );
+        add_menu_page( __( 'Book Review Plus', 'asd-book-review-plus' ), __( 'Book Review+', 'asd-book-review-plus' ), 'manage_options', 'book-review-plus', [ $this, 'plugin_page_handler' ], 'dashicons-book' );
     }
 
     /**
@@ -36,12 +36,12 @@ class Menu {
      *
      * @return void
      */
-    public function plugin_page() {
+    public function plugin_page_handler() {
         /**
          * Include menu page template
          */
         ob_start();
-        require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/admin_menu_page.php";
+        require_once ASD_BOOK_REVIEW_PLUS_PATH . "/templates/admin/menu_page.php";
         echo ob_get_clean();
     }
 }

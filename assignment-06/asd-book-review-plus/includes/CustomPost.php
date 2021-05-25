@@ -3,10 +3,10 @@
 namespace Asd\BookReviewPlus;
 
 /**
- * Post Type: Book
+ * Custom post
  * handler class
  */
-class CustomPostBook {
+class CustomPost {
 
     /**
      * Initialize the class
@@ -14,24 +14,24 @@ class CustomPostBook {
      * @since  1.0.0
      */
     public function __construct() {
-        add_action( 'init', [ $this, 'custom_post_type_book' ] );
+        add_action( 'init', [ $this, 'custom_post_books' ] );
     }
 
     /**
-     * Custom post type: Book, creator function
+     * Custom post type: Books, creator function
      *
      * @since  1.0.0
      *
      * @return void
      */
-    public function custom_post_type_book() {
+    public function custom_post_books() {
         /**
-         * Labels array for custom post type: Book
+         * Labels array for custom post type: Books
          */
-        $labels = apply_filters( 'abrp_post_type_book_labels', array(
+        $labels = apply_filters( 'br_post_type_books_labels', [
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-plus' ),
             'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review-plus' ),
-            'add_new'            => _x( 'Add New', 'book', 'asd-book-review-plus' ),
+            'add_new'            => __( 'Add New', 'book', 'asd-book-review-plus' ),
             'add_new_item'       => __( 'Add New Book', 'asd-book-review-plus' ),
             'edit_item'          => __( 'Edit Book', 'asd-book-review-plus' ),
             'new_item'           => __( 'New Book', 'asd-book-review-plus' ),
@@ -40,21 +40,20 @@ class CustomPostBook {
             'search_items'       => __( 'Search Books', 'asd-book-review-plus' ),
             'not_found'          => __( 'No books found', 'asd-book-review-plus' ),
             'not_found_in_trash' => __( 'No books found in the Trash', 'asd-book-review-plus' ),
-            'parent_item_colon'  => '’',
-            'menu_name'          => 'Books',
-        ) );
+            'menu_name'          => __( 'Books', 'asd-book-review-plus' ),
+        ] );
 
         /**
-         * Arguments array for custom post type: Book
+         * Arguments array for custom post type: Books
          */
-        $args = apply_filters( 'abrp_post_type_book_args', array(
+        $args = apply_filters( 'br_post_type_books_args', [
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
             'show_ui'            => true,
             'show_in_menu'       => true,
             'query_var'          => true,
-            'rewrite'            => array( 'slug' => 'book' ),
+            'rewrite'            => array( 'slug' => 'books' ),
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
@@ -63,11 +62,11 @@ class CustomPostBook {
             'taxonomies'         => array( 'category' ),
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-book',
-        ) );
+        ] );
 
         /**
-         * Register custom post type: Book
+         * Register custom post type: Books
          */
-        register_post_type( 'book', $args );
+        register_post_type( 'books', $args );
     }
 }

@@ -14,7 +14,7 @@ class Shortcode {
      * @since 1.0.0
      */
     public function __construct() {
-        add_shortcode( 'asd-book-post-meta-search', [ $this, 'render_shortcode_form' ] );
+        add_shortcode( 'asd-book-review-search', [ $this, 'render_shortcode_form' ] );
     }
 
     /**
@@ -25,6 +25,7 @@ class Shortcode {
      * @return void
      */
     public function render_shortcode_form() {
+
         /**
          * Include search form template
          */
@@ -50,28 +51,28 @@ class Shortcode {
         /**
          * Search input from user
          */
-        $search_keyword = $_REQUEST['keyword'];
+        $search_keyword = isset( $_REQUEST['keyword'] ) ? sanitize_text_field( $_REQUEST['keyword'] ) : '';
 
         /**
          * Conditional checkings
          */
-        if ( ! isset( $_REQUEST['book-post-meta-search'] ) ) {
+        if ( ! isset( $_REQUEST['br-meta-search-submit'] ) ) {
             return;
         }
 
-        if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'book-post-meta-search' ) ) {
+        if ( ! isset( $_REQUEST['_wpnonce_br_search'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce_br_search'], 'book-review-search' ) ) {
             wp_die( 'Nonce verification failed!' );
         }
 
-        if ( ! isset( $search_keyword ) ) {
+        if ( empty( $search_keyword ) ) {
             return;
         }
 
         /**
          * Book meta query arguments
          */
-        $book_meta_query_args = apply_filters( 'abrp_book_meta_query_args', array(
-            'post_type'   => 'book',
+        $book_meta_query_args = apply_filters( 'abr_book_meta_query_args', array(
+            'post_type'   => 'books',
             'post_status' => 'publish',
             'meta_query'  => array(
                 'relation' => 'OR',
@@ -129,15 +130,9 @@ class Shortcode {
          * Show output if found
          */
         if ( $book_meta_query->have_posts() ) {
-            /**
-             * Fetched all posts
-             */
-            $posts = $book_meta_query->posts;
+            while ( $book_meta_query->have_posts() ) {
+                $book_meta_query->the_post();
 
-            /**
-             * Single post
-             */
-            foreach( $posts as $post ) {
                 /**
                  * Include search result viewer template
                  */
@@ -146,7 +141,12 @@ class Shortcode {
                 echo ob_get_clean();
             }
         } else {
-            echo __( 'No post matched with your query!', 'asd-book-review-plus' );
+            echo __( 'No book review matched with your query!', 'asd-book-review-plus' );
         }
+
+        /**
+         * Restore original Post Data
+         */
+        wp_reset_postdata();
     }
 }
