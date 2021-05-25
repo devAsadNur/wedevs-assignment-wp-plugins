@@ -95,7 +95,7 @@ final class AsdBookReviewPro {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
