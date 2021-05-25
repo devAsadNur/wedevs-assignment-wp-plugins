@@ -15,7 +15,7 @@ class Ajax {
      */
     public function __construct() {
         add_action( 'wp_ajax_asd-book-rating', [ $this, 'book_rating_request_handler' ] );
-        add_action( 'wp_ajax_nopriv_asd-book-rating', [ $this, 'book_rating_frontend_handler' ] );
+        add_action( 'wp_ajax_nopriv_asd-book-rating', [ $this, 'book_rating_request_handler' ] );
     }
 
     /**
@@ -26,7 +26,13 @@ class Ajax {
      * @return void
      */
     public function book_rating_request_handler() {
-        if ( ! wp_verify_nonce( $_REQUEST['_ajax_nonce'], 'book-review-nonce' ) ) {
+        if ( ! is_user_logged_in() ) {
+            wp_send_json_error( [
+                'message' => __( 'Please login first to give rating!', 'asd-book-review-pro' ),
+            ] );
+        }
+
+        if ( ! isset( $_REQUEST['_ajax_nonce'] ) || ! wp_verify_nonce( $_REQUEST['_ajax_nonce'], 'book-review-nonce' ) ) {
             wp_send_json_error( [
                 'message' => __( 'Nonce verification failed!', 'asd-book-review-pro' ),
             ] );
@@ -45,41 +51,37 @@ class Ajax {
         }
 
         $args = [
-            'post_id' => $_REQUEST['post_id'],
-            'rating'  => $_REQUEST['rating'],
+            'post_id' => (int) $_REQUEST['post_id'],
+            'rating'  => (float) $_REQUEST['rating'],
         ];
 
-        if ( '' !== $_REQUEST['rating_id'] ) {
-            $args['id'] = $_REQUEST['rating_id'];
+        if ( ! empty( $_REQUEST['rating_id'] ) ) {
+            $args['id'] = (int) $_REQUEST['rating_id'];
 
-            asd_br_update_rating( $args );
+            $rating_updated = asd_br_update_rating( $args );
+
+            if ( is_wp_error( $rating_updated ) ) {
+                wp_send_json_error( [
+                    'message' => $rating_updated->get_error_message(),
+                ] );
+            }
+
             wp_send_json_success( [
                 'message' => __( 'Rating updated successfully!', 'asd-book-review-pro' ),
             ] );
         } else {
             $insert_id = asd_br_insert_rating( $args );
 
+            if ( is_wp_error( $insert_id ) ) {
+                wp_send_json_error( [
+                    'message' => $insert_id->get_error_message(),
+                ] );
+            }
+
             wp_send_json_success( [
                 'message' => __( 'Rating added successfully!', 'asd-book-review-pro' ),
-                'rating_id' => $insert_id,
+                'rating_id' => (int) $insert_id,
             ] );
         }
-
-        wp_send_json_error( [
-            'message' => __(  'Request failed!', 'asd-book-review-pro' ),
-        ] );
-    }
-
-    /**
-     * Book rating AJAX hanler function for non-logged in user
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function book_rating_frontend_handler() {
-        wp_send_json_error( [
-            'message' => __( 'Please login in first in order to give rating!', 'asd-book-review-pro' ),
-        ] );
     }
 }

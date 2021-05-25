@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\BookReviewPro;
+namespace Asd\BookReviewPro\Install;
 
 /**
  * Install
@@ -16,7 +16,7 @@ class Installer {
      * @return void
      */
     public function run() {
-        $this->add_version();
+        $this->add_version_info();
         $this->create_tables();
     }
 
@@ -27,7 +27,7 @@ class Installer {
      *
      * @return void
      */
-    public function add_version() {
+    public function add_version_info() {
         $installed = get_option( 'asd_book_review_pro_installed' );
 
         if ( ! $installed ) {

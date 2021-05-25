@@ -126,8 +126,10 @@ final class AsdBookReviewPro {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\BookReviewPro\Menu();
-            new Asd\BookReviewPro\Metabox();
+            new Asd\BookReviewPro\Admin();
+        } else {
+            new Asd\BookReviewPro\Shortcode();
+            new Asd\BookReviewPro\RewriteAPI();
         }
 
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -137,8 +139,6 @@ final class AsdBookReviewPro {
         new Asd\BookReviewPro\CustomPost();
         new Asd\BookReviewPro\CustomTaxonomy();
         new Asd\BookReviewPro\Assets();
-        new Asd\BookReviewPro\Shortcode();
-        new Asd\BookReviewPro\RewriteAPI();
     }
 
     /**
@@ -149,7 +149,7 @@ final class AsdBookReviewPro {
      * @return void
      */
     public function activate() {
-        $installer = new Asd\BookReviewPro\Installer();
+        $installer = new Asd\BookReviewPro\Install\Installer();
         $installer->run();
     }
 
@@ -161,7 +161,8 @@ final class AsdBookReviewPro {
      * @return void
      */
     public function deactivate() {
-        flush_rewrite_rules();
+        $uninstaller = new Asd\BookReviewPro\Uninstall\Uninstaller();
+        $uninstaller->run();
     }
 }
 

@@ -42,7 +42,7 @@ function asd_br_insert_rating( $args = [] ) {
         'post_id'    => '',
         'user_id'    => get_current_user_id(),
         'ip'         => asd_br_get_the_user_ip(),
-        'rating'     => '',
+        'rating'     => 0.0,
         'created_at' => current_time( 'mysql' ),
     ];
 
@@ -80,9 +80,9 @@ function asd_br_insert_rating( $args = [] ) {
 function asd_br_update_rating( $args = [] ) {
     global $wpdb;
 
-    $id = $args['id'];
+    $id = (int) $args['id'];
 
-    if ( '' === $id ) {
+    if ( empty( $id ) ) {
         return new \WP_Error( 'no-rating-id', __( 'Rating ID must not be empty', 'asd-book-review-pro' ) );
     }
 
@@ -92,7 +92,7 @@ function asd_br_update_rating( $args = [] ) {
 
     $defaults = [
         'ip'         => asd_br_get_the_user_ip(),
-        'rating'     => '',
+        'rating'     => 0.0,
         'updated_at' => current_time( 'mysql' ),
     ];
 
@@ -116,6 +116,8 @@ function asd_br_update_rating( $args = [] ) {
     if ( ! $updated ) {
         return new \WP_Error( 'failed-to-update', __( 'Failed to update data', 'asd-book-review-pro' ) );
     }
+
+    return $updated;
 }
 
 /**

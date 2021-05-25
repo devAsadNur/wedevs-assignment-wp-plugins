@@ -45,7 +45,7 @@ $args = [
     <h2 class="book-title"><?php echo esc_html( $post->post_title ); ?></h2>
     <div class="book-review-content clearfix">
         <div class="book-review-thumb float-left">
-            <img src="<?php esc_url( the_post_thumbnail_url() ); ?>" alt="<?php echo  esc_attr( $post->post_title, ); ?>" />
+            <img src="<?php esc_url( the_post_thumbnail_url() ); ?>" alt="<?php echo esc_attr( $post->post_title ); ?>" />
         </div>
         <div class="book-review-details float-left">
         <?php

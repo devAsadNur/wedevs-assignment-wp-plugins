@@ -11,6 +11,7 @@
             change_once: false, // Determines if the rating can only be set once
             additional_data: {} // Additional data to send to the server
         }
+
         // Rating Options (Bulk)
         var options_bulk = {
             max_value: 5,
@@ -21,6 +22,7 @@
             change_once: false, // Determines if the rating can only be set once
             additional_data: {} // Additional data to send to the server
         }
+
         // Activate rating plugin
         $(".book-rating").rate(options);
         $(".rating-bulk").rate(options_bulk);
@@ -29,11 +31,11 @@
         $(".book-rating").on("click", function (e) {
             // Data objct to send PHP via AJAX request
             let userData = {
-                _ajax_nonce: objRating.nonce,
-                action:      objRating.action,
-                post_id:     $(this).attr("data-post-id"),
-                rating:      $(this).attr("data-rate-value"),
-                rating_id:   $(this).attr("data-rating-id"),
+                _ajax_nonce: objRating.rating_nonce,
+                action     : 'asd-book-rating',
+                post_id    : $(this).attr("data-post-id"),
+                rating     : $(this).attr("data-rate-value"),
+                rating_id  : $(this).attr("data-rating-id"),
             }
 
             // Ajax request handler

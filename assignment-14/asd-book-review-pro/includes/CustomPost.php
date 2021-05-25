@@ -28,7 +28,7 @@ class CustomPost {
         /**
          * Labels array for custom post type: Book
          */
-        $labels = apply_filters( 'abr_post_type_book_labels', array(
+        $labels = apply_filters( 'br_post_type_book_labels', [
             'name'               => _x( 'Books', 'post type general name', 'asd-book-review-pro' ),
             'singular_name'      => _x( 'Book', 'post type singular name', 'asd-book-review-pro' ),
             'add_new'            => __( 'Add New', 'book', 'asd-book-review-pro' ),
@@ -41,12 +41,12 @@ class CustomPost {
             'not_found'          => __( 'No books found', 'asd-book-review-pro' ),
             'not_found_in_trash' => __( 'No books found in the Trash', 'asd-book-review-pro' ),
             'menu_name'          => __( 'Books', 'asd-book-review-pro' ),
-        ) );
+        ] );
 
         /**
          * Arguments array for custom post type: Book
          */
-        $args = apply_filters( 'abr_post_type_book_args', array(
+        $args = apply_filters( 'br_post_type_book_args', [
             'labels'             => $labels,
             'public'             => true,
             'publicly_queryable' => true,
@@ -62,7 +62,7 @@ class CustomPost {
             'taxonomies'         => array( 'category' ),
             'show_in_rest'       => true,
             'menu_icon'          => 'dashicons-book',
-        ) );
+        ] );
 
         /**
          * Register custom post type: Book
