@@ -67,6 +67,6 @@ class CustomPost {
         /**
          * Register custom post type: Book
          */
-        register_post_type( 'book', $args );
+        register_post_type( 'books', $args );
     }
 }
