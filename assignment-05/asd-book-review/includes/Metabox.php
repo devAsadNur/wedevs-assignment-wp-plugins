@@ -14,7 +14,7 @@ class Metabox {
      * @since 1.0.0
      */
     public function __construct() {
-        add_action( 'add_meta_boxes', [ $this, 'books_custom_metabox_handler' ] );
+        add_action( 'add_meta_boxes', [ $this, 'register_books_custom_metabox' ] );
         add_action( 'save_post', [ $this, 'books_metabox_update_metadata' ] );
     }
 
@@ -25,12 +25,12 @@ class Metabox {
      *
      * @return void
      */
-    public function books_custom_metabox_handler() {
+    public function register_books_custom_metabox() {
         add_meta_box(
             'books_custom_meta_box',
-            'Book Details',
+            __( 'Book Details', 'asd-book-review' ),
             [ $this, 'books_metabox_content_handler' ],
-            'book',
+            'books',
         );
     }
 
@@ -57,7 +57,7 @@ class Metabox {
          * Include book metabox form template
          */
         ob_start();
-        require_once ASD_BOOK_REVIEW_PATH . "/templates/metabox_book_form.php";
+        require_once ASD_BOOK_REVIEW_PATH . "/templates/book_metabox_form.php";
         echo ob_get_clean();
     }
 
@@ -74,42 +74,47 @@ class Metabox {
         /**
          * Assign empty value to the input array keys
          */
-        $book_meta_fields = apply_filters( 'metabox_book_input_fields', array(
-            'writter'        => '',
-            'isbn'           => '',
-            'year'           => '',
-            'price'          => '',
-            'description'    => '',
-        ) );
+        $book_meta_fields = [
+            'writter'     => '',
+            'isbn'        => '',
+            'year'        => '',
+            'price'       => '',
+            'description' => '',
+        ];
 
         /**
          * Assign input values to the meta input array
          */
-        if( isset( $_POST['writter'] ) ) {
-            $book_meta_fields['writter'] = sanitize_text_field($_POST['writter']);
+        if ( isset( $_POST['writter'] ) ) {
+            $book_meta_fields['writter'] = sanitize_text_field( $_POST['writter'] );
         }
-        if( isset( $_POST['isbn'] ) ) {
-            $book_meta_fields['isbn'] = sanitize_text_field($_POST['isbn']);
+        if ( isset( $_POST['isbn'] ) ) {
+            $book_meta_fields['isbn'] = sanitize_text_field( $_POST['isbn'] );
         }
-        if( isset( $_POST['year'] ) ) {
-            $book_meta_fields['year'] = sanitize_text_field($_POST['year']);
+        if ( isset( $_POST['year'] ) ) {
+            $book_meta_fields['year'] = sanitize_text_field( $_POST['year'] );
         }
-        if( isset( $_POST['price'] ) ) {
-            $book_meta_fields['price'] = sanitize_text_field($_POST['price']);
+        if ( isset( $_POST['price'] ) ) {
+            $book_meta_fields['price'] = sanitize_text_field( $_POST['price'] );
         }
-        if( isset( $_POST['description'] ) ) {
-            $book_meta_fields['description'] = sanitize_textarea_field($_POST['description']);
+        if ( isset( $_POST['description'] ) ) {
+            $book_meta_fields['description'] = sanitize_textarea_field( $_POST['description'] );
         }
 
         /**
-         * Update post meta
+         * Update post meta values
          */
-        foreach ( $book_meta_fields as $field_key => $field_value ) {
-            update_post_meta(
-                $post_id,
-                'book_meta_key_' . $field_key,
-                $field_value,
-            );
-        }
+        update_post_meta( $post_id, 'book_meta_key_writter', $book_meta_fields['writter'] );
+        update_post_meta( $post_id, 'book_meta_key_isbn', $book_meta_fields['isbn'] );
+        update_post_meta( $post_id, 'book_meta_key_year', $book_meta_fields['year'] );
+        update_post_meta( $post_id, 'book_meta_key_price', $book_meta_fields['price'] );
+        update_post_meta( $post_id, 'book_meta_key_description', $book_meta_fields['description'] );
+
+        /**
+         * Action hook for updating extra metadata
+         *
+         * @since 1.0.0
+         */
+        do_action( 'br_book_metabox_update_metadata', $post_id );
     }
 }

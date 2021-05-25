@@ -2,7 +2,7 @@
 /**
  * Plugin Name:           Book Review
  * Plugin URI:            https://wedevs.com/
- * Description:           Assignment 5, plugin 1
+ * Description:           Assignment 05, plugin 01
  * Version:               1.0.0
  * Author:                Asad
  * Author URI:            https://wedevs.com/
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Include the autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
@@ -94,7 +94,7 @@ final class AsdBookReview {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,9 +124,12 @@ final class AsdBookReview {
      * @return void
      */
     public function init_plugin() {
-        new Asd\BookReview\Menu();
-        new Asd\BookReview\CustomPostBook();
-        new Asd\BookReview\Metabox();
+        if ( is_admin() ) {
+            new Asd\BookReview\Menu();
+            new Asd\BookReview\Metabox();
+        }
+
+        new Asd\BookReview\CustomPost();
     }
 
     /**
@@ -139,7 +142,7 @@ final class AsdBookReview {
     public function activate() {
         $installed = get_option( 'asd_book_review_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_book_review_installed', time() );
         }
 
