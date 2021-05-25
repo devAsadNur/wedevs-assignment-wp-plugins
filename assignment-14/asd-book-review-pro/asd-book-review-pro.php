@@ -129,16 +129,16 @@ final class AsdBookReviewPro {
             new Asd\BookReviewPro\Admin();
         } else {
             new Asd\BookReviewPro\Shortcode();
-            new Asd\BookReviewPro\RewriteAPI();
         }
 
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
             new Asd\BookReviewPro\Ajax();
         }
 
+        new Asd\BookReviewPro\Assets();
         new Asd\BookReviewPro\CustomPost();
         new Asd\BookReviewPro\CustomTaxonomy();
-        new Asd\BookReviewPro\Assets();
+        new Asd\BookReviewPro\RewriteAPI();
     }
 
     /**
