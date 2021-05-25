@@ -57,6 +57,10 @@ class CustomTaxonomy {
         /**
          * Register custom taxonomy: Genre
          */
-        register_taxonomy( 'genre', array( 'book' ), $args );
+        register_taxonomy(
+            'genre',
+            [ 'books' ],
+            $args
+        );
     }
 }
