@@ -55,10 +55,13 @@ class Ajax {
             'rating'  => (float) $_REQUEST['rating'],
         ];
 
+        // Create instance of Rating Object
+        $obj_rating = new Rating();
+
         if ( ! empty( $_REQUEST['rating_id'] ) ) {
             $args['id'] = (int) $_REQUEST['rating_id'];
 
-            $rating_updated = asd_br_update_rating( $args );
+            $rating_updated = $obj_rating->update_rating( $args );
 
             if ( is_wp_error( $rating_updated ) ) {
                 wp_send_json_error( [
@@ -70,7 +73,7 @@ class Ajax {
                 'message' => __( 'Rating updated successfully!', 'asd-book-review-pro' ),
             ] );
         } else {
-            $insert_id = asd_br_insert_rating( $args );
+            $insert_id = $obj_rating->insert_rating( $args );
 
             if ( is_wp_error( $insert_id ) ) {
                 wp_send_json_error( [

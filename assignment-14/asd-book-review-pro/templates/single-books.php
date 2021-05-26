@@ -51,9 +51,12 @@ $args = [
         <?php
         $query_var_rating = get_query_var( 'rating' );
 
+        // Create instance of Rating Object
+        $obj_rating = new Asd\BookReviewPro\Rating();
+
         if ( true !== $query_var_rating ) {
             // Fetching single rating data of current post
-            $book_rating_result = asd_br_get_rating( $args );
+            $book_rating_result = $obj_rating->get_rating( $args );
             $book_rating        = isset( $book_rating_result->rating ) ? (float) $book_rating_result->rating : 0;
             $book_rating_id     = isset( $book_rating_result->id ) ? (int) $book_rating_result->id: '';
             ?>
@@ -90,7 +93,7 @@ $args = [
             $offset   = ( $page_num - 1 ) * $per_page;
 
             // Variables for pagination
-            $post_ratings  = asd_br_get_ratings( $args );
+            $post_ratings  = $obj_rating->get_ratings( $args );
             $total_ratings = count( $post_ratings );
             $total_page    = ceil( $total_ratings / $per_page );
             $current_page  = ( $page_num > 1 ) ? $page_num : 1;
@@ -102,7 +105,7 @@ $args = [
             $args['offset'] = $offset;
 
             // Fetching all ratings data to display on current page
-            $book_rating_results = asd_br_get_ratings( $args );
+            $book_rating_results = $obj_rating->get_ratings( $args );
 
             ?>
             <table class="rating-table">
