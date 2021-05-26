@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Contact\Form\Plus;
+namespace Asd\ContactFormPlus;
 
 /**
  * Shortcode
@@ -23,15 +23,14 @@ class Shortcode {
      * @since  1.0.0
      *
      * @param array  $atts
-     * @param string $content
      *
      * @return void
      */
     public function render_shortcode_form( $atts ) {
-        $atts = shortcode_atts( apply_filters( 'asd_sc_cfp_contents', array(
-            'title'       => 'Contact Us',
-            'description' => 'Feel free to contact us.',
-        ) ), $atts );
+        $atts = shortcode_atts( apply_filters( 'asd_sc_cfp_contents', [
+            'title'       => __( 'Contact Us', 'asd-contact-plus' ),
+            'description' => __( 'Feel free to contact us.', 'asd-contact-plus' ),
+        ] ), $atts );
 
         /**
          * Turn array keys into variables

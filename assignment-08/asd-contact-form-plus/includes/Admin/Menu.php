@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Contact\Form\Plus;
+namespace Asd\ContactFormPlus\Admin;
 
 /**
  * The menu
@@ -26,7 +26,7 @@ class Menu {
      * @return void
      */
     public function admin_menu_handler() {
-        add_menu_page( __( 'Contact Form Responses', 'asd-contact-plus' ), __( 'Contact Form Responses', 'asd-contact-plus' ), 'manage_options', 'contact-response', [ $this, 'plugin_page' ], 'dashicons-buddicons-pm' );
+        add_menu_page( __( 'Contact Form Responses', 'asd-contact-plus' ), __( 'Contact Form Responses', 'asd-contact-plus' ), 'manage_options', 'contact-response', [ $this, 'plugin_page_handler' ], 'dashicons-buddicons-pm' );
     }
 
     /**
@@ -36,12 +36,12 @@ class Menu {
      *
      * @return void
      */
-    public function plugin_page() {
+    public function plugin_page_handler() {
         /**
          * Include plugin page template
          */
         ob_start();
-        include_once ASD_CONTACT_FORM_PLUS_PATH . "/templates/plugin_page.php";
+        include_once ASD_CONTACT_FORM_PLUS_PATH . "/templates/admin/plugin_page.php";
         echo ob_get_clean();
     }
 }

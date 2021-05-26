@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Contact\Form\Plus;
+namespace Asd\ContactFormPlus;
 
 /**
  * Include WP_List_Table class
@@ -56,10 +56,13 @@ class ContactList extends \WP_List_Table {
             $args['order']   = $_REQUEST['order'];
         }
 
-        $this->items = asd_sc_cf_get_enqueries( $args );
+        // Create instance of Contact Response Object
+        $contact_response = new ContactResponse();
+
+        $this->items = $contact_response->get_contact_responses( $args );
 
         $this->set_pagination_args( [
-            'total_items' => asd_sc_cf_enquery_count(),
+            'total_items' => $contact_response->contact_response_count(),
             'per_page'    => $per_page,
         ] );
     }

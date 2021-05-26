@@ -94,7 +94,7 @@ final class AsdContactFormPlus {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -125,15 +125,16 @@ final class AsdContactFormPlus {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\Contact\Form\Plus\Menu();
+            new Asd\ContactFormPlus\Admin\Menu();
+        } else {
+            new Asd\ContactFormPlus\Shortcode();
         }
 
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            new Asd\Contact\Form\Plus\Ajax();
+            new Asd\ContactFormPlus\Ajax();
         }
 
-        new Asd\Contact\Form\Plus\Assets();
-        new Asd\Contact\Form\Plus\Shortcode();
+        new Asd\ContactFormPlus\Assets();
     }
 
     /**
@@ -144,7 +145,7 @@ final class AsdContactFormPlus {
      * @return void
      */
     public function activate() {
-        $installer = new Asd\Contact\Form\Plus\Installer();
+        $installer = new Asd\ContactFormPlus\Install\Installer();
         $installer->run();
     }
 }

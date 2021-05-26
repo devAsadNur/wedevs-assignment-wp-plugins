@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Contact\Form\Plus;
+namespace Asd\ContactFormPlus\Install;
 
 /**
  * Installer
@@ -30,7 +30,7 @@ class Installer {
     public function add_version_info() {
         $installed = get_option( 'asd_contact_form_plus_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_contact_form_plus_installed', time() );
         }
 

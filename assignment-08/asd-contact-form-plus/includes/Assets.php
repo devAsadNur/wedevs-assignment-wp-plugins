@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Contact\Form\Plus;
+namespace Asd\ContactFormPlus;
 
 /**
  * The assets
@@ -19,6 +19,44 @@ class Assets {
     }
 
     /**
+     * Scripts getter function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function get_scripts() {
+        $scripts = apply_filters( 'asd_contact_form_scripts', [
+            'asd-contact-form-script' => [
+                'src'       => ASD_CONTACT_FORM_PLUS_ASSETS . '/js/contact.js',
+                'version'   => filemtime( ASD_CONTACT_FORM_PLUS_PATH . '/assets/js/contact.js' ),
+                'deps'      => [ 'jquery' ],
+                'in_footer' => true
+            ],
+        ] );
+
+        return $scripts;
+    }
+
+    /**
+     * Styles getter function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function get_styles() {
+        $styles = apply_filters( 'asd_contact_form_styles', [
+            'asd-contact-form-style' => [
+                'src'     => ASD_CONTACT_FORM_PLUS_ASSETS . '/css/contact.css',
+                'version' => filemtime( ASD_CONTACT_FORM_PLUS_PATH . '/assets/css/contact.css' ),
+            ],
+        ] );
+
+        return $styles;
+    }
+
+    /**
      * Assets register function
      *
      * @since  1.0.0
@@ -26,25 +64,34 @@ class Assets {
      * @return void
      */
     public function register_assets() {
-        $script = [
-            'handle'    => 'asd-contact-form-script',
-            'src'       => ASD_CONTACT_FORM_PLUS_ASSETS . '/js/contact.js',
-            'version'   => filemtime( ASD_CONTACT_FORM_PLUS_PATH . '/assets/js/contact.js' ),
-            'deps'      => [ 'jquery' ],
-            'in_footer' => true
-        ];
+        $scripts = $this->get_scripts();
+        $styles  = $this->get_styles();
 
-        $style  = [
-            'handle'  => 'asd-contact-form-style',
-            'src'     => ASD_CONTACT_FORM_PLUS_ASSETS . '/css/contact.css',
-            'version' => filemtime( ASD_CONTACT_FORM_PLUS_PATH . '/assets/css/contact.css' ),
-            'deps'    => []
-        ];
+        foreach ( $scripts as $handle => $script ) {
+            $deps      = isset( $script['deps'] ) ? $script['deps'] : [];
+            $version   = isset( $script['version'] ) ? $script['version'] : false;
+            $in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
 
-        wp_register_script( $script['handle'], $script['src'], $script['deps'], $script['version'], $script['in_footer'] );
+            /**
+             * Register each of the scripts
+             */
+            wp_register_script( $handle, $script['src'], $deps, $version, $in_footer);
+        }
 
-        wp_register_style( $style['handle'], $style['src'], $style['deps'], $script['version'] );
+        foreach ($styles as $handle => $style) {
+            $deps    = isset( $style['deps'] ) ? $style['deps'] : [];
+            $version = isset( $style['version'] ) ? $style['version'] : false;
+            $media   = isset( $style['media'] ) ? $style['media'] : 'all';
 
+            /**
+             * Register each of the styles
+             */
+            wp_register_style( $handle, $style['src'], $deps, $version, $media );
+        }
+
+        /**
+         * Contact enquery localized script
+         */
         wp_localize_script( 'asd-contact-form-script', 'objContactEnquery', [
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'error'   => __( 'Something went wrong!', 'asd-contact-plus' ),
