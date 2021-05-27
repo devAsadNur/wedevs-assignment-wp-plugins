@@ -61,7 +61,6 @@ class Shortcode {
             delete_transient( 'featured_posts_query' );
         }
 
-
         // Get posts from the cache/query
         $featured_posts = $this->get_featured_posts( $args );
 
