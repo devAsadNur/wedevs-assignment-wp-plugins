@@ -1,39 +1,21 @@
 <?php
 
-namespace Asd\Featured\Posts;
+namespace Asd\FeaturedPosts;
 
 /**
- * Settings
+ * SettingsE
  * handler class
  */
 class Settings {
 
     /**
-     * Setting registers variable
+     * Settings fields variable
      *
      * @since  1.0.0
      *
-     * @var array
+     * @var object
      */
-    public $registers;
-
-    /**
-     * Setting registers variable
-     *
-     * @since  1.0.0
-     *
-     * @var array
-     */
-    public $sections;
-
-    /**
-     * Setting registers variable
-     *
-     * @since  1.0.0
-     *
-     * @var array
-     */
-    public $fields;
+    public $settings_fields;
 
     /**
      * Class constructor
@@ -42,6 +24,8 @@ class Settings {
      */
     public function __construct() {
         add_action( 'admin_init', [ $this, 'custom_settings_handler' ] );
+
+        $this->settings_fields = new SettingsFields();
     }
 
     /**
@@ -52,7 +36,7 @@ class Settings {
      * @return array
      */
     public function get_registers() {
-        return [
+        $registers = apply_filters( 'asd_fp_settings_registers', [
             [
                 'option_group' => 'featured-posts',
                 'option_name'  => 'featured_posts_limit',
@@ -65,7 +49,9 @@ class Settings {
                 'option_group' => 'featured-posts',
                 'option_name'  => 'featured_posts_categories',
             ],
-        ];
+        ] );
+
+        return $registers;
     }
 
     /**
@@ -76,14 +62,15 @@ class Settings {
      * @return array
      */
     public function get_sections() {
-        return [
-            [
-                'id'       => 'featured_posts_section',
-                'title'    => 'Featured Posts Selector',
-                'callback' => 'asd_fp_section_cb',
+        $sections = apply_filters( 'asd_fp_settings_sections',  [
+            'featured_posts_section' => [
+                'title'    => __( 'Featured Posts Selector', 'asd-featured-posts' ),
+                'callback' => [ $this, 'fp_sttings_section_cb' ],
                 'page'     => 'featured-posts',
             ],
-        ];
+        ] );
+
+        return $sections;
     }
 
     /**
@@ -94,29 +81,28 @@ class Settings {
      * @return array
      */
     public function get_fields() {
-        return [
-            [
-                'id'       => 'featured_posts_field_limit',
-                'title'    => 'Number of Posts',
-                'callback' => 'asd_fp_limit_field_cb',
+        $fields = apply_filters( 'asd_fp_settings_fields', [
+            'featured_posts_field_limit'    => [
+                'title'    => __( 'Number of Posts', 'asd-featured-posts' ),
+                'callback' => [ $this->settings_fields, 'fp_limit_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
-            [
-                'id'       => 'featured_posts_field_order',
-                'title'    => 'Post Order',
-                'callback' => 'asd_fp_order_field_cb',
+            'featured_posts_field_order'     => [
+                'title'    => __( 'Post Order', 'asd-featured-posts' ),
+                'callback' => [ $this->settings_fields, 'fp_order_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
-            [
-                'id'       => 'featured_posts_field_categories',
-                'title'    => 'Post Categories',
-                'callback' => 'asd_fp_categoires_field_cb',
+            'featured_posts_field_categories' => [
+                'title'    => __( 'Post Categories', 'asd-featured-posts' ),
+                'callback' => [ $this->settings_fields, 'fp_categoires_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
-        ];
+        ] );
+
+        return $fields;
     }
 
 
@@ -128,34 +114,44 @@ class Settings {
      * @return void
      */
     public function custom_settings_handler() {
-        $this->registers = $this->get_registers();
-        $this->sections  = $this->get_sections();
-        $this->fields    = $this->get_fields();
+        $registers = $this->get_registers();
+        $sections  = $this->get_sections();
+        $fields    = $this->get_fields();
 
-        foreach ( $this->registers as $register ) {
+        // Looping through settings registers
+        foreach ( $registers as $register ) {
             $args = isset( $register['args'] ) ? $register['args'] : '';
 
-            /**
-             * Register each custom settings
-             */
+            // Register each custom settings
             register_setting( $register['option_group'], $register['option_name'], $args );
         }
 
-        foreach ($this->sections as $section) {
-            /**
-             * Adds each settings section
-             */
-            add_settings_section( $section['id'], $section['title'], $section['callback'], $section['page'] );
+        // Looping through settings sections
+        foreach ( $sections as $id => $section ) {
+            // Adds each settings section
+            add_settings_section( $id, $section['title'], $section['callback'], $section['page'] );
         }
 
-        foreach ($this->fields as $field) {
+        // Looping through settings fields
+        foreach ( $fields as $id => $field ) {
             $section = isset( $field['section'] ) ? $field['section'] : '';
             $args    = isset( $field['args'] ) ? $field['args'] : '';
 
-            /**
-             * Adds each settings field
-             */
-            add_settings_field($field['id'], $field['title'], $field['callback'], $field['page'], $section, $args);
+            // Adds each settings field
+            add_settings_field( $id, $field['title'], $field['callback'], $field['page'], $section, $args );
         }
+    }
+
+    /**
+     * Featured posts settings section callback function
+     *
+     * @since 1.0.0
+     *
+     * @return void
+     */
+    public function fp_sttings_section_cb() {
+        ?>
+        <p><?php apply_filters( 'asd_fp_settings_section_title', esc_html_e( 'Choose featured posts to show', 'asd-featured-posts' ) ); ?></p>
+        <?php
     }
 }

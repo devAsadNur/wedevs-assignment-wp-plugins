@@ -12,7 +12,7 @@
     <?php
     settings_fields( 'featured-posts' );
     do_settings_sections( 'featured-posts' );
-    submit_button( __( 'Save Changes', 'asd-featured-posts' ), 'primary', 'featured-posts-setting' );
+    submit_button( apply_filters( 'asd_fp_save_button_label', __( 'Save Changes', 'asd-featured-posts' ), 'primary', 'fp-settings-submit' ) );
     ?>
     </form>
 </div>

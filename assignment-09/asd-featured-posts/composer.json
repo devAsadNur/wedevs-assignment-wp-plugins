@@ -13,8 +13,8 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Asd\\Featured\\Posts\\": "includes/"
+            "Asd\\FeaturedPosts\\": "includes/"
         },
-        "files": [ "includes/functions.php" ]
+        "files": []
     }
 }

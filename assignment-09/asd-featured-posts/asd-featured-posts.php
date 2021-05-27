@@ -47,10 +47,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Include the autoloader
+ * Include the composer autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    return;
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
 }
 require_once __DIR__ . "/vendor/autoload.php";
 
@@ -94,7 +94,7 @@ final class AsdFeaturedPosts {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,9 +124,12 @@ final class AsdFeaturedPosts {
      * @return void
      */
     public function init_plugin() {
-        new Asd\Featured\Posts\Menu();
-        new Asd\Featured\Posts\Settings();
-        new Asd\Featured\Posts\Shortcode();
+        if ( is_admin() ) {
+            new Asd\FeaturedPosts\Menu();
+            new Asd\FeaturedPosts\Settings();
+        } else {
+            new Asd\FeaturedPosts\Shortcode();
+        }
     }
 
     /**
@@ -139,7 +142,7 @@ final class AsdFeaturedPosts {
     public function activate() {
         $installed = get_option( 'asd_featured_posts_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_featured_posts_installed', time() );
         }
 
