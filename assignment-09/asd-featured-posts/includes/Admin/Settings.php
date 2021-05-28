@@ -1,21 +1,12 @@
 <?php
 
-namespace Asd\FeaturedPosts;
+namespace Asd\FeaturedPosts\Admin;
 
 /**
- * SettingsE
+ * Settings
  * handler class
  */
 class Settings {
-
-    /**
-     * Settings fields variable
-     *
-     * @since  1.0.0
-     *
-     * @var object
-     */
-    public $settings_fields;
 
     /**
      * Class constructor
@@ -24,8 +15,6 @@ class Settings {
      */
     public function __construct() {
         add_action( 'admin_init', [ $this, 'custom_settings_handler' ] );
-
-        $this->settings_fields = new SettingsFields();
     }
 
     /**
@@ -81,22 +70,25 @@ class Settings {
      * @return array
      */
     public function get_fields() {
+        // Creates instance of SettingsFields Object
+        $obj_settings_fields = new SettingsFields();
+
         $fields = apply_filters( 'asd_fp_settings_fields', [
             'featured_posts_field_limit'    => [
                 'title'    => __( 'Number of Posts', 'asd-featured-posts' ),
-                'callback' => [ $this->settings_fields, 'fp_limit_field_cb' ],
+                'callback' => [ $obj_settings_fields, 'fp_limit_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
             'featured_posts_field_order'     => [
                 'title'    => __( 'Post Order', 'asd-featured-posts' ),
-                'callback' => [ $this->settings_fields, 'fp_order_field_cb' ],
+                'callback' => [ $obj_settings_fields, 'fp_order_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],
             'featured_posts_field_categories' => [
                 'title'    => __( 'Post Categories', 'asd-featured-posts' ),
-                'callback' => [ $this->settings_fields, 'fp_categoires_field_cb' ],
+                'callback' => [ $obj_settings_fields, 'fp_categoires_field_cb' ],
                 'page'     => 'featured-posts',
                 'section'  => 'featured_posts_section',
             ],

@@ -13,7 +13,7 @@
  * License:               GPL2
  */
 
-/*
+/**
  * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
  *
  * Released under the GPL license
@@ -80,6 +80,7 @@ final class AsdFeaturedPosts {
         $this->define_constants();
 
         register_activation_hook( __FILE__, [ $this, 'activate' ] );
+        register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
         $this->init_plugin();
     }
@@ -125,11 +126,14 @@ final class AsdFeaturedPosts {
      */
     public function init_plugin() {
         if ( is_admin() ) {
-            new Asd\FeaturedPosts\Menu();
-            new Asd\FeaturedPosts\Settings();
+            new Asd\FeaturedPosts\Admin\Menu();
+            new Asd\FeaturedPosts\Admin\Settings();
         } else {
             new Asd\FeaturedPosts\Shortcode();
         }
+
+        // Removes transient in case of post add/update
+        add_action( 'save_post', 'asd_fp_delete_transient' );
     }
 
     /**
@@ -147,6 +151,18 @@ final class AsdFeaturedPosts {
         }
 
         update_option( 'asd_featured_posts_version', ASD_FEATURED_POSTS_VERSION );
+    }
+
+    /**
+     * Do staff upon plugin deactivation
+     *
+     * @since  1.0.0
+     *
+     * @return void
+     */
+    public function deactivate() {
+        // Removes featured posts cache
+        asd_fp_delete_transient();
     }
 }
 

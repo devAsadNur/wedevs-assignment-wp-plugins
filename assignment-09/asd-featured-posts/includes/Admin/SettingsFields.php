@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\FeaturedPosts;
+namespace Asd\FeaturedPosts\Admin;
 
 /**
  * Settings fields
@@ -24,7 +24,7 @@ class SettingsFields {
     }
 
     /**
-     * Featured posts settings order field callback function
+    * Featured posts settings order field callback function
     *
     * @since 1.0.0
     *
@@ -52,8 +52,8 @@ class SettingsFields {
         $current_cats = get_option( 'featured_posts_categories' );
 
         $args = apply_filters( 'asd_fp_categories_args', [
-        'orderby' => 'name',
-        'order'   => 'ASC',
+            'orderby' => 'name',
+            'order'   => 'ASC',
         ] );
 
         $categories = get_categories( $args );

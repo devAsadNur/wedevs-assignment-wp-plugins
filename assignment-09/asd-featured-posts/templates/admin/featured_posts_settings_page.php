@@ -1,8 +1,8 @@
 <?php
 /**
- * Template: featured posts admin page
+ * Template: featured posts dashboard settings page
  *
- * HMTL template for featured posts setting page
+ * HMTL template for featured posts admin settings page
  *
  * @since 1.0.0
  */
@@ -12,7 +12,7 @@
     <?php
     settings_fields( 'featured-posts' );
     do_settings_sections( 'featured-posts' );
-    submit_button( apply_filters( 'asd_fp_save_button_label', __( 'Save Changes', 'asd-featured-posts' ), 'primary', 'fp-settings-submit' ) );
+    submit_button( __( 'Save Changes', 'asd-featured-posts' ), 'primary', 'fp-settings-submit' );
     ?>
     </form>
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\FeaturedPosts;
+namespace Asd\FeaturedPosts\Admin;
 
 /**
  * The menu
@@ -37,14 +37,17 @@ class Menu {
      * @return void
      */
     public function featured_posts_admin_page_handler() {
-        // Removes transient in case of form update
-        if ( isset( $_POST['fp-settings-submit'] ) ) {
-            delete_transient( 'featured_posts_query' );
+        $settings_page    = isset( $_REQUEST['page'] ) ? sanitize_key( $_REQUEST['page'] ): '';
+        $settings_updated = isset( $_REQUEST['settings-updated'] ) ? rest_sanitize_boolean( $_REQUEST['settings-updated'] ) : false;
+
+        // Removes transient on featured posts settings update
+        if ( ( 'featured-posts' === $settings_page ) && $settings_updated ) {
+            asd_fp_delete_transient();
         }
 
         // Includes admin page template
         ob_start();
-        require_once ASD_FEATURED_POSTS_PATH . "/templates/featured_posts_admin_page.php";
+        require_once ASD_FEATURED_POSTS_PATH . "/templates/admin/featured_posts_settings_page.php";
         echo ob_get_clean();
     }
 }

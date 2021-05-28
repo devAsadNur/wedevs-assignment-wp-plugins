@@ -15,10 +15,6 @@ class Shortcode {
      */
     public function __construct() {
         add_shortcode( 'asd-featured-posts', [ $this, 'render_featured_posts' ] );
-
-        // Removes transient in case of post add/update
-        add_action( 'add_post', delete_transient( 'featured_posts_query' ) );
-        add_action( 'update_post', delete_transient( 'featured_posts_query' ) );
     }
 
     /**
@@ -58,7 +54,7 @@ class Shortcode {
             $args['orderby'] = 'rand';
 
             // Removes cache in case of random posts selected
-            delete_transient( 'featured_posts_query' );
+            asd_fp_delete_transient();
         }
 
         // Get posts from the cache/query
@@ -83,7 +79,7 @@ class Shortcode {
     }
 
     /**
-     * Featured posts getter query and cache function
+     * Featured posts getter query/cache function
      *
      * @since 1.0.0
      *
