@@ -56,6 +56,7 @@ class Shortcode {
         $search_keyword  = isset( $_REQUEST['job-keyword'] ) ? sanitize_text_field( $_REQUEST['job-keyword'] ) : sanitize_text_field( $atts['keyword'] );
         $search_location = isset( $_REQUEST['job-location'] ) ? sanitize_text_field( $_REQUEST['job-location'] ) : sanitize_text_field( $atts['location'] );
         $search_fulltime = isset( $_REQUEST['job-fulltime'] ) ? sanitize_text_field( $_REQUEST['job-fulltime'] ) : sanitize_text_field( $atts['fulltime'] );
+        $job_id          = isset( $_REQUEST['job-id'] ) ? (int) sanitize_text_field( $_REQUEST['job-id'] ) : 0;
 
         // Setting URL and arguments for fething data
         $search_url  = 'https://jobs.github.com/positions.json?';
@@ -76,8 +77,8 @@ class Shortcode {
         }
 
         // URL for single job post fetching
-        if ( isset( $_REQUEST['job-id'] ) ) {
-            $search_url = 'https://jobs.github.com/positions/' . (int) $_REQUEST['job-id'] . '.json';
+        if ( ! empty( $job_id ) ) {
+            $search_url = 'https://jobs.github.com/positions/' . $_REQUEST['job-id'] . '.json';
         }
 
         // Getting API response data
