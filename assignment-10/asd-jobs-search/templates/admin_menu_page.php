@@ -12,9 +12,9 @@
     <h2><?php esc_html_e( 'Job searcing shortcode use guide', 'asd-jobs-search' ); ?>:</h2>
     <h4><?php esc_html_e( 'Shortcode format', 'asd-jobs-search' ); ?>:</h4>
     <h5><?php esc_html_e( 'Without attributes', 'asd-jobs-search' ); ?>:</h5>
-    <p><?php echo esc_html('[asd-jobs-search]' ); ?></p>
+    <p><?php echo esc_html( '[asd-jobs-search]' ); ?></p>
     <h5><?php esc_html_e( 'With attributes', 'asd-jobs-search' ); ?>*:</h5>
-    <p><?php echo esc_html('[asd-jobs-search keyword="job keyword" location="location name"  fulltime="on"]' ); ?></p>
-    <p>* <?php esc_html_e( 'User search inputs will overwrite the shortcode attributes.', 'asd-jobs-search' ); ?></p>
+    <p><?php echo esc_html( '[asd-jobs-search keyword="job keyword" location="location name"  fulltime="on"]' ); ?></p>
+    <p><span>* </span><?php esc_html_e( 'User search inputs will overwrite the shortcode attributes.', 'asd-jobs-search' ); ?></p>
 </div>
 <?php

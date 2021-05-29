@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Jobs\Search;
+namespace Asd\JobsSearch;
 
 /**
  * The menu
@@ -37,9 +37,7 @@ class Menu {
      * @return void
      */
     public function admin_page_handler() {
-        /**
-         * Includes admin page template
-         */
+        // Includes admin page template
         ob_start();
         require_once ASD_JOBS_SEARCH_PATH . "/templates/admin_menu_page.php";
         echo ob_get_clean();

@@ -13,7 +13,7 @@
  * License:               GPL2
  */
 
-/*
+/**
  * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
  *
  * Released under the GPL license
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Include the autoloader
+ * Include the composer autoloader
  */
 if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
     wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
@@ -94,7 +94,7 @@ final class AsdJobsSearch {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,8 +124,11 @@ final class AsdJobsSearch {
      * @return void
      */
     public function init_plugin() {
-        new Asd\Jobs\Search\Menu();
-        new Asd\Jobs\Search\Shortcode();
+        if ( is_admin() ) {
+            new Asd\JobsSearch\Menu();
+        } else {
+            new Asd\JobsSearch\Shortcode();
+        }
     }
 
     /**
@@ -138,7 +141,7 @@ final class AsdJobsSearch {
     public function activate() {
         $installed = get_option( 'asd_jobs_search_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_jobs_search_installed', time() );
         }
 

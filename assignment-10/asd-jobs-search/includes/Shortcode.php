@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Jobs\Search;
+namespace Asd\JobsSearch;
 
 /**
  * Shortcode
@@ -33,16 +33,12 @@ class Shortcode {
             'fulltime' => '',
         ] ), $atts );
 
-        /**
-         * Includes search form template
-         */
+        // Includes search form template
         ob_start();
         include_once ASD_JOBS_SEARCH_PATH . '/templates/search_page_form.php';
         echo ob_get_clean();
 
-        /**
-         * Handover attributs to the search handler method
-         */
+        // Handover attributs to the search handler method
         $this->jobs_search_handler( $atts );
     }
 
@@ -56,64 +52,50 @@ class Shortcode {
      * @return void
      */
     public function jobs_search_handler( $atts ) {
-        /**
-         * Form inputs from the user
-         */
-        $search_keyword  = isset( $_REQUEST['job-keyword'] ) ? sanitize_text_field( $_REQUEST['job-keyword'] ) : $atts['keyword'];
-        $search_location = isset( $_REQUEST['job-location'] ) ? sanitize_text_field( $_REQUEST['job-location'] ) :  $atts['location'];
-        $search_fulltime = isset( $_REQUEST['job-fulltime'] ) ? sanitize_text_field( $_REQUEST['job-fulltime'] ) : $atts['fulltime'];
+        // Form inputs from the user
+        $search_keyword  = isset( $_REQUEST['job-keyword'] ) ? sanitize_text_field( $_REQUEST['job-keyword'] ) : sanitize_text_field( $atts['keyword'] );
+        $search_location = isset( $_REQUEST['job-location'] ) ? sanitize_text_field( $_REQUEST['job-location'] ) : sanitize_text_field( $atts['location'] );
+        $search_fulltime = isset( $_REQUEST['job-fulltime'] ) ? sanitize_text_field( $_REQUEST['job-fulltime'] ) : sanitize_text_field( $atts['fulltime'] );
 
-        /**
-         * Setting URL and arguments for fething data
-         */
+        // Setting URL and arguments for fething data
         $search_url  = 'https://jobs.github.com/positions.json?';
         $search_args = [
             'timeout' => 20,
         ];
 
-        if ( '' !== $search_keyword ) {
+        if ( ! empty( $search_keyword ) ) {
             $search_url .= '&description=' . $search_keyword;
         }
 
-        if ( '' !== $search_location ) {
+        if ( ! empty( $search_location ) ) {
             $search_url .= '&location=' . $search_location;
         }
 
-        if ( '' !== $search_fulltime ) {
+        if ( ! empty( $search_fulltime ) ) {
             $search_url .= '&full_time=' . $search_fulltime;
         }
 
-        /**
-         * URL for single job post fetching
-         */
+        // URL for single job post fetching
         if ( isset( $_REQUEST['job-id'] ) ) {
-            $search_url = 'https://jobs.github.com/positions/' . $_REQUEST['job-id'] . '.json';
+            $search_url = 'https://jobs.github.com/positions/' . (int) $_REQUEST['job-id'] . '.json';
         }
 
-        /**
-         * Getting API response data
-         */
+        // Getting API response data
         $search_result = $this->fetch_api_data( $search_url, $search_args );
 
-        /**
-         * Output message if no data found
-         */
+        // Output message if no data found
         if ( empty( $search_result ) ) {
             echo __( 'No jobs matched with your search!', 'asd-jobs-search' );
         }
 
-        /**
-         * Process output if the fetched data is multiple job postings
-         */
+        // Process output if the fetched data is multiple job postings
         if ( is_array( $search_result ) ) {
             foreach ( $search_result as $single_job ) {
                 include ASD_JOBS_SEARCH_PATH . '/templates/job_list_viewer.php';
             }
         }
 
-        /**
-         * Process output if the fetched data is a single job post
-         */
+        // Process output if the fetched data is a single job post
         if ( is_object( $search_result ) ) {
             include_once ASD_JOBS_SEARCH_PATH . '/templates/single_job_viewer.php';
         }
