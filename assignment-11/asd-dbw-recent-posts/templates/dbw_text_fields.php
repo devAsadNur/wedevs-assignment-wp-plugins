@@ -1,5 +1,13 @@
 <?php
 /**
+ * Action hook for adding contents
+ * before config fields
+ *
+ * @since 1.0.0
+ */
+do_action( 'dbw_recent_posts_config_fields_before' );
+
+/**
  * Template: Recent posts config fields template
  *
  * HMTL template for recent posts dashboard widget config fields
@@ -8,14 +16,27 @@
  */
 ?>
 <div class="input-text-wrap">
-    <input type="text" name="recent_posts_limit" id="recent_posts_limit" placeholder="Number of Posts" value="<?php echo esc_attr( $current_limit ); ?>"><br><br>
+    <input type="text" name="recent_posts_limit" id="recent_posts_limit" placeholder="<?php esc_html_e( 'Number of Posts', 'asd-dbw-recent-posts' ); ?>" value="<?php echo esc_attr( $current_limit ); ?>"><br><br>
 </div>
-
 <div class="input-text-wrap">
     <select name="recent_posts_order" id="recent_posts_order" class="widefat">
-        <option value="rand" <?php selected( $current_order, 'rand' ); ?>>Random</option>
-        <option value="ASC" <?php selected( $current_order, 'ASC' ); ?>>ASC</option>
-        <option value="DESC" <?php selected( $current_order, 'DESC' ); ?>>DESC</option>
+        <option value="<?php echo esc_attr( 'rand' ); ?>" <?php selected( $current_order, 'rand' ); ?>>
+            <?php esc_html_e( 'Random', 'asd-dbw-recent-posts' ); ?>
+        </option>
+        <option value="<?php echo esc_attr( 'ASC' ); ?>" <?php selected( $current_order, 'ASC' ); ?>>
+            <?php esc_html_e( 'ASC', 'asd-dbw-recent-posts' ); ?>
+        </option>
+        <option value="<?php echo esc_attr( 'DESC' ); ?>" <?php selected( $current_order, 'DESC' ); ?>>
+            <?php esc_html_e( 'DESC', 'asd-dbw-recent-posts' ); ?>
+        </option>
     </select><br><br>
 </div>
 <?php
+
+/**
+ * Action hook for adding contents
+ * after config fields
+ *
+ * @since 1.0.0
+ */
+do_action( 'dbw_recent_posts_config_fields_before' );

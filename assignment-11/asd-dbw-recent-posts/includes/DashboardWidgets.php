@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Dbw\Recent\Posts;
+namespace Asd\DbwRecentPosts;
 
 /**
  * The dashboard widgets
@@ -25,7 +25,12 @@ class DashboardWidgets {
      * @return void
      */
     public function dashboard_widgets_handler() {
-        wp_add_dashboard_widget( 'recent_posts_db_widget', 'Recent Posts List', [ $this, 'render_posts_list_cb' ], [ $this, 'configure_posts_list_cb' ] );
+        wp_add_dashboard_widget(
+            'recent_posts_db_widget',
+            __( 'Recent Posts List', 'asd-dbw-recent-posts' ),
+            [ $this, 'render_posts_list_cb' ],
+            [ $this, 'configure_posts_list_cb' ]
+        );
     }
 
     /**
@@ -36,7 +41,7 @@ class DashboardWidgets {
      * @return void
      */
     public function render_posts_list_cb() {
-        // Get recent post config from option table and assign defult configs
+        // Get recent post config from option table or assign default configs
         $rp_limit    = ! empty( get_option( 'recent_posts_limit' ) ) ? get_option( 'recent_posts_limit' ) : 5;
         $rp_order    = ! empty( get_option( 'recent_posts_order' ) ) ? get_option( 'recent_posts_order' ) : 'DESC';
         $rp_cats_arr = ! empty( get_option( 'recent_posts_cats' ) ) ? get_option( 'recent_posts_cats' ) : [];
@@ -44,15 +49,14 @@ class DashboardWidgets {
 
         // Arguments for post fetching
         $rp_args = [
-            'numberposts'   => $rp_limit,
-            'category_name' => $rp_cats,
+            'numberposts'   => (int) $rp_limit,
+            'order'         => (string) $rp_order,
+            'category_name' => (string) $rp_cats,
         ];
 
         // Add conditional arguments
         if ( 'rand' === $rp_order ) {
             $rp_args['orderby'] = 'rand';
-        } else {
-            $rp_args['order'] = $rp_order;
         }
 
         // Get recent posts
@@ -60,9 +64,10 @@ class DashboardWidgets {
 
         // Looping through each of the posts and show output
         foreach ( $recent_posts as $recent_post ) {
-            ?>
-            <h3><a href="<?php echo esc_url( $recent_post['guid'] ); ?>"><?php esc_html_e( $recent_post['post_title'], 'asd-dbw-recent-posts' ); ?></a></h3>
-            <?php
+            // Include single post output template
+            ob_start();
+            include ASD_DBW_RECENT_POSTS_PATH . '/templates/dbw_single_post_output.php';
+            echo ob_get_clean();
         }
     }
 
@@ -87,9 +92,9 @@ class DashboardWidgets {
 
         // Looping through each categoires
         foreach ( $all_cats_arr as $cat ) {
-            $cat_name    = isset( $cat->name ) ? $cat->name : '';
-            $cat_slug    = isset( $cat->slug ) ? $cat->slug : '';
-            $current_cat = isset( $current_cats_arr[$cat_slug] ) ? $cat_name : '';
+            $cat_name    = isset( $cat->name ) ? sanitize_text_field( $cat->name ) : '';
+            $cat_slug    = isset( $cat->slug ) ? sanitize_text_field( $cat->slug ) : '';
+            $current_cat = isset( $current_cats_arr[$cat_slug] ) ? sanitize_text_field( $cat_name ) : '';
 
             // Include checkbox input fields template file
             ob_start();
@@ -97,24 +102,40 @@ class DashboardWidgets {
             echo ob_get_clean();
         }
 
-        // Update user defined post configs to the option table
-        $this->option_update_handler( 'recent_posts_limit' );
-        $this->option_update_handler( 'recent_posts_order' );
-        $this->option_update_handler( 'recent_posts_cats' );
+        // Handler for saving user defined post configs to the option table
+        $this->update_options_handler();
     }
+
 
     /**
      * Option field updater function
      *
      * @since  1.0.0
      *
-     * @param string $key
-     *
-     * @return boolean
+     * @return void
      */
-    public function option_update_handler( $key ) {
-        if ( isset( $_POST[$key] ) ) {
-            update_option( $key, $_POST[$key] );
+    public function update_options_handler() {
+        $rp_limit = isset( $_POST['recent_posts_limit'] ) ? sanitize_text_field( $_POST['recent_posts_limit'] ) : '';
+        $rp_order = isset( $_POST['recent_posts_order'] ) ? sanitize_text_field( $_POST['recent_posts_order'] ) : '';
+        $rp_cats  = isset( $_POST['recent_posts_cats'] ) ? (array) $_POST['recent_posts_cats'] : '';
+
+        if ( ! empty ( $rp_limit ) ) {
+            update_option( 'recent_posts_limit', $rp_limit );
         }
+
+        if ( ! empty ( $rp_limit ) ) {
+            update_option( 'recent_posts_order', $rp_order );
+        }
+
+        if ( ! empty ( $rp_limit ) ) {
+            update_option( 'recent_posts_cats', $rp_cats );
+        }
+
+        /**
+         * Action hook for saving extra data added by extra config fields
+         *
+         * @since 1.0.0
+         */
+        do_action( 'dbw_recent_posts_update_extra_configs' );
     }
 }
