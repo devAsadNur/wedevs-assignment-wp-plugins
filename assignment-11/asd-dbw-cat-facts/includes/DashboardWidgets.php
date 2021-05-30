@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Dbw\Cat\Facts;
+namespace Asd\DbwCatFacts;
 
 /**
  * The dashboard widgets
@@ -25,7 +25,11 @@ class DashboardWidgets {
      * @return void
      */
     public function dashboard_widgets_handler() {
-        wp_add_dashboard_widget( 'cat_facts_db_widget', 'Amazing Cat Facts', [ $this, 'render_cat_facts_widget' ] );
+        wp_add_dashboard_widget(
+            'cat_facts_db_widget',
+            __( 'Amazing Cat Facts', 'asd-dbw-recent-posts' ),
+            [ $this, 'render_cat_facts_widget_cb' ]
+        );
     }
 
     /**
@@ -35,20 +39,19 @@ class DashboardWidgets {
      *
      * @return void
      */
-    public function render_cat_facts_widget() {
-        // Get data from fetcher function
+    public function render_cat_facts_widget_cb() {
+        // Get API data from fetcher function
         $cat_facts = $this->fetch_cat_facts();
 
-        // Output the processed data
-        echo '<ol class="cat-facts-list">';
-
-        foreach ( $cat_facts as $cat_fact ) {
-            ?>
-            <li class="cat-facts-item"><?php esc_html_e( $cat_fact->text, 'asd-dbw-cat-facts' ); ?></li>
-            <?php
+        // Output the fetched data
+        if ( is_array( $cat_facts ) ) {
+            // Include cat facts output template
+            ob_start();
+            include_once ASD_CAT_FACTS_PATH . '/templates/dbw_cat_facts_output.php';
+            echo ob_get_clean();
+        } else {
+            echo __( 'No contents found', 'asd-dbw-cat-facts' );
         }
-
-        echo '</ol>';
     }
 
     /**
@@ -56,11 +59,11 @@ class DashboardWidgets {
      *
      * @since 1.0.0
      *
-     * @return array
+     * @return array|object
      */
     public function fetch_cat_facts( $limit = 5 ) {
         // API URL and arguments
-        $url  = 'https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=' . $limit;
+        $url  = 'https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=' . (int) $limit;
         $args = [
             'timeout' => 30,
         ];
@@ -69,10 +72,10 @@ class DashboardWidgets {
         $response = get_transient( 'cat_facts_data' );
 
         // Fetch data from API if not found in cache
-        if ( false === $response ) {
+        if ( empty( $response ) ) {
             $response  = wp_remote_get( $url, $args );
 
-            // Set data to cache
+            // Set fetched data to cache
             set_transient( 'cat_facts_data', $response, DAY_IN_SECONDS );
         }
 

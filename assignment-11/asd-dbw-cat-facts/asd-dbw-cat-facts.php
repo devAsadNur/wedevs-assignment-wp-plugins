@@ -13,7 +13,7 @@
  * License:               GPL2
  */
 
-/*
+/**
  * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
  *
  * Released under the GPL license
@@ -45,14 +45,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
-/**
- * Include the autoloader
- */
-if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
-}
-require_once __DIR__ . "/vendor/autoload.php";
 
 /**
  * Main plugin class
@@ -94,7 +86,7 @@ final class AsdCatFacts {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,7 +116,10 @@ final class AsdCatFacts {
      * @return void
      */
     public function init_plugin() {
-        new Asd\Dbw\Cat\Facts\DashboardWidgets();
+        if ( is_admin() ) {
+            require_once( ASD_CAT_FACTS_PATH . '/includes/DashboardWidgets.php' );
+            new Asd\DbwCatFacts\DashboardWidgets();
+        }
     }
 
     /**
@@ -137,7 +132,7 @@ final class AsdCatFacts {
     public function activate() {
         $installed = get_option( 'asd_cat_facts_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_cat_facts_installed', time() );
         }
 
