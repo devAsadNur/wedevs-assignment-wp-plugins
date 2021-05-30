@@ -18,9 +18,9 @@ class DashboardWidgets {
     }
 
     /**
-     * Dashboard widget handler function
+     * Dashboard widgets handler function
      *
-     * @since  1.0.0
+     * @since 1.0.0
      *
      * @return void
      */
