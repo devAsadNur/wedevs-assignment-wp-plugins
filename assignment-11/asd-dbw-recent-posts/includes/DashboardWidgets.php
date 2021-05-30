@@ -115,6 +115,7 @@ class DashboardWidgets {
      * @return void
      */
     public function update_options_handler() {
+        // Get user input data from dashboard config fields
         $rp_limit = isset( $_POST['recent_posts_limit'] ) ? sanitize_text_field( $_POST['recent_posts_limit'] ) : '';
         $rp_order = isset( $_POST['recent_posts_order'] ) ? sanitize_text_field( $_POST['recent_posts_order'] ) : '';
         $rp_cats  = isset( $_POST['recent_posts_cats'] ) ? (array) $_POST['recent_posts_cats'] : '';
