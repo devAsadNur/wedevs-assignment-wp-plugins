@@ -13,7 +13,7 @@
  * License:               GPL2
  */
 
-/*
+/**
  * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
  *
  * Released under the GPL license
@@ -45,14 +45,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
-/**
- * Include the autoloader
- */
-if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
-    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
-}
-require_once __DIR__ . "/vendor/autoload.php";
 
 /**
  * Main plugin class
@@ -94,7 +86,7 @@ final class AsdRelatedPostsWidget {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -124,7 +116,8 @@ final class AsdRelatedPostsWidget {
      * @return void
      */
     public function init_plugin() {
-        new Asd\Related\Posts\Widget\Widgets();
+        require_once( ASD_RELATED_POSTS_WIDGET_PATH . '/includes/Widgets.php' );
+        new Asd\RelatedPostsWidget\Widgets();
     }
 
     /**
@@ -137,7 +130,7 @@ final class AsdRelatedPostsWidget {
     public function activate() {
         $installed = get_option( 'asd_related_posts_widget_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_related_posts_widget_installed', time() );
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Related\Posts\Widget;
+namespace Asd\RelatedPostsWidget;
 
 /**
  * Related posts theme widget
@@ -44,7 +44,7 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function register_custom_widget() {
-        register_widget( 'Asd\Related\Posts\Widget\Widgets' );
+        register_widget( 'Asd\RelatedPostsWidget\Widgets' );
     }
 
     /**
@@ -58,14 +58,12 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function widget( $args, $instance ) {
-        $title     = ! empty( $instance['title'] ) ? $instance['title'] : '';
-        $limit     = ! empty( $instance['limit'] ) ? $instance['limit'] : 5;
-        $thumbnail = isset( $instance['thumbnail'] ) ? $instance['thumbnail'] : '';
-        $excerpt   = isset( $instance['excerpt'] ) ? $instance['excerpt'] : '';
+        $title     = ! empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
+        $limit     = ! empty( $instance['limit'] ) ? sanitize_text_field( $instance['limit'] ) : 5;
+        $thumbnail = isset( $instance['thumbnail'] ) ? sanitize_text_field( $instance['thumbnail'] ) : '';
+        $excerpt   = isset( $instance['excerpt'] ) ? sanitize_text_field( $instance['excerpt'] ) : '';
 
-        /**
-         * Get posts from related posts fetcher function
-         */
+        // Get posts from related posts fetcher function
         $related_posts = $this->get_related_posts( $limit );
 
         if ( ! is_single() ) {
@@ -81,13 +79,14 @@ class Widgets extends \WP_Widget {
         while ( $related_posts->have_posts() ) {
             $related_posts->the_post();
 
-            /**
-             * Include related posts output template
-             */
+            // Include related posts output template
             ob_start();
             include ASD_RELATED_POSTS_WIDGET_PATH . '/templates/related_posts_widget_output.php';
             echo ob_get_clean();
         }
+
+        // Restore original Post Data
+        wp_reset_postdata();
 
         echo $args['after_widget'];
     }
@@ -102,14 +101,12 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function form( $instance ) {
-        $title     = ! empty( $instance['title'] ) ? $instance['title'] : '';
-        $limit     = ! empty( $instance['limit'] ) ? $instance['limit'] : '';
-        $thumbnail = isset( $instance['thumbnail'] ) ? $instance['thumbnail'] : false;
-        $excerpt   = isset( $instance['excerpt'] ) ? $instance['excerpt'] : false;
+        $title     = ! empty( $instance['title'] ) ? sanitize_text_field( $instance['title'] ) : '';
+        $limit     = ! empty( $instance['limit'] ) ? sanitize_text_field( $instance['limit'] ) : '';
+        $thumbnail = isset( $instance['thumbnail'] ) ? sanitize_text_field( $instance['thumbnail'] ) : false;
+        $excerpt   = isset( $instance['excerpt'] ) ? sanitize_text_field( $instance['excerpt'] ) : false;
 
-        /**
-         * Include widget dashboard input form template
-         */
+        // Include widget dashboard input form template
         ob_start();
         include ASD_RELATED_POSTS_WIDGET_PATH . "/templates/related_posts_widget_form.php";
         echo ob_get_clean();
@@ -129,9 +126,9 @@ class Widgets extends \WP_Widget {
         $instance = [];
 
         $instance['title']     = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-        $instance['limit']     = ( ! empty( $new_instance['limit'] ) ) ? $new_instance['limit'] : '';
-        $instance['thumbnail'] = isset( $new_instance['thumbnail'] ) ? $new_instance['thumbnail'] : '';
-        $instance['excerpt']   = isset( $new_instance['excerpt'] ) ? $new_instance['excerpt'] : '';
+        $instance['limit']     = ( ! empty( $new_instance['limit'] ) ) ? sanitize_text_field( $new_instance['limit'] ) : '';
+        $instance['thumbnail'] = isset( $new_instance['thumbnail'] ) ? sanitize_text_field( $new_instance['thumbnail'] ) : '';
+        $instance['excerpt']   = isset( $new_instance['excerpt'] ) ? sanitize_text_field( $new_instance['excerpt'] ) : '';
 
         return $instance;
     }
@@ -160,7 +157,7 @@ class Widgets extends \WP_Widget {
         if ( $the_query->have_posts() ) {
             return $the_query;
         } else {
-            echo 'No related posts found!';
+            echo __( 'No related posts found!', 'asd-related-posts-widget' );
         }
     }
 }

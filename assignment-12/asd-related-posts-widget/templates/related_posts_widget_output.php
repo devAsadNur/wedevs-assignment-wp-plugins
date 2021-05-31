@@ -8,14 +8,14 @@
  */
 ?>
 <div class="single-post">
-    <h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+    <h5><a href="<?php echo esc_url( the_permalink() ) ; ?>"><?php echo esc_html( the_title() ); ?></a></h5>
     <?php
-    if ( '' !== $thumbnail ) {
-        the_post_thumbnail( [ 120, 120 ] );
+    if ( ! empty( $thumbnail ) ) {
+        echo wp_kses_post( the_post_thumbnail( [ 120, 120 ] ) );
     }
 
-    if ( '' !== $excerpt ) {
-        the_excerpt();
+    if ( ! empty( $excerpt ) ) {
+        echo esc_html( the_excerpt() );
     }
     ?>
 </div>
