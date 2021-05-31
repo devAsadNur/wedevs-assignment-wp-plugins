@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Subscription\Form\Widget;
+namespace Asd\SubscriptionFormWidget;
 
 /**
  * The settings
@@ -31,18 +31,18 @@ class Settings {
         ];
 
         $section  = [
-            'id' => 'mailchimp_subscription_section',
-            'title' => 'MailChimp API Settings',
+            'id'       => 'mailchimp_subscription_section',
+            'title'    => __( 'MailChimp API Settings', 'asd-subs-form-widget' ),
             'callback' => [ $this, 'mailchimp_settings_section_cb' ],
-            'page' => 'general',
+            'page'     => 'general',
         ];
 
         $field    = [
-            'id' => 'mailchimp_api_key_field',
-            'title' => 'MailChimp API Key',
+            'id'       => 'mailchimp_api_key_field',
+            'title'    => __( 'MailChimp API Key', 'asd-subs-form-widget' ),
             'callback' => [ $this, 'mailchimp_api_key_field_cb' ],
-            'page' => 'general',
-            'section' => 'mailchimp_subscription_section',
+            'page'     => 'general',
+            'section'  => 'mailchimp_subscription_section',
         ];
 
         register_setting( $register['option_group'], $register['option_name'] );
@@ -69,7 +69,7 @@ class Settings {
      * @return void
      */
     public function mailchimp_api_key_field_cb() {
-        $existing_value = ( '' !== get_option( 'asd_mailchimp_api_key' ) ) ? get_option( 'asd_mailchimp_api_key' ) : '';
+        $existing_value = ( ! empty( get_option( 'asd_mailchimp_api_key' ) ) ) ? get_option( 'asd_mailchimp_api_key' ) : '';
         ?>
         <input type="text" name="asd_mailchimp_api_key" id="input-mailchimp-api-key" class="regular-text" placeholder="<?php esc_html_e( 'Enter your NameChimp API key', 'asd-subs-form-widget' ); ?>" value="<?php echo esc_attr( $existing_value ); ?>">
         <?php

@@ -1,6 +1,6 @@
 <?php
 
-namespace Asd\Subscription\Form\Widget;
+namespace Asd\SubscriptionFormWidget;
 
 /**
  * Subscription form widget
@@ -44,7 +44,7 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function register_subscription_form_widget() {
-        register_widget( 'Asd\Subscription\Form\Widget\Widgets' );
+        register_widget( 'Asd\SubscriptionFormWidget\Widgets' );
     }
 
     /**
@@ -58,18 +58,18 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function widget( $args, $instance ) {
-        $title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-        $list  = ( ! empty( $instance['list'] ) ) ? $instance['list'] : '';
+        $title = ( ! empty( $instance['title'] ) ) ? sanitize_text_field( $instance['title'] ) : '';
+        $list  = ( ! empty( $instance['list'] ) ) ? sanitize_text_field( $instance['list'] ) : '';
 
         echo $args['before_widget'];
 
-        if ( '' !== $title ) {
-            echo $args['before_title'] . $title . $args['after_title'];
+        if ( ! empty( $title ) ) {
+            echo $args['before_title'] . apply_filters( 'mc_subs_widget_title', $title ) . $args['after_title'];
         }
 
         // Enqueue script and style for widget output
         wp_enqueue_script( 'mc-subscription-js' );
-        wp_enqueue_style( 'mc-subscription-js' );
+        wp_enqueue_style( 'mc-subscription-css' );
 
         // Include widget output form template
         ob_start();
@@ -89,11 +89,11 @@ class Widgets extends \WP_Widget {
      * @return void
      */
     public function form( $instance ) {
-        $title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-        $list  = ( ! empty( $instance['list'] ) ) ? $instance['list'] : '';
+        $title = ( ! empty( $instance['title'] ) ) ? sanitize_text_field( $instance['title'] ) : '';
+        $list  = ( ! empty( $instance['list'] ) ) ? sanitize_text_field( $instance['list'] ) : '';
 
         // Get MailChimp API key from Options table
-        $mc_api_key = '' !== get_option( 'asd_mailchimp_api_key' ) ? get_option( 'asd_mailchimp_api_key' ) : '';
+        $mc_api_key = ( ! empty( get_option( 'asd_mailchimp_api_key' ) ) ) ? get_option( 'asd_mailchimp_api_key' ) : '';
 
         // Fetch lists array from MailChimp API using helper function
         $mc_lists = asd_mc_api_fetch_lists( $mc_api_key );
@@ -118,7 +118,7 @@ class Widgets extends \WP_Widget {
         $instance = [];
 
         $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-        $instance['list'] = ( ! empty( $new_instance['list'] ) ) ? $new_instance['list'] : '';
+        $instance['list']  = ( ! empty( $new_instance['list'] ) ) ? sanitize_text_field( $new_instance['list'] ) : '';
 
         return $instance;
     }

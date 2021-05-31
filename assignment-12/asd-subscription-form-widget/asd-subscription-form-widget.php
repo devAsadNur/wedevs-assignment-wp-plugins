@@ -13,7 +13,7 @@
  * License:               GPL2
  */
 
-/*
+/**
  * Copyright (c) 2021 weDevs (email: info@wedevs.com). All rights reserved.
  *
  * Released under the GPL license
@@ -94,7 +94,7 @@ final class AsdSubscriptionFormWidget {
     public static function init() {
         static $instance = false;
 
-        if( ! $instance ) {
+        if ( ! $instance ) {
             $instance = new self();
         }
 
@@ -125,15 +125,15 @@ final class AsdSubscriptionFormWidget {
      */
     public function init_plugin() {
         if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-            new Asd\Subscription\Form\Widget\Ajax();
+            new Asd\SubscriptionFormWidget\Ajax();
         }
 
         if ( is_admin() ) {
-            new Asd\Subscription\Form\Widget\Settings();
+            new Asd\SubscriptionFormWidget\Settings();
         }
 
-        new Asd\Subscription\Form\Widget\Assets();
-        new Asd\Subscription\Form\Widget\Widgets();
+        new Asd\SubscriptionFormWidget\Assets();
+        new Asd\SubscriptionFormWidget\Widgets();
     }
 
     /**
@@ -146,7 +146,7 @@ final class AsdSubscriptionFormWidget {
     public function activate() {
         $installed = get_option( 'asd_subscription_form_installed' );
 
-        if( ! $installed ) {
+        if ( ! $installed ) {
             update_option( 'asd_subscription_form_installed', time() );
         }
 

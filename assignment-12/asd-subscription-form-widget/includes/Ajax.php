@@ -1,10 +1,11 @@
 <?php
 
-namespace Asd\Subscription\Form\Widget;
+namespace Asd\SubscriptionFormWidget;
 
 /**
  * Ajax
- * handler class
+ * handler
+ * class
  */
 class Ajax {
 
@@ -27,29 +28,29 @@ class Ajax {
      */
     public function mc_subs_request_handler() {
         // Form input data from user
-        $email    = isset( $_POST['mc-email'] ) ? sanitize_email( $_POST['mc-email'] ) : '';
-        $list_id  = isset( $_POST['mc-list'] ) ? sanitize_key( $_POST['mc-list'] ) : '';
+        $email   = isset( $_POST['mc-email'] ) ? sanitize_email( $_POST['mc-email'] ) : '';
+        $list_id = isset( $_POST['mc-list'] ) ? sanitize_key( $_POST['mc-list'] ) : '';
 
         // API key and status
-        $api_key = '' !== get_option( 'asd_mailchimp_api_key' ) ? get_option( 'asd_mailchimp_api_key' ) : '';
-        $status = 'subscribed';
+        $api_key = ! empty( get_option( 'asd_mailchimp_api_key' ) ) ? get_option( 'asd_mailchimp_api_key' ) : '';
+        $status  = 'subscribed';
 
         // Nonce verification
-        if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'mc-sbuscription-form' ) ) {
+        if ( ! isset( $_REQUEST['_mc_email_subs_nonce'] ) || ! wp_verify_nonce( $_POST['_mc_email_subs_nonce'], 'mc-sbuscription-form' ) ) {
             wp_send_json_error( [
                 'message' => __( 'Nonce verification failed', 'asd-subs-form-widget' ),
             ] );
         }
 
         // Email id verification
-        if ( '' === $email ) {
-            wp_send_json( [
-                'message' => __( 'Invalid email address.', 'asd-subs-form-widget' ),
+        if ( empty( $email ) ) {
+            wp_send_json_error( [
+                'message' => __( 'Email address can\'t be empty.', 'asd-subs-form-widget' ),
             ] );
         }
 
         // MailChimp list id verification
-        if ( '' === $list_id ) {
+        if ( empty( $list_id ) ) {
             wp_send_json_error( [
                 'message' => __( 'Mailchimp list integration error. Please contact with admin.', 'asd-subs-form-widget' ),
             ] );

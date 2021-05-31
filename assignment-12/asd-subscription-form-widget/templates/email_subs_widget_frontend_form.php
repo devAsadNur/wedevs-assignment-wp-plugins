@@ -20,16 +20,13 @@
     <form id="mc-subscription-form" action="#" method="post">
         <label for="mc-email"></label>
         <input type="email" name="mc-email" id="mc-email" placeholder="<?php esc_attr_e( 'Enter your email here', 'asd-subs-form-widget' ); ?>" required>
-
         <input type="hidden" name="mc-list" value="<?php echo esc_attr( $list ); ?>">
-
         <input type="hidden" name="action" value="<?php echo esc_attr( 'asd-mc-subscription' ); ?>">
 
-        <?php wp_nonce_field( 'mc-sbuscription-form' ); ?>
+        <?php wp_nonce_field( 'mc-sbuscription-form', '_mc_email_subs_nonce' ); ?>
 
         <input type="submit" value="<?php esc_attr_e( 'Subscribe', 'asd-subs-form-widget' ) ?>">
     </form>
-    
     <p class ="subscription-message"></p>
     <?php
         /**

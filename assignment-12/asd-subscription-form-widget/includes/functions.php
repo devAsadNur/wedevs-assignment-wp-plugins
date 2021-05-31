@@ -29,7 +29,7 @@ function asd_mc_api_fetch_lists( $api_key ) {
         $lists[ $list->id ] = $list->name;
     }
 
-    $lists = ( ! empty( $lists ) ) ? $lists : [ 'No list available' ];
+    $lists = ( ! empty( $lists ) ) ? (array) $lists : [ __( 'No list available', 'asd-subs-form-widget' ) ];
 
     return $lists;
 }
@@ -48,7 +48,8 @@ function asd_mc_api_fetch_lists( $api_key ) {
  */
 function asd_mc_api_post_email_subs( $api_key, $list_id, $email, $status = 'subscribed' ) {
     $dc   = substr( $api_key, strpos( $api_key, '-' ) +1 );
-    $url  = 'https://' . $dc . '.api.mailchimp.com/3.0/lists/' . $list_id . '/members';
+    $url  = 'https://' . $dc . '.api.mailchimp.com/3.0/lists/' . (string) $list_id . '/members';
+
     $args = [
         'method'  => 'POST',
         'timeout' => 30,

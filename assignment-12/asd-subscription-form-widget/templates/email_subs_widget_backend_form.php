@@ -17,13 +17,10 @@ do_action( 'asd_mc_subs_backend_form_fields_before' );
 ?>
 <p>
     <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ) ?>"><?php esc_html_e( 'Widget Title:', 'asd-subs-form-widget' ) ?></label>
-
-    <input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ) ?>" class="widefat" value="<?php esc_html_e( $title, 'asd-subs-form-widget' ); ?>">
+    <input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ) ?>" class="widefat" value="<?php echo esc_attr( $title ); ?>">
 </p>
-
 <p>
     <label for="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>"><?php esc_html_e( 'Select a MailChimp List:', 'asd-subs-form-widget' ); ?></label>
-
     <select name="<?php echo esc_attr( $this->get_field_name( 'list' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'list' ) ); ?>" class="widefat">
         <?php
         foreach ( $mc_lists as $list_id => $list_name ) {

@@ -1,10 +1,11 @@
 <?php
 
-namespace Asd\Subscription\Form\Widget;
+namespace Asd\SubscriptionFormWidget;
 
 /**
  * Assets
- * handler class
+ * handler
+ * class
  */
 class Assets {
 
@@ -18,6 +19,44 @@ class Assets {
     }
 
     /**
+     * Scripts getter function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function get_scripts() {
+        $scripts = apply_filters( 'mc_subscription_form_scripts', [
+            'mc-subscription-js' => [
+                'src'       => ASD_SUBSCRIPTION_FORM_WIDGET_ASSETS . '/js/subscription.js',
+                'deps'      => [ 'jquery' ],
+                'version'   => filemtime( ASD_SUBSCRIPTION_FORM_WIDGET_PATH . '/assets/js/subscription.js' ),
+                'in_footer' => true,
+            ],
+        ] );
+
+        return $scripts;
+    }
+
+    /**
+     * Styles getter function
+     *
+     * @since 1.0.0
+     *
+     * @return array
+     */
+    public function get_styles() {
+        $styles = apply_filters( 'mc_subscription_form_styles', [
+            'mc-subscription-css' => [
+                'src'     => ASD_SUBSCRIPTION_FORM_WIDGET_ASSETS . '/css/subscription.css',
+                'version' => filemtime( ASD_SUBSCRIPTION_FORM_WIDGET_PATH . '/assets/css/subscription.css' ),
+            ],
+        ] );
+
+        return $styles;
+    }
+
+    /**
      * Assets register function
      *
      * @since 1.0.0
@@ -25,31 +64,31 @@ class Assets {
      * @return void
      */
     public function register_assets() {
-        $script = [
-            'handle'    => 'mc-subscription-js',
-            'src'       => ASD_SUBSCRIPTION_FORM_WIDGET_ASSETS . '/js/subscription.js',
-            'deps'      => [ 'jquery' ],
-            'version'   => filemtime( ASD_SUBSCRIPTION_FORM_WIDGET_PATH . '/assets/js/subscription.js' ),
-            'in_footer' => true,
-        ];
+        $scripts = $this->get_scripts();
+        $styles  = $this->get_styles();
 
-        $style = [
-            'handle'  => 'mc-subscription-js',
-            'src'     => ASD_SUBSCRIPTION_FORM_WIDGET_ASSETS . '/css/subscription.css',
-            'deps'    => [],
-            'version' => filemtime( ASD_SUBSCRIPTION_FORM_WIDGET_PATH . '/assets/css/subscription.css' ),
-        ];
+        foreach ( $scripts as $handle => $script ) {
+            $deps      = isset( $script['deps'] ) ? $script['deps'] : [];
+            $version   = isset( $script['version'] ) ? $script['version'] : false;
+            $in_footer = isset( $script['in_footer'] ) ? $script['in_footer'] : false;
 
-        // Register script file
-        wp_register_script( $script['handle'], $script['src'], $script['deps'], $script['version'], $script['in_footer'] );
+            // Register each of the scripts
+            wp_register_script( $handle, $script['src'], $deps, $version, $in_footer);
+        }
 
-        // Register style file
-        wp_register_style( $style['handle'], $style['src'], $style['deps'], $style['version'] );
+        foreach ($styles as $handle => $style) {
+            $deps    = isset( $style['deps'] ) ? $style['deps'] : [];
+            $version = isset( $style['version'] ) ? $style['version'] : false;
+            $media   = isset( $style['media'] ) ? $style['media'] : 'all';
 
-        // Localize script file
-        wp_localize_script( $script['handle'], 'objMcSubs', [
+            // Register each of the styles
+            wp_register_style( $handle, $style['src'], $deps, $version, $media );
+        }
+
+        // Mailchimp subscription localized script
+        wp_localize_script( 'mc-subscription-js', 'objMcSubs', [
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'error'   => __( 'Something went wrong!', 'asd-subs-form-widget' ),
-        ]);
+        ] );
     }
 }

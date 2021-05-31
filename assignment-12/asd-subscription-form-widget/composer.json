@@ -13,7 +13,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "Asd\\Subscription\\Form\\Widget\\": "includes/"
+            "Asd\\SubscriptionFormWidget\\": "includes/"
         },
         "files": [ "includes/functions.php" ]
     }
