@@ -64,7 +64,7 @@
             <label for="si-mark-acc"><?php esc_html_e( 'Accounting', 'asd-student-info' ); ?>* :</label>
             <input type="text" name="si_mark_acc" id="si-mark-acc" placeholder="<?php esc_attr_e( 'Accounting Mark', 'asd-student-info' ); ?>">
         </div>
-        <input type="hidden" name="action" value="asd-student-info-form">
+        <input type="hidden" name="action" value="<?php echo esc_attr( 'asd-student-info-form' ); ?>">
 
         <?php wp_nonce_field( 'asd-sc-student-form', '_student_form_nonce' ); ?>
 
