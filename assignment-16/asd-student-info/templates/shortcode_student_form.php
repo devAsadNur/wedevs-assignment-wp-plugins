@@ -21,7 +21,7 @@
         do_action( 'asd_student_form_fields_before' );
 
         /**
-         * student form fields
+         * Student form fields
          *
          * @since 1.0.0
          */
