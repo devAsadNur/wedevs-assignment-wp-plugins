@@ -1,0 +1,60 @@
+/* Student Info Form Styles */
+
+.student-form-wrapper {
+    display: block;
+    width: 100%;
+    margin: 0 auto 30px;
+}
+
+.student-form-wrapper .sf-title {
+    margin: 0 auto 20px;
+}
+
+.student-form-wrapper .sf-desc {
+    margin: 0 auto 20px;
+}
+
+#asd-student-form {
+    width: 100%;
+}
+
+#asd-student-form input {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#asd-student-form .sf-title {
+    margin: 0 auto 50px;
+}
+
+#asd-student-form .sf-desc {
+    margin: 0 auto 50px;
+}
+
+#asd-student-form .input-field-single {
+    min-height: 120px;
+}
+
+#asd-student-form .msg-error {
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 700;
+    color: #ff0000;
+}
+
+#asd-student-form .submision-status  {
+    display: block;
+    margin: 0 auto 5px;
+    padding: 10px 15px;
+}
+#asd-student-form .status-success {
+    color: #0A9529;
+    background: #C4FAD0;
+    border: 1px solid #02AD28;
+}
+
+#asd-student-form .status-error {
+    color: #ff0000;
+    background: #FDE3DD;
+    border: 1px solid #FC623F;
+}

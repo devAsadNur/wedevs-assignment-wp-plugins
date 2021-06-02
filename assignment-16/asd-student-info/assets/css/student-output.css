@@ -1,0 +1,12 @@
+/* Student info output styles */
+
+.students-info-wrapper {
+    overflow-x: auto;
+    max-width: 1170px !important;
+}
+.students-info-marks-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
