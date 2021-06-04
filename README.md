@@ -117,6 +117,13 @@
 <h3>Assignment : 16</h3>
 <h5>28 May, 2021</h5>
 <ol>
-  <li>Student Info </li>
+  <li>Student Info</li>
+</ol>
+<br>
+
+<h3>Assignment : 17</h3>
+<h5>24 May, 2021</h5>
+<ol>
+  <li>Posts Email Notification Pro</li>
 </ol>
 <br>
