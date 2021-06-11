@@ -127,3 +127,11 @@
   <li>Posts Email Notification Pro</li>
 </ol>
 <br>
+
+<h3>Assignment : 18</h3>
+<h5>June, 2021</h5>
+<ol>
+  <li>Woocommerce Multi Step Checkout</li>
+  <li>Woocommerce Related Products</li>
+</ol>
+<br>
