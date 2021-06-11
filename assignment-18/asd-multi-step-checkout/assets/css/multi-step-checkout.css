@@ -1,0 +1,27 @@
+/* Woocommerce multi step checkout form styles */
+
+#woo-checkout-form {
+    width: 100%;
+    height: auto;
+}
+
+#woo-checkout-form ul.tablist {
+    width: 100%;
+    display: block;
+}
+
+#woo-checkout-form .content {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow-y: scroll;
+}
+
+#woo-checkout-form #wizard section {
+    width: 100%;
+    display: block;
+}
+
+#woo-checkout-form #order_review_heading, #order_review {
+    width: 100%;
+}
