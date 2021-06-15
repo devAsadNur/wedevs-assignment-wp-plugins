@@ -1,5 +1,5 @@
 # Assignment: 19
-### 24 May, 2021
+<!--### 15 June, 2021-->
 
 ## Plugin Name: Dokan Customer Total Purchase
 ### Topic: Dokan, Woocommerce

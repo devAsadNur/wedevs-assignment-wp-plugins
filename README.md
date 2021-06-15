@@ -135,3 +135,10 @@
   <li>Woocommerce Related Products</li>
 </ol>
 <br>
+
+<h3>Assignment : 19</h3>
+<h5>June, 2021</h5>
+<ol>
+  <li>Dokan Customer Total Purchase</li>
+</ol>
+<br>
