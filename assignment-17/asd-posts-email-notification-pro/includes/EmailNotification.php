@@ -39,7 +39,7 @@ class EmailNotification {
      * @return boolean
      */
     public function email_notification_sender() {
-        $posts  = $this->get_todays_posts();
+        $posts  = $this->get_last_days_posts();
         $count  = $posts->post_count;
         $titles = [];
 
@@ -71,20 +71,18 @@ class EmailNotification {
     }
 
     /**
-     * Todays posts getter function
+     * Last 24 hour's posts getter function
      *
      * @since 1.0.0
      *
      * @return object
      */
-    public function get_todays_posts() {
-        $today = getdate();
+    public function get_last_days_posts() {
         $args  = array(
+            'post_type' => 'post',
             'date_query' => array(
                 array(
-                    'year'  => $today['year'],
-                    'month' => $today['mon'],
-                    'day'   => $today['mday'],
+                    'after'  => '24 hours ago',
                 ),
             ),
         );
