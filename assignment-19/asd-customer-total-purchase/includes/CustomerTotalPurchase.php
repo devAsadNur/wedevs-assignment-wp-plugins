@@ -14,7 +14,7 @@ class CustomerPurchase {
      * @since  1.0.0
      */
     public function __construct() {
-        add_action( 'dokan_order_detail_after_order_general_details', [ $this, 'show_total_purchase_section' ] );
+        add_action( 'dokan_order_detail_after_order_general_details', [ $this, 'add_total_purchase_section' ] );
     }
 
     /**
@@ -26,8 +26,12 @@ class CustomerPurchase {
      *
      * @return void
      */
-    public function show_total_purchase_section(  $order  ) {
-        $args['email']  = $order->get_billing_email();
+    public function add_total_purchase_section( $order ) {
+        $args = array(
+            'email'  => $order->get_billing_email(),
+            'status' => 'wc-completed',
+        );
+        
         $total_purchase = $this->get_customer_total_purchase( $args );
         $customer_label = $this->get_customer_label( $total_purchase );
 
