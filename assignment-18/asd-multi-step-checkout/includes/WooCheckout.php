@@ -42,5 +42,4 @@ class WooCheckout {
 
         return $template;
     }
-
 }
