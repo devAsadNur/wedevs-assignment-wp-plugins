@@ -27,17 +27,10 @@ class Assets {
      */
     public function get_scripts() {
         $scripts = apply_filters( 'asd_multi_step_checkout_scripts', [
-            'asd-jquery-steps-script' => [
-                'src'       => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/js/jquery.steps.min.js',
-                'version'   => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/js/jquery.steps.min.js' ),
-                'deps'      => [ 'jquery' ],
-                'in_footer' => false,
-            ],
-            'asd-checkout-script' => [
-                'src'       => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/js/multi-step-checkout.js',
-                'version'   => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/js/multi-step-checkout.js' ),
-                'deps'      => [ 'jquery' ],
-                'in_footer' => false,
+            'asd-multi-checkout-script' => [
+                'src'       => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/js/multi-step-form.js',
+                'version'   => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/js/multi-step-form.js' ),
+                'in_footer' => true,
             ],
         ] );
 
@@ -53,13 +46,9 @@ class Assets {
      */
     public function get_styles() {
         $styles = apply_filters( 'asd_multi_step_checkout_styles', [
-            'asd-jquery-steps-style' => [
-                'src'     => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/css/jquery.steps.css',
-                'version' => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/css/jquery.steps.css' ),
-            ],
-            'asd-checkout-style' => [
-                'src'     => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/css/multi-step-checkout.css',
-                'version' => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/css/multi-step-checkout.css' ),
+            'asd-multi-checkout-style' => [
+                'src'     => ASD_MULTI_STEP_CHECKOUT_ASSETS . '/css/multi-step-form.css',
+                'version' => filemtime( ASD_MULTI_STEP_CHECKOUT_PATH . '/assets/css/multi-step-form.css' ),
             ],
         ] );
 

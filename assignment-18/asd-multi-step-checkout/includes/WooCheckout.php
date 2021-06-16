@@ -15,7 +15,7 @@ class WooCheckout {
      * @since  1.0.0
      */
     public function __construct() {
-        add_filter( 'woocommerce_locate_template', [ $this, 'multi_checkout_locate_template' ], 10, 3 );
+        add_filter( 'woocommerce_locate_template', [ $this, 'multi_step_checkout_locate_template' ], 10, 3 );
     }
 
     /**
@@ -29,15 +29,12 @@ class WooCheckout {
      *
      * @return string
      */
-    public function multi_checkout_locate_template( $template, $template_name, $template_path ) {
+    public function multi_step_checkout_locate_template( $template, $template_name, $template_path ) {
         $basename = basename( $template );
 
         if ( $basename === 'form-checkout.php' ) {
-            // Enqueue styles and scripts for custom checkout template
-            wp_enqueue_script( 'asd-jquery-steps-script' );
-            wp_enqueue_script( 'asd-checkout-script' );
-            wp_enqueue_style( 'asd-jquery-steps-style' );
-            wp_enqueue_style( 'asd-checkout-style' );
+            wp_enqueue_script( 'asd-multi-checkout-script' );
+            wp_enqueue_style( 'asd-multi-checkout-style' );
 
             // Include custom checkout template
             $template = ASD_MULTI_STEP_CHECKOUT_PATH . '/templates/form-checkout.php';

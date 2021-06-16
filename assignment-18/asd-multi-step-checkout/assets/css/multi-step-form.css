@@ -1,0 +1,62 @@
+/* Multi Checkout Form Styles */
+#regForm {
+    background-color: #ffffff;
+    margin: 50px auto;
+    padding: 0;
+    width: 100%;
+    min-width: 300px;
+}
+
+#regForm input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+#regForm input.invalid {
+    background-color: #ffdddd;
+}
+
+#regForm .tab {
+    display: none;
+}
+
+#regForm .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+#regForm .step.active {
+    opacity: 1;
+}
+
+#regForm .step.finish {
+    background-color: #04AA6D;
+}
+
+#regForm #order_review_heading,
+#regForm #order_review {
+    width: 100%;
+    float: left;
+}
+
+#regForm .multi-checkout-nav {
+    width: 100%;
+    float: left;
+}
+
+#regForm .multi-checkout-nav #prevBtn {
+    float: left;
+}
+
+#regForm .multi-checkout-nav #nextBtn {
+    float: right;
+}

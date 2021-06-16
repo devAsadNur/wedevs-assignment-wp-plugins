@@ -47,6 +47,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Include the composer autoloader
+ */
+if ( ! file_exists( __DIR__ . "/vendor/autoload.php" ) ) {
+    wp_die( 'Composer auto-loader missing. Run "composer update" command.' );
+}
+require_once __DIR__ . "/vendor/autoload.php";
+
+/**
  * Main plugin class
  *
  * @class AsdMultiStepCheckout
@@ -116,9 +124,6 @@ final class AsdMultiStepCheckout {
      * @return void
      */
     public function init_plugin() {
-        require_once( ASD_MULTI_STEP_CHECKOUT_PATH . '/includes/Assets.php' );
-        require_once( ASD_MULTI_STEP_CHECKOUT_PATH . '/includes/WooCheckout.php' );
-
         new Asd\MultiStepCheckout\Assets();
         new Asd\MultiStepCheckout\WooCheckout();
     }

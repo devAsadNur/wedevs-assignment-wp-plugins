@@ -1,0 +1,20 @@
+{
+    "name": "asad/asd-multi-step-checkout",
+    "description": "Assignment 11, Plugin 01 - Woocommerce Multi Step Checkout",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Asad",
+            "email": "asaduzzamannur.dev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Asd\\MultiStepCheckout\\": "includes/"
+        },
+        "files": []
+    }
+}
