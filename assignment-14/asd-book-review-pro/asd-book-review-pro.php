@@ -82,7 +82,7 @@ final class AsdBookReviewPro {
         register_activation_hook( __FILE__, [ $this, 'activate' ] );
         register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
-        $this->init_plugin();
+        add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
     }
 
     /**
