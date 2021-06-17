@@ -81,7 +81,7 @@ final class AsdRestApiCrud {
 
         register_activation_hook( __FILE__, [ $this, 'activate' ] );
 
-        $this->init_plugin();
+        add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
     }
 
     /**
